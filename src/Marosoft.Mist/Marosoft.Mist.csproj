@@ -48,6 +48,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Tokens.tt</DependentUpon>
     </Compile>
+    <Compile Include="Parsing\Expression.cs" />
+    <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
