@@ -19,6 +19,7 @@ namespace Marosoft.Mist.Parsing
 
         public IEnumerable<Expression> Parse(string source)
         {
+            _tokenIndex = 0;
             _lexer.Tokenize(source);
             _tokens = _lexer.Tokens;
 

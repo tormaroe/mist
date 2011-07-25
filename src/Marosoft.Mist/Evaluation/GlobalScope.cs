@@ -11,6 +11,10 @@ namespace Marosoft.Mist.Evaluation
     {                
         public GlobalScope() : base(null)
         {
+            /**
+             *      Adding the "built in" functions implemented in C#
+             **/
+
             AddBinding(new Function("+", this)
             {
                 Precondition = args => 
@@ -20,6 +24,7 @@ namespace Marosoft.Mist.Evaluation
                     new Expression(new Token(args.First().Token.Type,
                         args.Select(expr => (int)expr.Value).Sum().ToString())),
             });
+            
             AddBinding(new Function("-", this)
             {
                 Precondition = args =>

@@ -27,5 +27,13 @@ namespace Marosoft.Mist.Parsing
                 case Tokens.INT: Value = Int32.Parse(Token.Text); break;
             }    
         }
+
+        public override string ToString()
+        {
+            if (Value != null)
+                return Value.ToString();
+
+            return Token.ToString();
+        }
     }
 }

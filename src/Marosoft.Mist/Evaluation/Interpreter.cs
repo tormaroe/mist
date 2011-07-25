@@ -9,7 +9,15 @@ namespace Marosoft.Mist.Evaluation
 {
     public class Interpreter
     {
-        private Scope _scope = new GlobalScope();
+        private GlobalScope _global = new GlobalScope();
+        private Scope _currentScope;
+
+        public Interpreter()
+        {
+            _currentScope = _global;
+        }
+
+        public GlobalScope Global { get { return _global; } }
 
         public Expression Evaluate(IEnumerable<Expression> expressions)
         {
@@ -45,7 +53,7 @@ namespace Marosoft.Mist.Evaluation
 
         private Function GetFunction(Expression fExpr)
         {
-            var f = _scope.Resolve(fExpr.Token.Text);
+            var f = _global.Resolve(fExpr.Token.Text);
 
             if (f is Function)
                 return (Function)f;
