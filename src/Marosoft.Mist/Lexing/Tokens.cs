@@ -15,9 +15,9 @@ namespace Marosoft.Mist.Lexing
     {
 		public const int EOF = -1;
 		public const int WS = 0;
-		public const int SYMBOL = 1;
-		public const int COMMENT = 2;
-		public const int INT = 3;
+		public const int INT = 1;
+		public const int SYMBOL = 2;
+		public const int COMMENT = 3;
 		public const int STRING = 4;
 		public const int LEFTPAREN = 5;
 		public const int RIGHTPAREN = 6;
@@ -28,9 +28,9 @@ namespace Marosoft.Mist.Lexing
         {
 			{EOF, "EOF"},
 			{WS, "WS"},
+			{INT, "INT"},
 			{SYMBOL, "SYMBOL"},
 			{COMMENT, "COMMENT"},
-			{INT, "INT"},
 			{STRING, "STRING"},
 			{LEFTPAREN, "LEFTPAREN"},
 			{RIGHTPAREN, "RIGHTPAREN"},
@@ -41,9 +41,9 @@ namespace Marosoft.Mist.Lexing
         public static readonly List<TokenRecognizer> All = new List<TokenRecognizer>
         {
 			new TokenRecognizer(WS, "^([ \\t\\r\\n])+", false),
-			new TokenRecognizer(SYMBOL, "^([a-zA-Z])+([\\w\\-])*", true),
-			new TokenRecognizer(COMMENT, "^;[^\\r\\n]*", false),
 			new TokenRecognizer(INT, "^(-)?(\\d)+", true),
+			new TokenRecognizer(SYMBOL, "^([a-zA-Z\\+\\-\\?])+([\\w\\-])*", true),
+			new TokenRecognizer(COMMENT, "^;[^\\r\\n]*", false),
 			new TokenRecognizer(STRING, "^\"[^\"]*\"", true),
 			new TokenRecognizer(LEFTPAREN, "^\\(", true),
 			new TokenRecognizer(RIGHTPAREN, "^\\)", true),

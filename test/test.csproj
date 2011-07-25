@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation\Arithmetics.cs" />
+    <Compile Include="Evaluation\EvaluationTests.cs" />
     <Compile Include="Lexing\BaseLexerTest.cs" />
     <Compile Include="Lexing\LexingSpec.cs" />
     <Compile Include="Lexing\TokenizeThis.cs" />

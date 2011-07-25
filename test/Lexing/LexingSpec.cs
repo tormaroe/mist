@@ -96,4 +96,22 @@ zot"")")]
             ExpectTokens("(", "foo", "(", "bar", "(", "zot", "1", ")", "2", ")", ")");
         }
     }
+
+    [TokenizeThis("(+ - ?foo)")]
+    public class Unusual_symbols /* Symbols not commonly symbols in languages like C# */ 
+        : BaseLexerTest
+    {
+        [Test]
+        public void Test()
+        {
+            ExpectTokens(
+                Tokens.LEFTPAREN, 
+                Tokens.SYMBOL, Tokens.SYMBOL, Tokens.SYMBOL, 
+                Tokens.RIGHTPAREN);
+            ExpectTokens(
+                "(", 
+                "+", "-", "?foo", 
+                ")");
+        }
+    }
 }

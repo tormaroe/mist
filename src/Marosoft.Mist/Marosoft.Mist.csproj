@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation\BuiltInFunctions.cs" />
+    <Compile Include="Evaluation\Interpreter.cs" />
     <Compile Include="Lexing\Lexer.cs" />
     <Compile Include="Lexing\Token.cs" />
     <Compile Include="Lexing\TokenRecognizer.cs" />
