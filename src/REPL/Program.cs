@@ -44,14 +44,25 @@ namespace Marosoft.Mist.Repl
             parser = new Parser(new Lexer(Tokens.All));
             interpreter = new Interpreter();
 
+            interpreter.Global.AddBinding(new Function("restart", interpreter.Global)
+            {
+                Precondition = arguments => arguments.Count() == 0,
+                Implementation = arguments =>
+                {
+                    Console.WriteLine("RESTARTING ENVIRONMENT");
+                    InitializeInterpreter();
+                    return null;
+                }
+            });
+
             interpreter.Global.AddBinding(new Function("quit", interpreter.Global)
             {
                 Precondition = arguments => arguments.Count() == 0,
-                Implementation = arguments => 
+                Implementation = arguments =>
                 {
                     Console.WriteLine("BYE BYE!");
-                    System.Environment.Exit(0); 
-                    return null; 
+                    System.Environment.Exit(0);
+                    return null;
                 }
             });
         }
