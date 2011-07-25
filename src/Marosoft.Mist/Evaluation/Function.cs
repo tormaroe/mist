@@ -22,7 +22,7 @@ namespace Marosoft.Mist.Evaluation
         public Expression Call(IEnumerable<Expression> args)
         {
             if (!Precondition(args))
-                throw new Exception(string.Format("Arguments to {0} does not comply with preconditions", base.Token.Text));
+                throw new FunctionEvaluationPreconditionException(Token.Text, args);
 
             return Implementation.Invoke(args);
         }

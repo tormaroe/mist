@@ -65,10 +65,10 @@ namespace Marosoft.Mist.Parsing
             if (CurrentToken.Type == x)
                 Consume();
             else
-                throw new Exception(String.Format(
+                throw new ParseException(
                     "expecting {0}; found {1}",
                     Tokens.TokenNames[x],
-                    CurrentToken));
+                    CurrentToken);
         }
 
         protected bool TokenIs(int tokenType)

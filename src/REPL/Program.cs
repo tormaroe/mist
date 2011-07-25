@@ -33,6 +33,10 @@ namespace Marosoft.Mist.Repl
                 {
                     PRINT(EVAL(READ()));
                 }
+                catch (MistException mex)
+                {
+                    Console.WriteLine("*** " + mex.GetType().Name + ":\n" + mex.Message);
+                }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
@@ -69,7 +73,7 @@ namespace Marosoft.Mist.Repl
 
         private static string READ()
         {
-            Console.Write("~> ");
+            Console.Write("=> ");
             return Console.ReadLine();
         }
 

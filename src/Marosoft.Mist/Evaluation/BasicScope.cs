@@ -22,7 +22,7 @@ namespace Marosoft.Mist.Evaluation
             if (_parentScope != null)
                 return _parentScope.Resolve(symbol);
 
-            throw new Exception(string.Format("Unable to resolve symbol {0} in current scope", symbol));
+            throw new SymbolResolveException(symbol);
         }
 
         public void AddBinding(Expression expr)
