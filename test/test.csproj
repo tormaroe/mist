@@ -48,10 +48,10 @@
   <ItemGroup>
     <Compile Include="Evaluation\Arithmetics.cs" />
     <Compile Include="Evaluation\EvaluationTests.cs" />
+    <Compile Include="Evaluation\IfSpec.cs" />
     <Compile Include="Lexing\BaseLexerTest.cs" />
     <Compile Include="Lexing\LexingSpec.cs" />
     <Compile Include="Lexing\TokenizeThis.cs" />
-    <Compile Include="MoreLinq.cs" />
     <Compile Include="Parsing\ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

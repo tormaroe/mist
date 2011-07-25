@@ -35,5 +35,17 @@ namespace Marosoft.Mist.Parsing
 
             return Token.ToString();
         }
+
+        public bool IsTrue
+        {
+            get
+            {
+                if (Token.Type == Tokens.SYMBOL 
+                    && (Token.Text == "false" || Token.Text == "nil"))
+                    return false;
+
+                return true;
+            }
+        }
     }
 }

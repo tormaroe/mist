@@ -54,6 +54,7 @@
       <DependentUpon>Tokens.tt</DependentUpon>
     </Compile>
     <Compile Include="MistException.cs" />
+    <Compile Include="MoreLinq.cs" />
     <Compile Include="Parsing\Expression.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

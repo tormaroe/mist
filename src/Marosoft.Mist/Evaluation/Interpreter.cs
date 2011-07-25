@@ -32,7 +32,8 @@ namespace Marosoft.Mist.Evaluation
             switch (expr.Token.Type)
             {
                 case Tokens.LIST: return List(expr); 
-                case Tokens.INT: return Int(expr); 
+                case Tokens.INT: return Int(expr);
+                case Tokens.SYMBOL: return _currentScope.Resolve(expr.Token.Text);
                 default:
                     throw new Exception(string.Format("Token {0} can't be evaluate", expr.Token));
             }
@@ -43,12 +44,18 @@ namespace Marosoft.Mist.Evaluation
             if (expr.Elements.First().Token.Type != Tokens.SYMBOL)
                 throw new Exception(string.Format("(So far) can't evaluate {0} as function call", expr.Elements.First().Token));
 
-            // If first elem is a list, it must also be evaluated. 
-            // Should it then be evaluated before or after it's arguments?
+            switch (expr.Elements.First().Token.Text)
+            {
+                case "if": return If_SpecialForm(expr);
+                default:
 
-            var args = expr.Elements.Skip(1).Select(Evaluate);
-            var funk = GetFunction(expr.Elements.First());
-            return funk.Call(args);
+                    // If first elem is a list, it must also be evaluated. 
+                    // Should it then be evaluated before or after it's arguments?
+
+                    var args = expr.Elements.Skip(1).Select(Evaluate);
+                    var funk = GetFunction(expr.Elements.First());
+                    return funk.Call(args);
+            }
         }
 
         private Function GetFunction(Expression fExpr)
@@ -59,6 +66,22 @@ namespace Marosoft.Mist.Evaluation
                 return (Function)f;
 
             throw new Exception(fExpr.Token.Text + " is not a function");
+        }
+
+        private Expression If_SpecialForm(Expression expr)
+        {
+            if (4 < expr.Elements.Count || expr.Elements.Count < 3)
+                throw new MistException("Special form 'if' has 2 or 3 parameters, not " + (expr.Elements.Count - 1));
+
+            var test = expr.Elements.Second();
+            var then = expr.Elements.Third();
+            var @else = expr.Elements.Count == 4 ? expr.Elements.Forth() : null;
+
+            if (Evaluate(test).IsTrue)
+                return Evaluate(then);
+            if (@else != null)
+                return Evaluate(@else);
+            return _currentScope.Resolve("nil");
         }
 
         private Expression Int(Expression expr)

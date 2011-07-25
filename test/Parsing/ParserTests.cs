@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Marosoft.Mist;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
 

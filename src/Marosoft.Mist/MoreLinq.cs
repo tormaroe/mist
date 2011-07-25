@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
 
-namespace test
+namespace Marosoft.Mist
 {
     public static class MoreLinq
     {
@@ -15,6 +14,10 @@ namespace test
         public static T Third<T>(this IEnumerable<T> self)
         {
             return self.Skip(2).First();
+        }
+        public static T Forth<T>(this IEnumerable<T> self)
+        {
+            return self.Skip(3).First();
         }
     }
 }

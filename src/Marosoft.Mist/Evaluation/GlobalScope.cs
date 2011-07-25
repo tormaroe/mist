@@ -11,6 +11,10 @@ namespace Marosoft.Mist.Evaluation
     {                
         public GlobalScope() : base(null)
         {
+            AddBinding("nil", new Expression(new Token(Tokens.SYMBOL, "nil")) { Value = null });
+            AddBinding("true", new Expression(new Token(Tokens.SYMBOL, "true")) { Value = true });
+            AddBinding("false", new Expression(new Token(Tokens.SYMBOL, "false")) { Value = false });
+            
             /**
              *      Adding the "built in" functions implemented in C#
              **/
