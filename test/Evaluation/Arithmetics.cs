@@ -17,6 +17,7 @@ namespace test.Evaluation
             Evaluate("(+ 1 1)");
             result.Token.Type.ShouldEqual(Tokens.INT);
             result.Token.Text.ShouldEqual("2");
+            result.Value.ShouldEqual(2);
         }
     }
 }

@@ -10,11 +10,22 @@ namespace Marosoft.Mist.Parsing
     {
         public Token Token { get; private set; }
         public List<Expression> Elements { get; private set; }
+        public object Value { get; set; }
 
         public Expression(Token token)
         {
             Token = token;
             Elements = new List<Expression>();
+
+            MaybeSetValue();
+        }
+
+        private void MaybeSetValue()
+        {
+            switch (Token.Type)
+            {
+                case Tokens.INT: Value = Int32.Parse(Token.Text); break;
+            }    
         }
     }
 }

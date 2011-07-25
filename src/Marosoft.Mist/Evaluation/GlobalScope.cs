@@ -18,7 +18,7 @@ namespace Marosoft.Mist.Evaluation
                     && args.All(a => a.Token.Type == Tokens.INT),
                 Implementation = args =>
                     new Expression(new Token(args.First().Token.Type,
-                        args.Select(expr => Int32.Parse(expr.Token.Text)).Sum().ToString())),
+                        args.Select(expr => (int)expr.Value).Sum().ToString())),
             });
         }
     }
