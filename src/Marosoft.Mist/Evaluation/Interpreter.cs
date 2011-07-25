@@ -9,7 +9,7 @@ namespace Marosoft.Mist.Evaluation
 {
     public class Interpreter
     {
-        private BuiltInFunctions _functions = new BuiltInFunctions();
+        private Scope _scope = new GlobalScope();
 
         public Expression Evaluate(IEnumerable<Expression> expressions)
         {
@@ -40,20 +40,17 @@ namespace Marosoft.Mist.Evaluation
 
             var args = expr.Elements.Skip(1).Select(Evaluate);
             var funk = GetFunction(expr.Elements.First());
-            return Call(funk, args);
+            return funk.Call(args);
         }
 
-        private Func<IEnumerable<Expression>, Expression> GetFunction(Expression fExpr)
+        private Function GetFunction(Expression fExpr)
         {
-            if (_functions.Contains(fExpr.Token.Text))
-                return _functions[fExpr.Token.Text];
+            var f = _scope.Resolve(fExpr.Token.Text);
 
-            throw new Exception("unknown function " + fExpr.Token.Text);
-        }
+            if (f is Function)
+                return (Function)f;
 
-        private Expression Call(Func<IEnumerable<Expression>, Expression> funk, IEnumerable<Expression> args)
-        {
-            return funk.Invoke(args);
+            throw new Exception(fExpr.Token.Text + " is not a function");
         }
 
         private Expression Int(Expression expr)
