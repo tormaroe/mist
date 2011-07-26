@@ -9,15 +9,18 @@ namespace Marosoft.Mist.Evaluation
 {
     public class Interpreter
     {
+        private SpecialForms _specialForms;
         private GlobalScope _global = new GlobalScope();
         private Scope _currentScope;
 
         public Interpreter()
         {
+            _specialForms = new SpecialForms(this);
             _currentScope = _global;
         }
 
         public GlobalScope Global { get { return _global; } }
+        public Scope CurrentScope { get { return _currentScope; } }
 
         public Expression Evaluate(IEnumerable<Expression> expressions)
         {
@@ -46,7 +49,8 @@ namespace Marosoft.Mist.Evaluation
 
             switch (expr.Elements.First().Token.Text)
             {
-                case "if": return If_SpecialForm(expr);
+                case "if": return _specialForms.If(expr);
+                case "def": return _specialForms.Def(expr);
                 default:
 
                     // If first elem is a list, it must also be evaluated. 
@@ -66,22 +70,6 @@ namespace Marosoft.Mist.Evaluation
                 return (Function)f;
 
             throw new Exception(fExpr.Token.Text + " is not a function");
-        }
-
-        private Expression If_SpecialForm(Expression expr)
-        {
-            if (4 < expr.Elements.Count || expr.Elements.Count < 3)
-                throw new MistException("Special form 'if' has 2 or 3 parameters, not " + (expr.Elements.Count - 1));
-
-            var test = expr.Elements.Second();
-            var then = expr.Elements.Third();
-            var @else = expr.Elements.Count == 4 ? expr.Elements.Forth() : null;
-
-            if (Evaluate(test).IsTrue)
-                return Evaluate(then);
-            if (@else != null)
-                return Evaluate(@else);
-            return _currentScope.Resolve("nil");
         }
 
         private Expression Int(Expression expr)

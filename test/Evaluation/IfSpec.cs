@@ -5,7 +5,6 @@ namespace test.Evaluation
 {
     public class IfSpec : EvaluationTests
     {
-
         [Test]
         public void Make_sure_my_testing_strategy_works()
         {
@@ -64,11 +63,5 @@ namespace test.Evaluation
                          20)");
             result.Value.ShouldEqual(20);
         }
-
-
-
-        // TODO: Test other variants of true and false
-        // TODO: Test complex form in test
-        
     }
 }

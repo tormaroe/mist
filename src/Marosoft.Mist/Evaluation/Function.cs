@@ -31,5 +31,11 @@ namespace Marosoft.Mist.Evaluation
         {
             return _functionScope.Resolve(symbol);
         }
+
+        public void AddBinding(string symbol, Expression expr)
+        {
+            _functionScope.AddBinding(symbol, expr);
+        }
+
     }
 }

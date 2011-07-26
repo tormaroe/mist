@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluation\Arithmetics.cs" />
+    <Compile Include="Evaluation\DefSpec.cs" />
     <Compile Include="Evaluation\EvaluationTests.cs" />
     <Compile Include="Evaluation\IfSpec.cs" />
     <Compile Include="Lexing\BaseLexerTest.cs" />
