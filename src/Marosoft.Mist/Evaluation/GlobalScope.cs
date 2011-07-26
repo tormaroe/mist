@@ -28,7 +28,7 @@ namespace Marosoft.Mist.Evaluation
                     new Expression(new Token(args.First().Token.Type,
                         args.Select(expr => (int)expr.Value).Sum().ToString())),
             });
-            
+
             AddBinding(new Function("-", this)
             {
                 Precondition = args =>
@@ -37,6 +37,19 @@ namespace Marosoft.Mist.Evaluation
                 Implementation = args =>
                     new Expression(new Token(args.First().Token.Type,
                         args.Select(expr => (int)expr.Value).Aggregate((x, y) => x - y).ToString())),
+            });
+
+            AddBinding(new Function("=", this)
+            {
+                Precondition = args =>
+                    args.Count() >= 2,
+                Implementation = args =>
+                {
+                    var firstValue = args.First().Value;
+                    if (args.Skip(1).All(x => x.Value.Equals(firstValue)))
+                        return Resolve("true");
+                    return Resolve("false");
+                },
             });
         }
     }

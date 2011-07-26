@@ -25,6 +25,7 @@ namespace Marosoft.Mist.Parsing
             switch (Token.Type)
             {
                 case Tokens.INT: Value = Int32.Parse(Token.Text); break;
+                case Tokens.STRING: Value = Token.Text.Substring(1, Token.Text.Length - 2); break;
             }    
         }
 

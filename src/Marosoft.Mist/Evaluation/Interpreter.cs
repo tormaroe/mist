@@ -11,16 +11,15 @@ namespace Marosoft.Mist.Evaluation
     {
         private SpecialForms _specialForms;
         private GlobalScope _global = new GlobalScope();
-        private Scope _currentScope;
-
+        
         public Interpreter()
         {
             _specialForms = new SpecialForms(this);
-            _currentScope = _global;
+            CurrentScope = _global;
         }
 
         public GlobalScope Global { get { return _global; } }
-        public Scope CurrentScope { get { return _currentScope; } }
+        public Scope CurrentScope { get; private set; }
 
         public Expression Evaluate(IEnumerable<Expression> expressions)
         {
@@ -35,8 +34,9 @@ namespace Marosoft.Mist.Evaluation
             switch (expr.Token.Type)
             {
                 case Tokens.LIST: return List(expr); 
-                case Tokens.INT: return Int(expr);
-                case Tokens.SYMBOL: return _currentScope.Resolve(expr.Token.Text);
+                case Tokens.INT: return expr;
+                case Tokens.STRING: return expr;
+                case Tokens.SYMBOL: return CurrentScope.Resolve(expr.Token.Text);
                 default:
                     throw new Exception(string.Format("Token {0} can't be evaluate", expr.Token));
             }
@@ -72,9 +72,5 @@ namespace Marosoft.Mist.Evaluation
             throw new Exception(fExpr.Token.Text + " is not a function");
         }
 
-        private Expression Int(Expression expr)
-        {
-            return expr;
-        }
     }
 }
