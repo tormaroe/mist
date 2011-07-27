@@ -21,6 +21,13 @@ namespace Marosoft.Mist.Evaluation
         public GlobalScope Global { get { return _global; } }
         public Scope CurrentScope { get; private set; }
 
+        private Lazy<Parser> _parser = new Lazy<Parser>(() => new Parser(new Lexer(Tokens.All)));
+        
+        public Expression Evaluate(string code)
+        {
+            return Evaluate(_parser.Value.Parse(code));
+        }
+
         public Expression Evaluate(IEnumerable<Expression> expressions)
         {
             Expression result = null;

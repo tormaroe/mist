@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Lexing\Tokens.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tokens.cs</LastGenOutput>

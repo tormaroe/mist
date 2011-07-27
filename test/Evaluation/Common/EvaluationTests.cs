@@ -13,9 +13,8 @@ namespace test.Evaluation.Common
 
         protected void Evaluate(string source)
         {
-            var expressions = new Parser(new Lexer(Tokens.All)).Parse(source);
             interpreter = new Interpreter();
-            result = interpreter.Evaluate(expressions);
+            result = interpreter.Evaluate(source);
         }
     }
 }

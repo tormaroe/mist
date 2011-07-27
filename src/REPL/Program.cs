@@ -16,11 +16,11 @@ namespace Marosoft.Mist.Repl
     \____|__  /___/_______  /  |____|   
             \/            \/            
    A LISP IMPLEMENTATION BY TORBJORN MARO
+      https://github.com/tormaroe/mist
           Evaluate (quit) to exit!
 
 ";
 
-        private static Parser parser;
         private static Interpreter interpreter;
 
         static void Main(string[] args)
@@ -45,7 +45,6 @@ namespace Marosoft.Mist.Repl
 
         private static void InitializeInterpreter()
         {
-            parser = new Parser(new Lexer(Tokens.All));
             interpreter = new Interpreter();
 
             interpreter.Global.AddBinding(new Function("restart", interpreter.Global)
@@ -79,8 +78,7 @@ namespace Marosoft.Mist.Repl
 
         private static Expression EVAL(string input)
         {
-            var expressions = parser.Parse(input);
-            return interpreter.Evaluate(expressions);
+            return interpreter.Evaluate(input);
         }
 
         private static void PRINT(Expression exp)
