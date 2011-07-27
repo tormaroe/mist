@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluation\BasicScope.cs" />
+    <Compile Include="Evaluation\Environment.cs" />
     <Compile Include="Evaluation\Function.cs" />
     <Compile Include="Evaluation\GlobalScope.cs" />
     <Compile Include="Evaluation\Interpreter.cs" />

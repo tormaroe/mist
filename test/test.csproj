@@ -50,6 +50,7 @@
     <Compile Include="Evaluation\DefSpec.cs" />
     <Compile Include="Evaluation\EqualSpec.cs" />
     <Compile Include="Evaluation\Common\EvaluationTests.cs" />
+    <Compile Include="Evaluation\FnSpec.cs" />
     <Compile Include="Evaluation\IfSpec.cs" />
     <Compile Include="Lexing\BaseLexerTest.cs" />
     <Compile Include="Lexing\LexingSpec.cs" />

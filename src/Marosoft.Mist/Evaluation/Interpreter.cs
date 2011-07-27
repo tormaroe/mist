@@ -7,7 +7,7 @@ using Marosoft.Mist.Lexing;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class Interpreter
+    public class Interpreter : Environment
     {
         private SpecialForms _specialForms;
         private GlobalScope _global = new GlobalScope();
@@ -44,32 +44,64 @@ namespace Marosoft.Mist.Evaluation
 
         private Expression List(Expression expr)
         {
-            if (expr.Elements.First().Token.Type != Tokens.SYMBOL)
-                throw new Exception(string.Format("(So far) can't evaluate {0} as function call", expr.Elements.First().Token));
+            var firstElem = expr.Elements.First();
 
-            switch (expr.Elements.First().Token.Text)
+            if (firstElem is ListExpression)
             {
-                case "if": return _specialForms.If(expr);
-                case "def": return _specialForms.Def(expr);
-                default:
-
-                    // If first elem is a list, it must also be evaluated. 
-                    // Should it then be evaluated before or after it's arguments?
-
-                    var args = expr.Elements.Skip(1).Select(Evaluate);
-                    var funk = GetFunction(expr.Elements.First());
-                    return funk.Call(args);
+                expr.Elements[0] = Evaluate(firstElem);
+                return CallFunction(expr);
             }
+            else if (_specialForms.IsSpecialForm(firstElem.Token.Text))
+                return _specialForms.CallSpecialForm(expr);
+            else if (firstElem is SymbolExpression)
+                return CallFunction(expr);
+
+            throw new MistException(string.Format("Can't evaluate {0} as function", firstElem.Token));
+        }
+
+        private Expression CallFunction(Expression expr)
+        {
+            var args = expr.Elements.Skip(1).Select(Evaluate);
+            var funk = GetFunction(expr.Elements.First());
+            return WithScope(funk, () => funk.Call(args));
         }
 
         private Function GetFunction(Expression fExpr)
         {
+            if (fExpr.Token.Type == Tokens.FUNCTION)
+                return (Function)fExpr;
+
+            // Review this logic, not sure if/when needed!
             var f = _global.Resolve(fExpr.Token.Text);
 
             if (f is Function)
                 return (Function)f;
 
-            throw new Exception(fExpr.Token.Text + " is not a function");
+            throw new Exception(fExpr.ToString() + " is not a function");
+        }
+
+        private T WithScope<T>(Scope s, Func<T> call)
+        {
+            Push(s);
+            try
+            {
+                return call.Invoke();
+            }
+            finally
+            {
+                Pop();
+            }
+        }
+
+        private void Push(Scope scope)
+        {
+            scope.ParentScope = CurrentScope;
+            CurrentScope = scope;
+        }
+
+        private void Pop()
+        {
+            CurrentScope = CurrentScope.ParentScope;
         }
 
     }

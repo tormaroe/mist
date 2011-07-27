@@ -7,20 +7,15 @@ namespace Marosoft.Mist.Evaluation
     public class BasicScope : Scope
     {
         private Dictionary<string, Expression> _symbolBindings = new Dictionary<string, Expression>();
-        private readonly Scope _parentScope;
-
-        public BasicScope(Scope parentScope)
-        {
-            _parentScope = parentScope;
-        }
+        public Scope ParentScope { get; set; }
 
         public Expression Resolve(string symbol)
         {
             if (_symbolBindings.ContainsKey(symbol))
                 return _symbolBindings[symbol];
 
-            if (_parentScope != null)
-                return _parentScope.Resolve(symbol);
+            if (ParentScope != null)
+                return ParentScope.Resolve(symbol);
 
             throw new SymbolResolveException(symbol);
         }
@@ -33,6 +28,11 @@ namespace Marosoft.Mist.Evaluation
         public void AddBinding(string symbol, Expression expr)
         {
             _symbolBindings.Add(symbol, expr);
+        }
+
+        public void RemoveBinding(string symbol)
+        {
+            _symbolBindings.Remove(symbol);
         }
     }
 }

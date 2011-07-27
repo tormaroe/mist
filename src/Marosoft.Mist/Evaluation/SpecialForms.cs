@@ -9,14 +9,37 @@ namespace Marosoft.Mist.Evaluation
 {
     public class SpecialForms
     {
-        private readonly Interpreter _environment;
+        private readonly Environment _environment;
+        private Dictionary<string, Func<Expression, Expression>> _formsMap;
 
-        public SpecialForms(Interpreter environment)
+        public SpecialForms(Environment environment)
         {
             _environment = environment;
+            
+            _formsMap = new Dictionary<string, Func<Expression, Expression>> 
+            {
+                {"if", If},
+                {"def", Def},
+                {"fn", Fn},
+            };
         }
 
-        public Expression If(Expression expr)
+        public bool IsSpecialForm(string name)
+        {
+            return _formsMap.ContainsKey(name);
+        }
+
+        public Expression CallSpecialForm(Expression expr)
+        {
+            return _formsMap[expr.Elements.First().Token.Text](expr);
+        }
+
+        private Expression Fn(Expression expr)
+        {
+            return new Function(expr, _environment);
+        }
+
+        private Expression If(Expression expr)
         {
             if (4 < expr.Elements.Count || expr.Elements.Count < 3)
                 throw new MistException("Special form 'if' has 2 or 3 parameters, not " + (expr.Elements.Count - 1));
@@ -32,7 +55,7 @@ namespace Marosoft.Mist.Evaluation
             return _environment.CurrentScope.Resolve("nil");
         }
 
-        public Expression Def(Expression expr)
+        private Expression Def(Expression expr)
         {
             if (expr.Elements.Count != 3)
                 throw new MistException("Special form 'def' needs 2 parameters, not " + (expr.Elements.Count - 1));

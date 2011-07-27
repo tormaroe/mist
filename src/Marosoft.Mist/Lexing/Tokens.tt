@@ -43,6 +43,7 @@ namespace Marosoft.Mist.Lexing
 		new TokenInfo { token = "STRING" ,    regex = "^\"[^\"]*\""},
 		new TokenInfo { token = "LEFTPAREN" , regex = "^\\("},
 		new TokenInfo { token = "RIGHTPAREN" , regex = "^\\)"},
+		new TokenInfo { token = "FUNCTION" },
 		new TokenInfo { token = "LIST" }
 	};
 

@@ -9,7 +9,7 @@ namespace Marosoft.Mist.Evaluation
 {
     public class GlobalScope : BasicScope
     {                
-        public GlobalScope() : base(null)
+        public GlobalScope()
         {
             AddBinding("nil", new SpecialSymbolExpression("nil", null));
             AddBinding("true", new SpecialSymbolExpression("true", true));
