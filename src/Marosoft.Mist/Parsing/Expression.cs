@@ -6,27 +6,19 @@ using Marosoft.Mist.Lexing;
 
 namespace Marosoft.Mist.Parsing
 {
+    // ONGOING: Creating subclasses for Expression. Use them!
+    // TODO: FunctionExpression
+
     public class Expression
     {
         public Token Token { get; private set; }
         public List<Expression> Elements { get; private set; }
         public object Value { get; set; }
-
+        
         public Expression(Token token)
         {
             Token = token;
             Elements = new List<Expression>();
-
-            MaybeSetValue();
-        }
-
-        private void MaybeSetValue()
-        {
-            switch (Token.Type)
-            {
-                case Tokens.INT: Value = Int32.Parse(Token.Text); break;
-                case Tokens.STRING: Value = Token.Text.Substring(1, Token.Text.Length - 2); break;
-            }    
         }
 
         public override string ToString()
@@ -37,14 +29,10 @@ namespace Marosoft.Mist.Parsing
             return Token.ToString();
         }
 
-        public bool IsTrue
+        public virtual bool IsTrue
         {
             get
             {
-                if (Token.Type == Tokens.SYMBOL 
-                    && (Token.Text == "false" || Token.Text == "nil"))
-                    return false;
-
                 return true;
             }
         }

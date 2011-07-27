@@ -11,9 +11,9 @@ namespace Marosoft.Mist.Evaluation
     {                
         public GlobalScope() : base(null)
         {
-            AddBinding("nil", new Expression(new Token(Tokens.SYMBOL, "nil")) { Value = null });
-            AddBinding("true", new Expression(new Token(Tokens.SYMBOL, "true")) { Value = true });
-            AddBinding("false", new Expression(new Token(Tokens.SYMBOL, "false")) { Value = false });
+            AddBinding("nil", new SpecialSymbolExpression("nil", null));
+            AddBinding("true", new SpecialSymbolExpression("true", true));
+            AddBinding("false", new SpecialSymbolExpression("false", false));
             
             /**
              *      Adding the "built in" functions implemented in C#
@@ -25,7 +25,7 @@ namespace Marosoft.Mist.Evaluation
                     args.Count() > 0 
                     && args.All(a => a.Token.Type == Tokens.INT),
                 Implementation = args =>
-                    new Expression(new Token(args.First().Token.Type,
+                    ExpressionFactory.Create(new Token(args.First().Token.Type,
                         args.Select(expr => (int)expr.Value).Sum().ToString())),
             });
 
@@ -35,7 +35,7 @@ namespace Marosoft.Mist.Evaluation
                     args.Count() > 0
                     && args.All(a => a.Token.Type == Tokens.INT),
                 Implementation = args =>
-                    new Expression(new Token(args.First().Token.Type,
+                    ExpressionFactory.Create(new Token(args.First().Token.Type,
                         args.Select(expr => (int)expr.Value).Aggregate((x, y) => x - y).ToString())),
             });
 

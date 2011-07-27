@@ -57,6 +57,7 @@
     <Compile Include="MistException.cs" />
     <Compile Include="MoreLinq.cs" />
     <Compile Include="Parsing\Expression.cs" />
+    <Compile Include="Parsing\ExpressionFactory.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

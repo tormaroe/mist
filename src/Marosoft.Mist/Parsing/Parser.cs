@@ -32,7 +32,7 @@ namespace Marosoft.Mist.Parsing
         private Expression List()
         {
             Match(Tokens.LEFTPAREN);
-            var list = new Expression(new Token(Tokens.LIST, string.Empty));
+            var list = new ListExpression();
             list.Elements.AddRange(UntilToken(Tokens.RIGHTPAREN, Element));
             return list;
         }
@@ -55,7 +55,7 @@ namespace Marosoft.Mist.Parsing
 
         private Expression GetCurrentCell(int tokenType)
         {
-            var cell = new Expression(CurrentToken);
+            var cell = ExpressionFactory.Create(CurrentToken);
             Consume();
             return cell;
         }
