@@ -74,7 +74,7 @@ namespace test.Evaluation
 
                         (def foo (fn (x times acc) 
                                    (if (= 0 times)
-                                     x
+                                     acc
                                      (foo x
                                           (- times 1)
                                           (+ acc x)))))
