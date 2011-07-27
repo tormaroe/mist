@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using Marosoft.Mist;
 using Marosoft.Mist.Lexing;
+using test.Evaluation.Common;
 
 namespace test.Evaluation
 {

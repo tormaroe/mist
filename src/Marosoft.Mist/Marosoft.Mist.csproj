@@ -58,7 +58,12 @@
     <Compile Include="MoreLinq.cs" />
     <Compile Include="Parsing\Expression.cs" />
     <Compile Include="Parsing\ExpressionFactory.cs" />
+    <Compile Include="Parsing\IntExpression.cs" />
+    <Compile Include="Parsing\ListExpression.cs" />
     <Compile Include="Parsing\Parser.cs" />
+    <Compile Include="Parsing\SpecialSymbolExpression.cs" />
+    <Compile Include="Parsing\StringExpression.cs" />
+    <Compile Include="Parsing\SymbolExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
