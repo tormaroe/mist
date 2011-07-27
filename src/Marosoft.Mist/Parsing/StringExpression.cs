@@ -8,6 +8,11 @@ namespace Marosoft.Mist.Parsing
 {
     public class StringExpression : Expression
     {
+        public static StringExpression Create(string s)
+        {
+            return new StringExpression(new Token(Tokens.STRING, "\"" + s + "\""));
+        }
+
         public StringExpression(Token t)
             : base(t)
         {

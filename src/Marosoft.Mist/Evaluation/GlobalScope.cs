@@ -51,6 +51,20 @@ namespace Marosoft.Mist.Evaluation
                     return Resolve("false");
                 },
             });
+
+            AddBinding(new Function("slurp", this)
+            {
+                Precondition = args =>
+                    args.Count() == 1 && args.First().Token.Type == Tokens.STRING,
+                Implementation = args =>
+                {
+                    var file = (string)args.First().Value;
+                    var lines = System.IO.File.ReadLines(file);
+                    var list = new ListExpression();
+                    list.Elements.AddRange(lines.Select(StringExpression.Create));
+                    return list;
+                },
+            });
         }
     }
 }

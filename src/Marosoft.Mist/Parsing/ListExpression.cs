@@ -16,7 +16,9 @@ namespace Marosoft.Mist.Parsing
 
         public override string ToString()
         {
-            return "TODO LIST TOSTRING...";
+            return string.Format("({0})",
+                Elements.Select(e => e.ToString())
+                        .Aggregate((acc, e) => string.Format("{0} {1}", acc, e)));
         }
     }
 }
