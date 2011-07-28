@@ -12,7 +12,7 @@ namespace test.Evaluation
         public void Fn_should_produce_function()
         {
             Evaluate("(fn () \"hello, world\")");
-            result.ShouldBeOfType<Function>();
+            result.ShouldBeOfType<Closure>();
         }
 
         [Test]
@@ -65,15 +65,17 @@ namespace test.Evaluation
             result.Value.ShouldEqual(20);
         }
 
-        [Test, Ignore("TODO")]
+        [Test]
         public void Closures()
         {
-            Evaluate(@"
-                        (def clojure ((fn (x)
-                                         (fn () x)) 100))
-                        (clojure)
+            Evaluate(@" ; y in formal parameters to closure should ""overwrite"" the outher y
+                        ; x should be included in closure 
+
+                        (def closure ((fn (x y)
+                                         (fn (y) (+ x y))) 100 50))
+                        (closure 2)
                     ");
-            result.Value.ShouldEqual(100);
+            result.Value.ShouldEqual(102);
         }
     }
 }

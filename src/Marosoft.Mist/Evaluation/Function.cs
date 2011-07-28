@@ -8,9 +8,9 @@ namespace Marosoft.Mist.Evaluation
 {
     public class Function : Expression, Scope
     {
-        private Expression _formalParameters;
-        private BasicScope _functionScope;
-        private readonly Environment _environment;
+        protected BasicScope _functionScope;
+        protected Environment _environment; // ONLY SET BY SUBCLASS !! Refactor !!
+        protected Expression _formalParameters;
         
         public Scope ParentScope
         {
@@ -23,28 +23,11 @@ namespace Marosoft.Mist.Evaluation
                 _functionScope.ParentScope = value;
             }
         }
-
-        public Function(Expression expr, Environment environment)
-            : base(new Token(Tokens.FUNCTION, "anonymous"))
-        {
-            _environment = environment;
-            _functionScope = new BasicScope();
-
-            _formalParameters = expr.Elements.Second();
-
-            if (!(_formalParameters is ListExpression))
-                throw new MistException("First argument to fn must be a list, not " + _formalParameters);
-
-            if (!_formalParameters.Elements.All(p => p.Token.Type == Tokens.SYMBOL))
-                throw new MistException("Only symbols allowed in fn's list of formal paremeters. " + _formalParameters);
-
-            Precondition = args => args.Count() == _formalParameters.Elements.Count;
-            Implementation = args => environment.Evaluate(expr.Elements.Third());
-        }
-
+        
         public Function(string symbol, Scope parentScope)
             : base(new Token(Tokens.FUNCTION, symbol))
         {
+            // WARNING, Scope not used yet...
             _functionScope = new BasicScope();
             Precondition = args => Implementation != null;
         }
@@ -66,6 +49,11 @@ namespace Marosoft.Mist.Evaluation
             return _functionScope.Resolve(symbol);
         }
 
+        public void AddBinding(string symbol, Expression expr)
+        {
+            _functionScope.AddBinding(symbol, expr);
+        }
+
         private T WithArgumentBindings<T>(
             Scope invocationScope,
             IEnumerable<Expression> args,
@@ -82,13 +70,9 @@ namespace Marosoft.Mist.Evaluation
             if (_formalParameters != null)
                 for (int i = 0; i < _formalParameters.Elements.Count; i++)
                     invocationScope.AddBinding(
-                        _formalParameters.Elements[i].Token.Text, 
+                        _formalParameters.Elements[i].Token.Text,
                         args.ElementAt(i));
         }
 
-        public void AddBinding(string symbol, Expression expr)
-        {
-            _functionScope.AddBinding(symbol, expr);
-        }
     }
 }

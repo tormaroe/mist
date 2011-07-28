@@ -36,7 +36,7 @@ namespace Marosoft.Mist.Evaluation
 
         private Expression Fn(Expression expr)
         {
-            return new Function(expr, _environment);
+            return new Closure(expr, _environment);
         }
 
         private Expression If(Expression expr)
