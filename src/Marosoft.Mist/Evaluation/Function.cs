@@ -10,7 +10,8 @@ namespace Marosoft.Mist.Evaluation
     {
         private Expression _formalParameters;
         private BasicScope _functionScope;
-
+        private readonly Environment _environment;
+        
         public Scope ParentScope
         {
             get
@@ -26,6 +27,7 @@ namespace Marosoft.Mist.Evaluation
         public Function(Expression expr, Environment environment)
             : base(new Token(Tokens.FUNCTION, "anonymous"))
         {
+            _environment = environment;
             _functionScope = new BasicScope();
 
             _formalParameters = expr.Elements.Second();
@@ -55,7 +57,8 @@ namespace Marosoft.Mist.Evaluation
             if (!Precondition(args))
                 throw new FunctionEvaluationPreconditionException(Token.Text, args);
 
-            return WithArgumentBindings(args, Implementation);
+            var invocationScope = new BasicScope() { ParentScope = this };
+            return WithArgumentBindings(invocationScope, args, Implementation);
         }
 
         public Expression Resolve(string symbol)
@@ -63,34 +66,24 @@ namespace Marosoft.Mist.Evaluation
             return _functionScope.Resolve(symbol);
         }
 
-        private T WithArgumentBindings<T>(IEnumerable<Expression> args, 
+        private T WithArgumentBindings<T>(
+            Scope invocationScope,
+            IEnumerable<Expression> args,
             Func<IEnumerable<Expression>, T> functionNeedingBindings)
         {
-            try
-            {
-                BindArguments(args);
-                return functionNeedingBindings.Invoke(args);
-            }
-            finally
-            {
-                RemoveArgumentBindings();
-            }
+            BindArguments(invocationScope, args);
+            if (_environment != null)
+                return _environment.WithScope(invocationScope, () => functionNeedingBindings.Invoke(args));
+            return functionNeedingBindings.Invoke(args);
         }
 
-        private void BindArguments(IEnumerable<Expression> args)
+        private void BindArguments(Scope invocationScope, IEnumerable<Expression> args)
         {
             if (_formalParameters != null)
                 for (int i = 0; i < _formalParameters.Elements.Count; i++)
-                    _functionScope.AddBinding(
+                    invocationScope.AddBinding(
                         _formalParameters.Elements[i].Token.Text, 
                         args.ElementAt(i));
-        }
-
-        private void RemoveArgumentBindings()
-        {
-            if (_formalParameters != null)
-                _formalParameters.Elements.ForEach(p => 
-                    _functionScope.RemoveBinding(p.Token.Text));
         }
 
         public void AddBinding(string symbol, Expression expr)

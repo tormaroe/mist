@@ -87,7 +87,7 @@ namespace Marosoft.Mist.Evaluation
             throw new Exception(fExpr.ToString() + " is not a function");
         }
 
-        private T WithScope<T>(Scope s, Func<T> call)
+        public T WithScope<T>(Scope s, Func<T> call)
         {
             Push(s);
             try

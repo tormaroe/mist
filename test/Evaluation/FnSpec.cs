@@ -47,29 +47,11 @@ namespace test.Evaluation
                              12)
                     ");
             result.Value.ShouldEqual(10);
-        }
+        }        
 
-        [Test, Ignore("TODO")]
-        public void Closures()
-        {
-            // See Recursion test first!!!
-
-            Evaluate(@"
-                        (def clojure ((fn (x)
-                                         (fn () x)) 100))
-                        (clojure)
-                    ");
-            result.Value.ShouldEqual(100);
-        }
-
-        [Test, Ignore("TODO")]
+        [Test]
         public void Recursion()
         {
-            // Need to improve function scope,
-            // a new scope needed on each invocation, not on function creation,
-            // although function creation scope probably also needed for closures
-            // Do this BEFORE trying to solve closures!
-
             Evaluate(@" ; Multiply by recurively adding self
 
                         (def foo (fn (x times acc) 
@@ -81,6 +63,17 @@ namespace test.Evaluation
                         (foo 2 10 0)
                     ");
             result.Value.ShouldEqual(20);
+        }
+
+        [Test, Ignore("TODO")]
+        public void Closures()
+        {
+            Evaluate(@"
+                        (def clojure ((fn (x)
+                                         (fn () x)) 100))
+                        (clojure)
+                    ");
+            result.Value.ShouldEqual(100);
         }
     }
 }
