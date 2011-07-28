@@ -4,7 +4,7 @@ using Marosoft.Mist.Lexing;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class Closure : Function
+    public class Closure : BuiltInFunction
     {
         public Closure(Expression expr, Environment environment)
             : base("anonymous", environment.CurrentScope)

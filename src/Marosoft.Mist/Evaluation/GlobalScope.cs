@@ -19,7 +19,7 @@ namespace Marosoft.Mist.Evaluation
              *      Adding the "built in" functions implemented in C#
              **/
 
-            AddBinding(new Function("+", this)
+            AddBinding(new BuiltInFunction("+", this)
             {
                 Precondition = args => 
                     args.Count() > 0 
@@ -29,7 +29,7 @@ namespace Marosoft.Mist.Evaluation
                         args.Select(expr => (int)expr.Value).Sum().ToString())),
             });
 
-            AddBinding(new Function("-", this)
+            AddBinding(new BuiltInFunction("-", this)
             {
                 Precondition = args =>
                     args.Count() > 0
@@ -39,7 +39,7 @@ namespace Marosoft.Mist.Evaluation
                         args.Select(expr => (int)expr.Value).Aggregate((x, y) => x - y).ToString())),
             });
 
-            AddBinding(new Function("=", this)
+            AddBinding(new BuiltInFunction("=", this)
             {
                 Precondition = args =>
                     args.Count() >= 2,
@@ -52,7 +52,7 @@ namespace Marosoft.Mist.Evaluation
                 },
             });
 
-            AddBinding(new Function("slurp", this)
+            AddBinding(new BuiltInFunction("slurp", this)
             {
                 Precondition = args =>
                     args.Count() == 1 && args.First().Token.Type == Tokens.STRING,
