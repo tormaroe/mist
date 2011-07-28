@@ -257,7 +257,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="162.47365"
+     inkscape:cx="6.47365"
      inkscape:cy="469.70151"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -275,7 +275,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -299,7 +299,7 @@
        id="text2985"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan2989"></tspan><tspan
+         id="tspan2989" /><tspan
          sodipodi:role="line"
          id="tspan2991">       _____  .___  ____________________</tspan><tspan
          sodipodi:role="line"
@@ -404,7 +404,7 @@
          style="fill:#d7eef4;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
     <g
-       transform="matrix(0.6783952,0,0,0.6783952,-129.15312,84.17021)"
+       transform="matrix(0.6783952,0,0,0.6783952,-368.15312,50.17021)"
        id="g4185-5"
        inkscape:export-filename="C:\Users\tormar\Documents\My Dropbox\projects\mist\gfx\logo.png"
        inkscape:export-xdpi="90"
@@ -495,5 +495,20 @@
          d="m 215.90059,560.45235 -14.03592,29.95984"
          style="fill:#d7eef4;fill-opacity:1;stroke:#000000;stroke-width:4.42220116;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:oblique;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:0.82978725;stroke:none;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Bold Oblique"
+       x="-49"
+       y="458.36218"
+       id="text3081"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan3859"
+         x="-49"
+         y="458.36218">LISP</tspan><tspan
+         sodipodi:role="line"
+         id="tspan3861"
+         x="-49"
+         y="467.36218">INSIDE</tspan></text>
   </g>
 </svg>
