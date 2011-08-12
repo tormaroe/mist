@@ -7,7 +7,7 @@ using Marosoft.Mist.Lexing;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class GlobalScope : BasicScope
+    public class GlobalScope : Bindings
     {                
         public GlobalScope()
         {
@@ -19,7 +19,7 @@ namespace Marosoft.Mist.Evaluation
              *      Adding the "built in" functions implemented in C#
              **/
 
-            AddBinding(new BuiltInFunction("+", this)
+            AddBinding(new BuiltInFunction("+")
             {
                 Precondition = args => 
                     args.Count() > 0 
@@ -29,7 +29,7 @@ namespace Marosoft.Mist.Evaluation
                         args.Select(expr => (int)expr.Value).Sum().ToString())),
             });
 
-            AddBinding(new BuiltInFunction("-", this)
+            AddBinding(new BuiltInFunction("-")
             {
                 Precondition = args =>
                     args.Count() > 0
@@ -39,7 +39,7 @@ namespace Marosoft.Mist.Evaluation
                         args.Select(expr => (int)expr.Value).Aggregate((x, y) => x - y).ToString())),
             });
 
-            AddBinding(new BuiltInFunction("=", this)
+            AddBinding(new BuiltInFunction("=")
             {
                 Precondition = args =>
                     args.Count() >= 2,
@@ -52,7 +52,7 @@ namespace Marosoft.Mist.Evaluation
                 },
             });
 
-            AddBinding(new BuiltInFunction("slurp", this)
+            AddBinding(new BuiltInFunction("slurp")
             {
                 Precondition = args =>
                     args.Count() == 1 && args.First().Token.Type == Tokens.STRING,
@@ -65,6 +65,22 @@ namespace Marosoft.Mist.Evaluation
                     return list;
                 },
             });
+            
+
+        }
+
+        public override Expression Resolve(string symbol)
+        {
+            try
+            {
+                return base.Resolve(symbol);
+            }
+            catch (SymbolResolveException)
+            {
+                var t = Type.GetType(symbol); // WORK IN PROGRESS!!!!
+
+                throw;
+            }
         }
     }
 }

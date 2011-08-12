@@ -6,9 +6,9 @@ namespace Marosoft.Mist.Evaluation
 {
     public interface Environment
     {
-        Scope CurrentScope { get; }
+        Bindings CurrentScope { get; }
         Expression Evaluate(IEnumerable<Expression> expressions);
         Expression Evaluate(Expression expr);
-        T WithScope<T>(Scope s, Func<T> call);
+        T WithScope<T>(Bindings s, Func<T> call);
     }
 }

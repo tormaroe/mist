@@ -3,7 +3,7 @@ using Marosoft.Mist.Parsing;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public interface Function : Scope
+    public interface Function
     {
         Expression Call(IEnumerable<Expression> args);
     }

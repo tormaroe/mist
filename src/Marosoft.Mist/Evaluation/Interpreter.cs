@@ -10,16 +10,16 @@ namespace Marosoft.Mist.Evaluation
     public class Interpreter : Environment
     {
         private SpecialForms _specialForms;
-        private GlobalScope _global = new GlobalScope();
         
         public Interpreter()
         {
-            _specialForms = new SpecialForms(this);
-            CurrentScope = _global;
+            _specialForms = new SpecialForms(this);            
+            _scopeStack.Push(new GlobalScope());
         }
 
-        public GlobalScope Global { get { return _global; } }
-        public Scope CurrentScope { get; private set; }
+        private Stack<Bindings> _scopeStack = new Stack<Bindings>();
+
+        public Bindings CurrentScope { get { return _scopeStack.Peek(); } }
 
         private Lazy<Parser> _parser = new Lazy<Parser>(() => new Parser(new Lexer(Tokens.All)));
         
@@ -70,7 +70,8 @@ namespace Marosoft.Mist.Evaluation
         {
             var args = expr.Elements.Skip(1).Select(Evaluate);
             var funk = GetFunction(expr.Elements.First());
-            return WithScope(funk, () => funk.Call(args));
+
+            return funk.Call(args);
         }
 
         private Function GetFunction(Expression fExpr)
@@ -79,7 +80,7 @@ namespace Marosoft.Mist.Evaluation
                 return (Function)fExpr;
 
             // Review this logic, not sure if/when needed!
-            var f = _global.Resolve(fExpr.Token.Text);
+            var f = CurrentScope.Resolve(fExpr.Token.Text);
 
             if (f is Function)
                 return (Function)f;
@@ -87,28 +88,17 @@ namespace Marosoft.Mist.Evaluation
             throw new Exception(fExpr.ToString() + " is not a function");
         }
 
-        public T WithScope<T>(Scope s, Func<T> call)
+        public T WithScope<T>(Bindings s, Func<T> call)
         {
-            Push(s);
+            _scopeStack.Push(s);
             try
             {
                 return call.Invoke();
             }
             finally
             {
-                Pop();
+                _scopeStack.Pop();
             }
-        }
-
-        private void Push(Scope scope)
-        {
-            scope.ParentScope = CurrentScope;
-            CurrentScope = scope;
-        }
-
-        private void Pop()
-        {
-            CurrentScope = CurrentScope.ParentScope;
         }
 
     }

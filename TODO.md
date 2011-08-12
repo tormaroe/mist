@@ -10,12 +10,12 @@ Wishlist, in prioritized order:
 * .net interop: new form, ObjectExpression, extends Function.
 * Script as argument to repl (evaluate load)
 * Mistpacker
-* Create missing built in forms: list first rest print printf * / % cons time quote
+* Create missing built in forms: eval list first rest print printf > < * / % cons time quote
 * Better exceptions on parse errors
 * Keywords (?)
 * defmacro
 * Create missing macros: and or cond defun
 * Tail-call optimization
 * Map | filter | Reduce (built in or base lib?)
-* Base lib: zero? empty? inc dec ....
+* Base lib: zero? empty? inc dec >= <= ....
 * Generate doc from docstrings (add separate doc generator project)

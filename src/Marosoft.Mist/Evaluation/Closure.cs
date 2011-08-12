@@ -1,19 +1,25 @@
 using System.Linq;
+using System.Collections.Generic;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using System;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class Closure : BuiltInFunction
+    public class Closure : Expression, Function
     {
+        private Environment _environment;
+        protected Expression _formalParameters;
+
+        public Predicate<IEnumerable<Expression>> Precondition { get; set; }
+        public Func<IEnumerable<Expression>, Expression> Implementation { get; set; }
+
         public Closure(Expression expr, Environment environment)
-            : base("anonymous", environment.CurrentScope)
+            : base(new Token(Tokens.FUNCTION, "anonymous"))
         {
+            Scope = new Bindings() { ParentScope = environment.CurrentScope };
             _environment = environment;
             _formalParameters = expr.Elements.Second();
-            _functionScope = new BasicScope();
-
-            CloseAroundExternalSymbols(_functionScope, expr.Elements.Third());
 
             if (!(_formalParameters is ListExpression))
                 throw new MistException("First argument to fn must be a list, not " + _formalParameters);
@@ -25,26 +31,23 @@ namespace Marosoft.Mist.Evaluation
             Implementation = args => environment.Evaluate(expr.Elements.Third());
         }
 
-        private void CloseAroundExternalSymbols(BasicScope closure, Expression expr)
+        private void BindArguments(Bindings invocationScope, IEnumerable<Expression> args)
         {
-            if (expr is ListExpression)
-                expr.Elements.ForEach(e => CloseAroundExternalSymbols(closure, e));
-            else
-            {
-                try
-                {
-                    if (expr.Token.Type == Tokens.SYMBOL
-                        && !_formalParameters.Elements.Select(p => p.Token.Text).Contains(expr.Token.Text))
-                    {
-                        closure.AddBinding(expr.Token.Text, _environment.CurrentScope.Resolve(expr.Token.Text));
-                    }
-                }
-                catch (SymbolResolveException)
-                {
-                    // might not be a problem... (other than performance (TODO))
-                }
-            }
+            if (_formalParameters != null)
+                for (int i = 0; i < _formalParameters.Elements.Count; i++)
+                    invocationScope.AddBinding(
+                        _formalParameters.Elements[i].Token.Text,
+                        args.ElementAt(i));
         }
+
+        public Expression Call(IEnumerable<Expression> args)
+        {
+            Bindings invocationScope = new Bindings { ParentScope = Scope };
+            BindArguments(invocationScope, args);
+            return _environment.WithScope(invocationScope, () => Implementation.Invoke(args));            
+        }
+
+        private Bindings Scope;
 
     }
 }
