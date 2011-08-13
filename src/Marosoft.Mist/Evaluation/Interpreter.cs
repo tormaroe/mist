@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
 
@@ -15,6 +14,7 @@ namespace Marosoft.Mist.Evaluation
         {
             _scopeStack.Push(new GlobalScope());
             _specialForms = new SpecialForms(this);
+            MistCore.Load(this);
         }
 
         private Stack<Bindings> _scopeStack = new Stack<Bindings>();

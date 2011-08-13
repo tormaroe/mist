@@ -46,6 +46,7 @@
     <Compile Include="Evaluation\GlobalFunctions\MapFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MultiplyFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\RestFunction.cs" />
+    <Compile Include="Evaluation\MistCore.cs" />
     <Compile Include="Evaluation\Special\Def.cs" />
     <Compile Include="Evaluation\Special\Fn.cs" />
     <Compile Include="Evaluation\GlobalFunctions\AddFunction.cs" />
@@ -91,6 +92,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tokens.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="MistCore\core.mist" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
