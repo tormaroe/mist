@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation\Special\Def.cs" />
+    <Compile Include="Evaluation\Special\Doc.cs" />
+    <Compile Include="Evaluation\Special\Fn.cs" />
     <Compile Include="Evaluation\GlobalFunctions\AddFunction.cs" />
     <Compile Include="Evaluation\Bindings.cs" />
     <Compile Include="Evaluation\BuiltInFunction.cs" />
@@ -52,7 +55,10 @@
     <Compile Include="Evaluation\GlobalFunctions\SubtractFunction.cs" />
     <Compile Include="Evaluation\GlobalScope.cs" />
     <Compile Include="Evaluation\Interpreter.cs" />
+    <Compile Include="Evaluation\SpecialForm.cs" />
+    <Compile Include="Evaluation\SpecialFormAttribute.cs" />
     <Compile Include="Evaluation\SpecialForms.cs" />
+    <Compile Include="Evaluation\Special\If.cs" />
     <Compile Include="Lexing\Lexer.cs" />
     <Compile Include="Lexing\Token.cs" />
     <Compile Include="Lexing\TokenRecognizer.cs" />

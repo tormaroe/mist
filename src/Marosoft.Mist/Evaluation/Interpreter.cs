@@ -13,8 +13,8 @@ namespace Marosoft.Mist.Evaluation
         
         public Interpreter()
         {
-            _specialForms = new SpecialForms(this);            
             _scopeStack.Push(new GlobalScope());
+            _specialForms = new SpecialForms(this);
         }
 
         private Stack<Bindings> _scopeStack = new Stack<Bindings>();
