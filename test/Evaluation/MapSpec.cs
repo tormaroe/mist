@@ -57,5 +57,23 @@ namespace test.Evaluation
             list.Elements.Second().Value.ShouldEqual("doc b");
             list.Elements.Third().Value.ShouldEqual("doc c");
         }
+
+        [Test]
+        public void Select_should_be_an_alias() // since Select is the name used in Linq
+        {
+            Evaluate(@"
+
+                (select (fn (x) 
+                          (+ 1 x)) 
+                        (list 1 2 3))
+
+            ");
+
+            var list = result as ListExpression;
+            list.Elements.Count.ShouldEqual(3);
+            list.Elements.First().Value.ShouldEqual(2);
+            list.Elements.Second().Value.ShouldEqual(3);
+            list.Elements.Third().Value.ShouldEqual(4);
+        }
     }
 }
