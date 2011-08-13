@@ -46,8 +46,9 @@ namespace Marosoft.Mist.Repl
         private static void InitializeInterpreter()
         {
             interpreter = new Interpreter();
+            var global = ((Bindings)interpreter.CurrentScope);
 
-            ((Bindings)interpreter.CurrentScope).AddBinding(new BuiltInFunction("restart")
+            global.AddBinding(new BuiltInFunction("restart", global)
             {
                 Precondition = arguments => arguments.Count() == 0,
                 Implementation = arguments =>
@@ -58,7 +59,7 @@ namespace Marosoft.Mist.Repl
                 }
             });
 
-            ((Bindings)interpreter.CurrentScope).AddBinding(new BuiltInFunction("quit")
+            global.AddBinding(new BuiltInFunction("quit", global)
             {
                 Precondition = arguments => arguments.Count() == 0,
                 Implementation = arguments =>

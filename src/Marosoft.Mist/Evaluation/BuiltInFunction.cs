@@ -6,45 +6,34 @@ using Marosoft.Mist.Lexing;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class BuiltInFunction : Expression, Function
+
+    public abstract class FunctionExpression : Expression
+    {
+        protected Bindings Scope;
+
+        public FunctionExpression(string symbol, Bindings scope)
+            : base(new Token(Tokens.FUNCTION, symbol))
+        {
+            Scope = new Bindings() { ParentScope = scope };
+        }
+    }
+
+    public class BuiltInFunction : FunctionExpression, Function
     {
         protected Bindings _functionScope;
-        protected Expression _formalParameters;
 
-        public BuiltInFunction(string symbol)
-            : base(new Token(Tokens.FUNCTION, symbol))
+        public BuiltInFunction(string symbol, Bindings scope)
+            : base(symbol, scope)
         {
             Precondition = args => Implementation != null;
         }
 
-        public Predicate<IEnumerable<Expression>> Precondition { get; set; }
-        public Func<IEnumerable<Expression>, Expression> Implementation { get; set; }
+        public virtual Predicate<IEnumerable<Expression>> Precondition { get; set; }
+        public virtual Func<IEnumerable<Expression>, Expression> Implementation { get; set; }
 
         public Expression Call(IEnumerable<Expression> args)
         {
-            return WithArgumentBindings(
-                new Bindings() { ParentScope = null }, // might have to change....
-                args, 
-                Implementation);
+            return Implementation.Invoke(args);
         }
-
-        private T WithArgumentBindings<T>(
-            Bindings invocationScope,
-            IEnumerable<Expression> args,
-            Func<IEnumerable<Expression>, T> functionNeedingBindings)
-        {
-            BindArguments(invocationScope, args);
-            return functionNeedingBindings.Invoke(args);
-        }
-
-        private void BindArguments(Bindings invocationScope, IEnumerable<Expression> args)
-        {
-            if (_formalParameters != null)
-                for (int i = 0; i < _formalParameters.Elements.Count; i++)
-                    invocationScope.AddBinding(
-                        _formalParameters.Elements[i].Token.Text,
-                        args.ElementAt(i));
-        }
-
     }
 }

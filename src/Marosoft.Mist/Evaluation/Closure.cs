@@ -6,7 +6,7 @@ using System;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class Closure : Expression, Function
+    public class Closure : FunctionExpression, Function
     {
         private Environment _environment;
         protected Expression _formalParameters;
@@ -15,9 +15,8 @@ namespace Marosoft.Mist.Evaluation
         public Func<IEnumerable<Expression>, Expression> Implementation { get; set; }
 
         public Closure(Expression expr, Environment environment)
-            : base(new Token(Tokens.FUNCTION, "anonymous"))
+            : base("anonymous", environment.CurrentScope)
         {
-            Scope = new Bindings() { ParentScope = environment.CurrentScope };
             _environment = environment;
             _formalParameters = expr.Elements.Second();
 
@@ -47,7 +46,6 @@ namespace Marosoft.Mist.Evaluation
             return _environment.WithScope(invocationScope, () => Implementation.Invoke(args));            
         }
 
-        private Bindings Scope;
 
     }
 }

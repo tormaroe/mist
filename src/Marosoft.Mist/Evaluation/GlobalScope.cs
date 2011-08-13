@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using System.Reflection;
 
 namespace Marosoft.Mist.Evaluation
 {
@@ -19,54 +20,16 @@ namespace Marosoft.Mist.Evaluation
              *      Adding the "built in" functions implemented in C#
              **/
 
-            AddBinding(new BuiltInFunction("+")
-            {
-                Precondition = args => 
-                    args.Count() > 0 
-                    && args.All(a => a.Token.Type == Tokens.INT),
-                Implementation = args =>
-                    ExpressionFactory.Create(new Token(args.First().Token.Type,
-                        args.Select(expr => (int)expr.Value).Sum().ToString())),
-            });
+            Array.ForEach(Assembly.GetCallingAssembly().GetTypes(), AddGlobalFunction);
 
-            AddBinding(new BuiltInFunction("-")
-            {
-                Precondition = args =>
-                    args.Count() > 0
-                    && args.All(a => a.Token.Type == Tokens.INT),
-                Implementation = args =>
-                    ExpressionFactory.Create(new Token(args.First().Token.Type,
-                        args.Select(expr => (int)expr.Value).Aggregate((x, y) => x - y).ToString())),
-            });
+        }
 
-            AddBinding(new BuiltInFunction("=")
-            {
-                Precondition = args =>
-                    args.Count() >= 2,
-                Implementation = args =>
-                {
-                    var firstValue = args.First().Value;
-                    if (args.Skip(1).All(x => x.Value.Equals(firstValue)))
-                        return Resolve("true");
-                    return Resolve("false");
-                },
-            });
+        private void AddGlobalFunction(Type t)
+        {
+            bool isGlobalFunction = Attribute.GetCustomAttribute(t, typeof(GlobalFunctionAttribute)) != null;
 
-            AddBinding(new BuiltInFunction("slurp")
-            {
-                Precondition = args =>
-                    args.Count() == 1 && args.First().Token.Type == Tokens.STRING,
-                Implementation = args =>
-                {
-                    var file = (string)args.First().Value;
-                    var lines = System.IO.File.ReadLines(file);
-                    var list = new ListExpression();
-                    list.Elements.AddRange(lines.Select(StringExpression.Create));
-                    return list;
-                },
-            });
-            
-
+            if (isGlobalFunction)
+                AddBinding((BuiltInFunction)Activator.CreateInstance(t, this));
         }
 
         public override Expression Resolve(string symbol)

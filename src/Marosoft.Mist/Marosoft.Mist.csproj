@@ -40,11 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation\GlobalFunctions\AddFunction.cs" />
     <Compile Include="Evaluation\Bindings.cs" />
     <Compile Include="Evaluation\BuiltInFunction.cs" />
     <Compile Include="Evaluation\Closure.cs" />
     <Compile Include="Evaluation\Environment.cs" />
     <Compile Include="Evaluation\Function.cs" />
+    <Compile Include="Evaluation\GlobalFunctionAttribute.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\EqualsFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\SlurpFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\SubtractFunction.cs" />
     <Compile Include="Evaluation\GlobalScope.cs" />
     <Compile Include="Evaluation\Interpreter.cs" />
     <Compile Include="Evaluation\SpecialForms.cs" />
