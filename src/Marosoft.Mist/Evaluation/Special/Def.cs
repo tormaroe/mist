@@ -25,8 +25,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 value.DocString = Environment.Evaluate(expr.Elements.Third()) as StringExpression;
             }
             else
-                throw new MistException("Special form 'def' needs 2 parameters, not " + (expr.Elements.Count - 1));
-
+                throw new MistException("Special form 'def' needs 2 parameters (+ an optional doc string), not " + (expr.Elements.Count - 1));
 
             Environment.CurrentScope.AddBinding(symbol.Token.Text, value);
             return symbol;

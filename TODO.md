@@ -4,6 +4,7 @@ Wishlist, in prioritized order:
 
 * TEST THAT PRECONDITIONS ARE USED!!
 * Add extension methods to all kind of objects to make it easier to create expressions from anything...
+* Reflection used when loading special forms is cleaner than for built in functions
 * Dictionary literal {key val key val}. Also dictionary form. Add DictionaryExpression. Should extend Function as well!
 * Meta dictionary on Expressions. Add forms to manipulate
 * Doc form (gets doc string from meta). Add doc possibilities to def.

@@ -53,6 +53,7 @@
     <Compile Include="Evaluation\Common\EvaluationTests.cs" />
     <Compile Include="Evaluation\FnSpec.cs" />
     <Compile Include="Evaluation\IfSpec.cs" />
+    <Compile Include="Evaluation\ListSpec.cs" />
     <Compile Include="Evaluation\StaticMethods.cs" />
     <Compile Include="Lexing\BaseLexerTest.cs" />
     <Compile Include="Lexing\LexingSpec.cs" />
