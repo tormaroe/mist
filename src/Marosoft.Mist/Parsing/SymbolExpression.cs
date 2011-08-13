@@ -9,12 +9,13 @@ namespace Marosoft.Mist.Parsing
     public class SymbolExpression : Expression
     {
         public SymbolExpression(string name)
-            : base(new Token(Tokens.SYMBOL, name))
+            : this(new Token(Tokens.SYMBOL, name))
         {
         }
         public SymbolExpression(Token token)
             : base(token)
         {
+            Value = token.Text;
         }
     }
 }

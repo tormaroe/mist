@@ -3,6 +3,7 @@ using System.Linq;
 using Marosoft.Mist.Lexing;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Evaluation;
+using System.IO;
 
 namespace Marosoft.Mist.Repl
 {
@@ -69,6 +70,34 @@ namespace Marosoft.Mist.Repl
                     return null;
                 }
             });
+
+            LoadUserConfig();
+        }
+
+        private static void LoadUserConfig()
+        {
+            //string userHomePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "..");
+
+            string homePath = (System.Environment.OSVersion.Platform == PlatformID.Unix ||
+                               System.Environment.OSVersion.Platform == PlatformID.MacOSX)
+                ? System.Environment.GetEnvironmentVariable("HOME")
+                : System.Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+
+            string dotmistFile = Path.Combine(homePath, ".mist");
+
+            if (File.Exists(dotmistFile))
+            {
+                Console.WriteLine("Loading user file from " + dotmistFile);
+                try
+                {
+                    PRINT(EVAL("(load \"" + dotmistFile + "\")"));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("*** Loading user file got exception: {0}\nReview {1}\nMIST ENVIRONMENT LEFT IN AN UNKNOWN STATE!\n", 
+                        ex.Message, dotmistFile);
+                }
+            }
         }
 
         private static string READ()
