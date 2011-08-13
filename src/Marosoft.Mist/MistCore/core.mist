@@ -2,9 +2,7 @@
 ; This file contains the core part of Mist that's actually 
 ; implemented in Mist itself.
 
-; Some aliases for built in functions
-; -----------------------------------
-(def select map)
+(def select map) ; Alias for Linq lovers
 
 (def inc "Returns a number one greater than num." (fn (x) (+ x 1)))
 (def dec "Returns a number one less than num." (fn (x) (- x 1)))

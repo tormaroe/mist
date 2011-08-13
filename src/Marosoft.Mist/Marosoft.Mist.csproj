@@ -66,6 +66,7 @@
     <Compile Include="Evaluation\SpecialForms.cs" />
     <Compile Include="Evaluation\Special\If.cs" />
     <Compile Include="Evaluation\Special\Quote.cs" />
+    <Compile Include="Evaluation\Special\Time.cs" />
     <Compile Include="Lexing\Lexer.cs" />
     <Compile Include="Lexing\Token.cs" />
     <Compile Include="Lexing\TokenRecognizer.cs" />
