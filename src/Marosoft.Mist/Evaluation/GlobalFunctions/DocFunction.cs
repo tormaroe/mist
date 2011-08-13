@@ -8,7 +8,7 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
     public class DocFunction : BuiltInFunction
     {
         public DocFunction(Bindings scope)
-            : base("Doc", scope)
+            : base("doc", scope)
         {
             DocString = StringExpression.Create(
                 "Prints documentation for a var or special form given its name.");
