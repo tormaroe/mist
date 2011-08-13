@@ -23,7 +23,7 @@ namespace Marosoft.Mist.Evaluation
         public Expression Call(IEnumerable<Expression> args)
         {
             return WithArgumentBindings(
-                new Bindings() { ParentScope = null }, 
+                new Bindings() { ParentScope = null }, // might have to change....
                 args, 
                 Implementation);
         }

@@ -2,6 +2,7 @@
 
 Wishlist, in prioritized order:
 
+* TEST THAT PRECONDITIONS ARE USED!!
 * Dictionary literal {key val key val}. Also dictionary form. Add DictionaryExpression. Should extend Function as well!
 * Meta dictionary on Expressions. Add forms to manipulate
 * Doc form (gets doc string from meta). Add doc possibilities to def.
