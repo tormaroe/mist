@@ -8,3 +8,5 @@
 
 (def inc "Returns a number one greater than num." (fn (x) (+ x 1)))
 (def dec "Returns a number one less than num." (fn (x) (- x 1)))
+
+(def zero? "Returns true if num is zero, else false" (fn (x) (= x 0)))
