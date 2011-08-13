@@ -44,7 +44,7 @@ namespace Marosoft.Mist.Lexing
         {
 			new TokenRecognizer(WS, "^([ \\t\\r\\n])+", false),
 			new TokenRecognizer(INT, "^(-)?(\\d)+", true),
-			new TokenRecognizer(SYMBOL, "^([a-zA-Z\\+\\-\\?\\=])+([\\w\\+\\-\\?\\=\\.])*", true),
+			new TokenRecognizer(SYMBOL, "^([a-zA-Z\\+\\-\\?\\=\\*])+([\\w\\+\\-\\?\\=\\.\\*])*", true),
 			new TokenRecognizer(COMMENT, "^;[^\\r\\n]*", false),
 			new TokenRecognizer(STRING, "^\"[^\"]*\"", true),
 			new TokenRecognizer(LEFTPAREN, "^\\(", true),

@@ -47,6 +47,11 @@ namespace test.Evaluation
             result.Value.ShouldEqual(5 + 11);
         }
 
-
+        [Test]
+        public void Multiply()
+        {
+            Evaluate("(* 2 2 3)");
+            result.Value.ShouldEqual(2 * 2 * 3);
+        }
     }
 }

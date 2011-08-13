@@ -32,9 +32,7 @@ namespace Marosoft.Mist.Parsing
         private Expression List()
         {
             Match(Tokens.LEFTPAREN);
-            var list = new ListExpression();
-            list.Elements.AddRange(UntilToken(Tokens.RIGHTPAREN, Element));
-            return list;
+            return new ListExpression(UntilToken(Tokens.RIGHTPAREN, Element));
         }
 
         /// <summary>

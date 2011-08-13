@@ -14,11 +14,7 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
                 args.Count() > 0;
 
             Implementation = args =>
-            {
-                var list = new ListExpression();
-                list.Elements.AddRange(args);
-                return list;
-            };
+                new ListExpression(args);
         }
     }
 }

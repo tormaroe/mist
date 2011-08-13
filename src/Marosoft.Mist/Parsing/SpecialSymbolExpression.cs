@@ -16,6 +16,8 @@ namespace Marosoft.Mist.Parsing
 
         public override string ToString()
         {
+            if (Value == null)
+                return "nil";
             return Value.ToString();
         }
 
@@ -30,4 +32,5 @@ namespace Marosoft.Mist.Parsing
             }
         }
     }
+
 }

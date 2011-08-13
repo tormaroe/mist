@@ -21,9 +21,7 @@ line breaks) and returns it.");
             {
                 var file = (string)args.First().Value;
                 var lines = System.IO.File.ReadLines(file);
-                var list = new ListExpression();
-                list.Elements.AddRange(lines.Select(StringExpression.Create));
-                return list;
+                return new ListExpression(lines.Select(StringExpression.Create));                
             };
         }
     }

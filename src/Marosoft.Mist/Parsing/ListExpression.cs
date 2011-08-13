@@ -8,6 +8,12 @@ namespace Marosoft.Mist.Parsing
 {
     public class ListExpression : Expression
     {
+        public ListExpression(IEnumerable<Expression> elements)
+            : this()
+        {
+            Elements.AddRange(elements);
+        }
+
         public ListExpression()
             : base(new Token(Tokens.LIST, string.Empty))
         {

@@ -19,14 +19,12 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 
             Implementation = args =>
             {
-                var f = args.First() as Function;
+                var f = (Function) args.First();
 
-                var result = new ListExpression();
-                result.Elements.AddRange(((ListExpression)args.Second())
-                    .Elements
-                    .Select(a => new Expression[]{a}.AsEnumerable<Expression>())
-                    .Select(a => f.Call(a)));
-                return result;
+                var sourceList = (ListExpression) args.Second();
+
+                return new ListExpression(
+                    sourceList.Elements.Select(a => f.Call(a)));                
             };
         }
     }

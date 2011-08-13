@@ -28,6 +28,17 @@ namespace test.Evaluation
             list.Elements.Third().Value.ShouldEqual(4);
         }
 
+        [Test]
+        public void Test2()
+        {
+            Evaluate(@"
+
+                (def double (fn (x) (* x x)))
+                (map double (list 1 2 3))
+
+            ");
+
+        }
 
         [Test]
         public void Map_With_built_in_function_pointer()
@@ -41,6 +52,12 @@ namespace test.Evaluation
                 (map doc (list a b c))
 
             ");
+
+            var list = result as ListExpression;
+            list.Elements.Count.ShouldEqual(3);
+            list.Elements.First().Value.ShouldEqual("doc a");
+            list.Elements.Second().Value.ShouldEqual("doc b");
+            list.Elements.Third().Value.ShouldEqual("doc c");
         }
     }
 }
