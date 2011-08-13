@@ -1,8 +1,6 @@
 using NUnit.Framework;
 using Marosoft.Mist;
-using Marosoft.Mist.Lexing;
 using test.Evaluation.Common;
-using Marosoft.Mist.Evaluation;
 using Marosoft.Mist.Parsing;
 using System.Linq;
 
@@ -33,7 +31,7 @@ namespace test.Evaluation
         {
             Evaluate(@"
 
-                (def double (fn (x) (* x x)))
+                (def double (fn (x) (+ x x)))
                 (map double (list 1 2 3))
 
             ");

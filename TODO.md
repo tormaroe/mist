@@ -22,3 +22,4 @@ Wishlist, in prioritized order:
 * Map | filter | Reduce (built in or base lib?)
 * Base lib: zero? empty? inc dec >= <= ....
 * Generate doc from docstrings (add separate doc generator project)
+* Inner defs are causing some problems!!

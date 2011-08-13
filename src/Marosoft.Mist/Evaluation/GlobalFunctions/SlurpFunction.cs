@@ -20,8 +20,8 @@ line breaks) and returns it.");
             Implementation = args =>
             {
                 var file = (string)args.First().Value;
-                var lines = System.IO.File.ReadLines(file);
-                return new ListExpression(lines.Select(StringExpression.Create));                
+                var txt = System.IO.File.ReadAllText(file);
+                return StringExpression.Create(txt);                
             };
         }
     }

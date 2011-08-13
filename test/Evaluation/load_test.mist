@@ -1,0 +1,11 @@
+﻿
+; This file is loaded and evaluated by tests in LoadSpec.cs
+
+(def xxx "The number of the Beast" 666)
+
+(def f
+  "A function"
+  (fn ()
+	(- xxx 1)))
+
+(f) ; result of load should be 665
