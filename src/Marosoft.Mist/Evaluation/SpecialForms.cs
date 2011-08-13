@@ -21,6 +21,7 @@ namespace Marosoft.Mist.Evaluation
                 {"if", If},
                 {"def", Def},
                 {"fn", Fn},
+                {"doc", Doc}
             };
         }
 
@@ -56,19 +57,39 @@ namespace Marosoft.Mist.Evaluation
         }
 
         private Expression Def(Expression expr)
-        {
-            if (expr.Elements.Count != 3)
-                throw new MistException("Special form 'def' needs 2 parameters, not " + (expr.Elements.Count - 1));
-
+        {            
             var symbol = expr.Elements.Second();
 
             if (symbol.Token.Type != Tokens.SYMBOL)
                 throw new MistException(string.Format("The first argument to def does not evaluate to a symbol ({0})", symbol.Token));
 
-            var value = _environment.Evaluate(expr.Elements.Third());
+            Expression value = null;
 
+            if (expr.Elements.Count == 3)
+            {
+                value = _environment.Evaluate(expr.Elements.Third());
+            }
+            else if (expr.Elements.Count == 4 && expr.Elements.Third().Token.Type == Tokens.STRING)
+            {
+                value = _environment.Evaluate(expr.Elements.Forth());
+                value.DocString = _environment.Evaluate(expr.Elements.Third()) as StringExpression;
+            }
+            else
+                throw new MistException("Special form 'def' needs 2 parameters, not " + (expr.Elements.Count - 1));
+
+            
             _environment.CurrentScope.AddBinding(symbol.Token.Text, value);
             return symbol;
+        }
+
+        private Expression Doc(Expression expr)
+        {
+            var symbol = expr.Elements.Second();
+
+            if (!(symbol is SymbolExpression))
+                throw new MistException(string.Format("Special form doc takes a single argument, which must be a symbol. {0} is not a symbol.", expr));
+
+            return _environment.Evaluate(symbol).DocString;
         }
     }
 }

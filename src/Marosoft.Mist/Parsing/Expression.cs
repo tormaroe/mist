@@ -14,6 +14,8 @@ namespace Marosoft.Mist.Parsing
         public Token Token { get; private set; }
         public List<Expression> Elements { get; private set; }
         public object Value { get; set; }
+
+        public StringExpression DocString { get; set; }
         
         public Expression(Token token)
         {

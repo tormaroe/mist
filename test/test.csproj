@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Evaluation\Arithmetics.cs" />
     <Compile Include="Evaluation\DefSpec.cs" />
+    <Compile Include="Evaluation\DocSpec.cs" />
     <Compile Include="Evaluation\EqualSpec.cs" />
     <Compile Include="Evaluation\Common\EvaluationTests.cs" />
     <Compile Include="Evaluation\FnSpec.cs" />
