@@ -5,3 +5,6 @@
 ; Some aliases for built in functions
 ; -----------------------------------
 (def select map)
+
+(def inc "Returns a number one greater than num." (fn (x) (+ x 1)))
+(def dec "Returns a number one less than num." (fn (x) (- x 1)))
