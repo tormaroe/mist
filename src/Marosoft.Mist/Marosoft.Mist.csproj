@@ -40,14 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation\FormalParameters.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FirstFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ListFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MapFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MultiplyFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\RestFunction.cs" />
+    <Compile Include="Evaluation\Macro.cs" />
     <Compile Include="Evaluation\MistCore.cs" />
     <Compile Include="Evaluation\Special\Def.cs" />
+    <Compile Include="Evaluation\Special\DefMacro.cs" />
     <Compile Include="Evaluation\Special\Fn.cs" />
     <Compile Include="Evaluation\GlobalFunctions\AddFunction.cs" />
     <Compile Include="Evaluation\Bindings.cs" />

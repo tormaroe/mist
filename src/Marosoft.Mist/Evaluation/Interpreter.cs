@@ -59,11 +59,27 @@ namespace Marosoft.Mist.Evaluation
                 return CallFunction(expr);
             }
             else if (_specialForms.IsSpecialForm(firstElem.Token.Text))
+            {
                 return _specialForms.CallSpecialForm(expr);
+            }
             else if (firstElem is SymbolExpression)
-                return CallFunction(expr);
+            {
+                if (IsMacro(firstElem))
+                {
+                    var macro = CurrentScope.Resolve(firstElem.Token.Text) as Macro;
+                    Expression expanded = macro.Expand(expr.Elements.Skip(1));
+                    return Evaluate(expanded);
+                }
+                else
+                    return CallFunction(expr);
+            }
 
             throw new MistException(string.Format("Can't evaluate {0} as function", firstElem.Token));
+        }
+
+        private bool IsMacro(Expression symbol)
+        {
+            return CurrentScope.Resolve(symbol.Token.Text).Token.Type == Tokens.MACRO;    
         }
 
         private Expression CallFunction(Expression expr)
