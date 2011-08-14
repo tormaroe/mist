@@ -2,6 +2,16 @@
 ; This file contains the core part of Mist that's actually 
 ; implemented in Mist itself.
 
+; TODO: enhance when more options available:
+; - variable length arguments
+; - quasiquoting
+(defmacro and (x y)
+	(list (quote if) x
+		(list (quote if) y
+			(quote true)
+			(quote false))
+		(quote false)))
+
 (def select map) ; Alias for Linq lovers
 
 (def inc "Returns a number one greater than num." (fn (x) (+ x 1)))
