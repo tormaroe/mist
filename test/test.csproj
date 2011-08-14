@@ -50,6 +50,7 @@
     <Compile Include="Evaluation\BooleanMacrosSpec.cs" />
     <Compile Include="Evaluation\DefMacroSpec.cs" />
     <Compile Include="Evaluation\DefSpec.cs" />
+    <Compile Include="Evaluation\DefunSpec.cs" />
     <Compile Include="Evaluation\DocSpec.cs" />
     <Compile Include="Evaluation\EqualSpec.cs" />
     <Compile Include="Evaluation\Common\EvaluationTests.cs" />

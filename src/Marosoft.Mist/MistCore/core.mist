@@ -2,6 +2,12 @@
 ; This file contains the core part of Mist that's actually 
 ; implemented in Mist itself.
 
+; TODO: Enhance when variable length arguments
+(defmacro defun (name args body)
+	(list (quote def) 
+	      name 
+		  (list (quote fn) args body)))
+
 ; TODO: enhance when more options available:
 ; - variable length arguments
 ; - quasiquoting
@@ -13,6 +19,9 @@
 		(quote false)))
 
 (def select map) ; Alias for Linq lovers
+
+; TODO: CHANGE USE OF DEF TO DEFINE FUNCTIONS INTO DEFUN WHEN OPTIONAL ARGUMENTS BECOME AVAILABLE..
+; IT WORKS NOW, BUT NOT IF I WANT DOC STRINGS
 
 (def inc "Returns a number one greater than num." (fn (x) (+ x 1)))
 (def dec "Returns a number one less than num." (fn (x) (- x 1)))
