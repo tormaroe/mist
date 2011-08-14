@@ -1,5 +1,13 @@
 #TODO
 
+Main areas remaining:
+* Tail call optimization
+* Macros
+* CLI interop
+* Mistpacker
+* Web site, documentation project
+.. then more datatypes, misc missing functions
+
 Wishlist, in prioritized order:
 
 * TEST THAT PRECONDITIONS ARE USED!!
