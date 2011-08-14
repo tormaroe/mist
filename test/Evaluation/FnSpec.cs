@@ -12,7 +12,7 @@ namespace test.Evaluation
         public void Fn_should_produce_function()
         {
             Evaluate("(fn () \"hello, world\")");
-            result.ShouldBeOfType<Closure>();
+            result.ShouldBeOfType<Lambda>();
         }
 
         [Test]

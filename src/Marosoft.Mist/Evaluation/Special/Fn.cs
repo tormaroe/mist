@@ -7,7 +7,7 @@ namespace Marosoft.Mist.Evaluation.Special
     {
         public override Expression Call(Expression expr)
         {
-            return new Closure(expr, Environment);
+            return new Lambda(expr, Environment);
         }
     }
 }

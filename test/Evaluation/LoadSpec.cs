@@ -17,6 +17,7 @@ namespace test.Evaluation
             result.Value.ShouldEqual(665);
             interpreter.CurrentScope.Resolve("xxx").Value.ShouldEqual(666);
             interpreter.CurrentScope.Resolve("f").DocString.Value.ShouldEqual("A function");
+            typeof(SymbolResolveException).ShouldBeThrownBy(() => interpreter.CurrentScope.Resolve("to-subtract"));
         }
     }
 }

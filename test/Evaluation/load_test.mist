@@ -6,6 +6,7 @@
 (def f
   "A function"
   (fn ()
-	(- xxx 1)))
+    (def to-subtract 1)
+	(- xxx to-subtract)))
 
 (f) ; result of load should be 665

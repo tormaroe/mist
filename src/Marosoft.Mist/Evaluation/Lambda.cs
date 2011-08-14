@@ -6,7 +6,7 @@ using System;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class Closure : FunctionExpression, Function
+    public class Lambda : FunctionExpression, Function
     {
         private Environment _environment;
         protected Expression _formalParameters;
@@ -14,7 +14,7 @@ namespace Marosoft.Mist.Evaluation
         public Predicate<IEnumerable<Expression>> Precondition { get; set; }
         public Func<IEnumerable<Expression>, Expression> Implementation { get; set; }
 
-        public Closure(Expression expr, Environment environment)
+        public Lambda(Expression expr, Environment environment)
             : base("anonymous", environment.CurrentScope)
         {
             _environment = environment;
@@ -27,7 +27,13 @@ namespace Marosoft.Mist.Evaluation
                 throw new MistException("Only symbols allowed in fn's list of formal paremeters. " + _formalParameters);
 
             Precondition = args => args.Count() == _formalParameters.Elements.Count;
-            Implementation = args => environment.Evaluate(expr.Elements.Third());
+            Implementation = args =>
+            {
+                Expression result = null;
+                foreach (var exp in expr.Elements.Skip(2))
+                    result = environment.Evaluate(exp);
+                return result;
+            };
         }
 
         private void BindArguments(Bindings invocationScope, IEnumerable<Expression> args)
