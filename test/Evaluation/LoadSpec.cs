@@ -1,10 +1,6 @@
 using NUnit.Framework;
 using Marosoft.Mist;
-using Marosoft.Mist.Lexing;
 using test.Evaluation.Common;
-using Marosoft.Mist.Evaluation;
-using Marosoft.Mist.Parsing;
-using System.Linq;
 
 namespace test.Evaluation
 {
@@ -13,11 +9,24 @@ namespace test.Evaluation
         [Test]
         public void Test()
         {
+            // See the embedded file for details..
             Evaluate("(load \"Evaluation\\load_test.mist\")");
-            result.Value.ShouldEqual(665);
-            interpreter.CurrentScope.Resolve("xxx").Value.ShouldEqual(666);
-            interpreter.CurrentScope.Resolve("f").DocString.Value.ShouldEqual("A function");
-            typeof(SymbolResolveException).ShouldBeThrownBy(() => interpreter.CurrentScope.Resolve("to-subtract"));
+
+            // The result of the script..
+            result.Value
+                .ShouldEqual(665);
+
+            // xxx, defined in global scope, should still be there..
+            interpreter.CurrentScope.Resolve("xxx").Value
+                .ShouldEqual(666);
+
+            // f, the function, should have a doc string..
+            interpreter.CurrentScope.Resolve("f").DocString.Value
+                .ShouldEqual("A function");
+
+            // to-subtract, defined inside f, should now be out of scope..
+            typeof(SymbolResolveException).ShouldBeThrownBy(() => 
+                interpreter.CurrentScope.Resolve("to-subtract"));
         }
     }
 }
