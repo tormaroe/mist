@@ -36,6 +36,13 @@ namespace Marosoft.Mist.Evaluation
             };
         }
 
+        public Expression Call(IEnumerable<Expression> args)
+        {
+            var invocationScope = new Bindings { ParentScope = Scope };
+            BindArguments(invocationScope, args);
+            return _environment.WithScope(invocationScope, () => Implementation.Invoke(args));            
+        }
+
         private void BindArguments(Bindings invocationScope, IEnumerable<Expression> args)
         {
             if (_formalParameters != null)
@@ -44,14 +51,5 @@ namespace Marosoft.Mist.Evaluation
                         _formalParameters.Elements[i].Token.Text,
                         args.ElementAt(i));
         }
-
-        public Expression Call(IEnumerable<Expression> args)
-        {
-            Bindings invocationScope = new Bindings { ParentScope = Scope };
-            BindArguments(invocationScope, args);
-            return _environment.WithScope(invocationScope, () => Implementation.Invoke(args));            
-        }
-
-
     }
 }
