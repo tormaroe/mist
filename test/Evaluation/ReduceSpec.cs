@@ -29,5 +29,17 @@ namespace test.Evaluation
             result.ShouldBeOfType<IntExpression>();
             result.Value.ShouldEqual(5);
         }
+
+        [Test]
+        public void Dont_mutate_orginal_when_using_seed()
+        {
+            Evaluate(@"
+
+                (def foo (list 1 2 2))
+                (def bar (aggregate (fn (acc x) (- acc x)) 10 foo))
+            ");
+            interpreter.Evaluate("((fn () bar))").ToString().ShouldEqual("5");
+            interpreter.Evaluate("((fn () foo))").ToString().ShouldEqual("(1 2 2)");
+        }
     }
 }

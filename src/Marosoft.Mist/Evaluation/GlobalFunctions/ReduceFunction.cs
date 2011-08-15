@@ -33,8 +33,9 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         private IEnumerable<Expression> PrependSeedToList(IEnumerable<Expression> arguments)
         {
             var list = arguments.GetAt<ListExpression>(1);
-            list.Elements.Insert(0, arguments.First());
-            yield return list;
+            var copy = new ListExpression(list.Elements);
+            copy.Elements.Insert(0, arguments.First());
+            yield return copy;
         }
     }
 }
