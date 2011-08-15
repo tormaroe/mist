@@ -5,44 +5,18 @@ using System.Collections.Generic;
 
 namespace Marosoft.Mist.Evaluation.GlobalFunctions
 {
-    /// <summary>
-    /// Base class for built in functions that manipulates a stream of
-    /// elements (ListExpression) with a function and returns a new element
-    /// (quite possibly another list). 
-    /// 
-    /// Typical implementations include: map, filter, reduce
-    /// </summary>
+    // TODO: ListManipulatorFunction has turned out to be thr wrong name
+    // This should now be merged with BuiltInFunction
+    // REFACTOR REFACTOR REFACTOR
+
     public abstract class ListManipulatorFunction : BuiltInFunction
     {
-        public ListManipulatorFunction(
-            string symbol, 
-            Bindings scope, 
-            Func<Function, IEnumerable<Expression>, Expression> manipulation)            
-            : 
-            base(symbol, scope)
+        public ListManipulatorFunction(string symbol, Bindings scope)            
+            : base(symbol, scope)
         {
-            Precondition = args =>
-                args.Count() >= 2
-                &&
-                args.First() is Function
-                &&
-                args.Second() is ListExpression;
-
-            Implementation = args =>
-            {
-                args = PreProcessArguments(args);
-
-                var f = (Function)args.First();
-                var sourceList = (ListExpression)args.Second();
-
-                return manipulation.Invoke(f, sourceList.Elements);
-            };
+            Implementation = args => InternalCall((Function)args.First(), args.Skip(1));
         }
 
-        protected virtual IEnumerable<Expression> PreProcessArguments(IEnumerable<Expression> arguments) 
-        {
-            return arguments;
-        }
-        
+        protected abstract Expression InternalCall(Function f, IEnumerable<Expression> args);
     }
 }

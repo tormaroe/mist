@@ -7,21 +7,23 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
     [GlobalFunction]
     public class ReduceFunction : ListManipulatorFunction
     {
-        public ReduceFunction(Bindings scope)
-            : base(
-                symbol: "reduce",
-                scope: scope,
-                manipulation: (f, list) => list.Aggregate((acc, x) => f.Call(new Expression[] { acc, x })))
-        { }
+        public ReduceFunction(Bindings scope) : base("reduce", scope) { }
 
-        protected override IEnumerable<Expression> PreProcessArguments(IEnumerable<Expression> arguments)
+        protected override Expression InternalCall(Function f, IEnumerable<Expression> args)
+        {
+            args = PreProcessArguments(args);
+            var list = ((ListExpression)args.First()).Elements;
+            return list.Aggregate((acc, x) => f.Call(new Expression[] { acc, x }));
+        }
+
+        protected IEnumerable<Expression> PreProcessArguments(IEnumerable<Expression> arguments)
         {
             var argCount = arguments.Count();
 
-            if (argCount == 2 && arguments.Second() is ListExpression)
+            if (argCount == 1 && arguments.First() is ListExpression)
                 return arguments;
 
-            if (argCount == 3 && arguments.Third() is ListExpression)
+            if (argCount == 2 && arguments.Second() is ListExpression)
                 return PrependSeedToList(arguments);
 
             throw new MistException("reduce does not know how to handle " + argCount + " arguments.");
@@ -29,10 +31,8 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 
         private IEnumerable<Expression> PrependSeedToList(IEnumerable<Expression> arguments)
         {
-            yield return arguments.First();
-
-            var list = (ListExpression)arguments.Third();
-            list.Elements.Insert(0, arguments.Second());
+            var list = arguments.GetAt<ListExpression>(1);
+            list.Elements.Insert(0, arguments.First());
             yield return list;
         }
     }

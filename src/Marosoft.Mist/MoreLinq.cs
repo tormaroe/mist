@@ -19,5 +19,10 @@ namespace Marosoft.Mist
         {
             return self.Skip(3).First();
         }
+
+        public static T GetAt<T>(this IEnumerable<Expression> self, int index) where T : Expression
+        {
+            return (T) self.Skip(index).First();
+        }
     }
 }
