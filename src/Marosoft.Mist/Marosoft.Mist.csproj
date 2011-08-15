@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluation\FormalParameters.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\ConcatFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FilterFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FirstFunction.cs" />

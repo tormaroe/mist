@@ -10,8 +10,8 @@ Main areas remaining:
 
 Wishlist, in prioritized order:
 
-* Stream processiong functions with f argument: all, any, distinct (with comparer), orderby + descending, selectmany, takewhile, first, zip
-* Other list functions: concat (two lists), contains, count, alamantat, last, max, min, reverse, skip (drop), take
+* Stream processiong functions with f argument: all, any, distinct (with comparer), orderby + descending, selectmany, takewhile, first (with function)
+* Other list functions: concat (two lists), contains, count, alamantat, last, max, min, reverse, skip (drop), take, append
 * TEST THAT PRECONDITIONS ARE USED!!
 * Add extension methods to all kind of objects to make it easier to create expressions from anything...
 * Reflection used when loading special forms is cleaner than for built in functions

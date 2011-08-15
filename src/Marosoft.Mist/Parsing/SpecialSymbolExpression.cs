@@ -31,6 +31,18 @@ namespace Marosoft.Mist.Parsing
                 return base.IsTrue;
             }
         }
+
+        public override bool IsNil
+        {
+            get
+            {
+                if (Token.Text == "nil")
+                    return true;
+
+                return base.IsNil;
+            }
+        }
+
     }
 
 }

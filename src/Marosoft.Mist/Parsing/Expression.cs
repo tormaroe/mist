@@ -38,5 +38,13 @@ namespace Marosoft.Mist.Parsing
                 return true;
             }
         }
+
+        public virtual bool IsNil
+        {
+            get
+            {
+                return false;
+            }
+        }
     }
 }

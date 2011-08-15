@@ -22,4 +22,5 @@ namespace test.Evaluation
             result.ToString().ShouldEqual("(10 6 4)");
         }
     }
+
 }
