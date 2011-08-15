@@ -10,6 +10,8 @@ namespace test.Evaluation
     {
         // TODO: expand tests when variable count arguments available
 
+        // TODO: test "short circuting"
+
         [Test]
         public void AND__positive_test()
         {

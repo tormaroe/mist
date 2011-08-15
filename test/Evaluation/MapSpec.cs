@@ -56,6 +56,20 @@ namespace test.Evaluation
             list.Elements.First().Value.ShouldEqual("doc a");
             list.Elements.Second().Value.ShouldEqual("doc b");
             list.Elements.Third().Value.ShouldEqual("doc c");
+        }        
+
+        [Test]
+        public void A_scope_test()
+        {
+            Evaluate(@"
+
+                (defun foo (y) 
+                  (map (fn (x) (+ y x)) 
+                       (list 1 2 3)))
+
+                (foo 2)
+            ");
+            result.ToString().ShouldEqual("(3 4 5)");
         }
 
         [Test]
