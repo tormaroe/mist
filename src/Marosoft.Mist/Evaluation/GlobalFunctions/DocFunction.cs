@@ -17,12 +17,17 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
             // Could also print a ruler
             // see http://clojuredocs.org/clojure_core/clojure.core/doc
 
-            Precondition = args =>
-                args.Count() == 1
-                && args.First().Token.Type == Tokens.SYMBOL;
+        }
 
-            Implementation = args =>
-                args.First().DocString;
+        protected override Expression InternalCall(System.Collections.Generic.IEnumerable<Expression> args)
+        {
+            return args.First().DocString;
+        }
+
+        protected override bool Precondition(System.Collections.Generic.IEnumerable<Expression> args)
+        {
+            return args.Count() == 1
+                && args.First().Token.Type == Tokens.SYMBOL;
         }
     }
 }

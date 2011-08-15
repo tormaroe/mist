@@ -5,13 +5,14 @@ using System.Collections.Generic;
 namespace Marosoft.Mist.Evaluation.GlobalFunctions
 {
     [GlobalFunction]
-    public class ReduceFunction : ListManipulatorFunction
+    public class ReduceFunction : BuiltInFunction
     {
         public ReduceFunction(Bindings scope) : base("reduce", scope) { }
 
-        protected override Expression InternalCall(Function f, IEnumerable<Expression> args)
+        protected override Expression InternalCall(IEnumerable<Expression> args)
         {
-            args = PreProcessArguments(args);
+            var f = (Function)args.First();
+            args = PreProcessArguments(args.Skip(1));
             var list = ((ListExpression)args.First()).Elements;
             return list.Aggregate((acc, x) => f.Call(new Expression[] { acc, x }));
         }

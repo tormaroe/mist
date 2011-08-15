@@ -1,6 +1,7 @@
 using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using System.Collections.Generic;
 
 namespace Marosoft.Mist.Evaluation.GlobalFunctions
 {
@@ -10,11 +11,12 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         public ListFunction(Bindings scope)
             : base("list", scope)
         {
-            Precondition = args =>
-                args.Count() > 0;
-
-            Implementation = args =>
-                new ListExpression(args);
         }
+
+        protected override Expression InternalCall(IEnumerable<Expression> args)
+        {
+            return new ListExpression(args);
+        }
+
     }
 }

@@ -1,24 +1,26 @@
 using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using System.Collections.Generic;
 
 namespace Marosoft.Mist.Evaluation.GlobalFunctions
 {
     [GlobalFunction]
     public class EqualsFunction : BuiltInFunction
     {
-        public EqualsFunction(Bindings scope)
-            : base("=", scope)
-        {
-            Precondition = args => args.Count() >= 2;
+        public EqualsFunction(Bindings scope) : base("=", scope) {}
 
-            Implementation = args =>
-            {
-                var firstValue = args.First().Value;
-                if (args.Skip(1).All(x => x.Value.Equals(firstValue)))
-                    return Scope.Resolve("true");
-                return Scope.Resolve("false");
-            };
+        protected override Expression InternalCall(IEnumerable<Expression> args)
+        {
+            var firstValue = args.First().Value;
+            if (args.Skip(1).All(x => x.Value.Equals(firstValue)))
+                return Scope.Resolve("true");
+            return Scope.Resolve("false");
+        }
+
+        protected override bool Precondition(IEnumerable<Expression> args)
+        {
+            return args.Count() >= 2;
         }
     }
 }

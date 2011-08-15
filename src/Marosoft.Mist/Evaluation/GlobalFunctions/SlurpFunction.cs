@@ -1,6 +1,7 @@
 using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using System.Collections.Generic;
 
 namespace Marosoft.Mist.Evaluation.GlobalFunctions
 {
@@ -14,15 +15,19 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 Reads the file named by f into a list of strings (separated by 
 line breaks) and returns it.");
 
-            Precondition = args =>
-                    args.Count() == 1 && args.First().Token.Type == Tokens.STRING;
+        }
 
-            Implementation = args =>
-            {
-                var file = (string)args.First().Value;
-                var txt = System.IO.File.ReadAllText(file);
-                return StringExpression.Create(txt);                
-            };
+        protected override Expression InternalCall(IEnumerable<Expression> args)
+        {
+            var file = (string)args.First().Value;
+            var txt = System.IO.File.ReadAllText(file);
+            return StringExpression.Create(txt); 
+        }
+
+        protected override bool Precondition(IEnumerable<Expression> args)
+        {
+            return args.Count() == 1 
+                && args.First().Token.Type == Tokens.STRING;
         }
     }
 }

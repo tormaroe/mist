@@ -3,6 +3,7 @@ using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Evaluation;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Marosoft.Mist.Repl
 {
@@ -48,29 +49,44 @@ namespace Marosoft.Mist.Repl
             interpreter = new Interpreter();
             var global = ((Bindings)interpreter.CurrentScope);
 
-            global.AddBinding(new BuiltInFunction("restart", global)
-            {
-                Precondition = arguments => arguments.Count() == 0,
-                Implementation = arguments =>
-                {
-                    Console.WriteLine("RESTARTING ENVIRONMENT");
-                    InitializeInterpreter();
-                    return null;
-                }
-            });
-
-            global.AddBinding(new BuiltInFunction("quit", global)
-            {
-                Precondition = arguments => arguments.Count() == 0,
-                Implementation = arguments =>
-                {
-                    Console.WriteLine("BYE BYE!");
-                    System.Environment.Exit(0);
-                    return null;
-                }
-            });
+            global.AddBinding(new Restart(global));
+            global.AddBinding(new Quit(global));
 
             LoadUserConfig();
+        }
+
+        public class Restart : BuiltInFunction
+        {
+            public Restart(Bindings scope) : base("restart", scope) { }
+            
+            protected override bool Precondition(System.Collections.Generic.IEnumerable<Expression> args)
+            {
+                return args.Count() == 0;
+            }
+
+            protected override Expression InternalCall(System.Collections.Generic.IEnumerable<Expression> args)
+            {
+                Console.WriteLine("RESTARTING ENVIRONMENT");
+                InitializeInterpreter();
+                return null;
+            }
+        }
+
+        public class Quit : BuiltInFunction
+        {
+            public Quit(Bindings scope) : base("quit", scope) { }
+
+            protected override bool Precondition(IEnumerable<Expression> args)
+            {
+                return args.Count() == 0;
+            }
+
+            protected override Expression InternalCall(IEnumerable<Expression> args)
+            {
+                Console.WriteLine("BYE BYE!");
+                System.Environment.Exit(0);
+                return null;
+            }
         }
 
         private static void LoadUserConfig()

@@ -8,7 +8,7 @@ namespace Marosoft.Mist.Evaluation
 {
     // TODO: Macro and Lambda are almost the same - do I need two different classes?
 
-    public class Lambda : FunctionExpression, Function
+    public class Lambda : ScopedExpression, Function
     {
         private Environment _environment;
         protected FormalParameters _formalParameters;
