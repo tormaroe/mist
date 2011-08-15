@@ -49,6 +49,7 @@
     <Compile Include="Evaluation\GlobalFunctions\MultiplyFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ReduceFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\RestFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\ZipFunction.cs" />
     <Compile Include="Evaluation\Macro.cs" />
     <Compile Include="Evaluation\MistCore.cs" />
     <Compile Include="Evaluation\ScopedExpression.cs" />

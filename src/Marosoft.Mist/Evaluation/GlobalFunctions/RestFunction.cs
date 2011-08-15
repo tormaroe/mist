@@ -13,7 +13,6 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         {
         }
 
-
         protected override Expression InternalCall(IEnumerable<Expression> args)
         {
             return new ListExpression(((ListExpression)args.First()).Elements.Skip(1));

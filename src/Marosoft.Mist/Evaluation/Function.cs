@@ -16,5 +16,10 @@ namespace Marosoft.Mist.Evaluation
         {
             return f.Call(new Expression[] { expr }.AsEnumerable());
         }
+
+        public static Expression Call(this Function f, params Expression[] exprs)
+        {
+            return f.Call(exprs.AsEnumerable());
+        }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Evaluation\ReduceSpec.cs" />
     <Compile Include="Evaluation\StaticMethods.cs" />
     <Compile Include="Evaluation\ZeropSpec.cs" />
+    <Compile Include="Evaluation\ZipSpec.cs" />
     <Compile Include="Lexing\BaseLexerTest.cs" />
     <Compile Include="Lexing\LexingSpec.cs" />
     <Compile Include="Lexing\TokenizeThis.cs" />

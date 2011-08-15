@@ -10,6 +10,8 @@ namespace Marosoft.Mist.Evaluation
         
         public Expression Call(IEnumerable<Expression> args)
         {
+            // TODO: call precoditions
+
             return InternalCall(args);
         }
 
