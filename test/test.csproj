@@ -62,6 +62,7 @@
     <Compile Include="Evaluation\IncAndDecSpec.cs" />
     <Compile Include="Evaluation\ListSpec.cs" />
     <Compile Include="Evaluation\LoadSpec.cs" />
+    <Compile Include="Evaluation\MapcatSpec.cs" />
     <Compile Include="Evaluation\MapSpec.cs" />
     <Compile Include="Evaluation\QuoteSpec.cs" />
     <Compile Include="Evaluation\ReduceSpec.cs" />
