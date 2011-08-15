@@ -48,6 +48,7 @@
     <Compile Include="Evaluation\GlobalFunctions\ListManipulatorFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MapFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MultiplyFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\ReduceFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\RestFunction.cs" />
     <Compile Include="Evaluation\Macro.cs" />
     <Compile Include="Evaluation\MistCore.cs" />

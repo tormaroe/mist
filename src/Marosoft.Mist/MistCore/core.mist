@@ -18,8 +18,11 @@
 			(quote false))
 		(quote false)))
 
-(def select map) ; Alias for Linq lovers
-(def where filter) ; Alias for Linq lovers
+(def select map)			; Alias for Linq lovers
+(def where filter)			; Alias for Linq lovers
+(def aggregate reduce)		; Alias for Linq lovers
+(def inject reduce)			; Alias for Ruby lovers
+(def fold reduce)			; Alias for FP lovers
 
 ; TODO: CHANGE USE OF DEF TO DEFINE FUNCTIONS INTO DEFUN WHEN OPTIONAL ARGUMENTS BECOME AVAILABLE..
 ; IT WORKS NOW, BUT NOT IF I WANT DOC STRINGS

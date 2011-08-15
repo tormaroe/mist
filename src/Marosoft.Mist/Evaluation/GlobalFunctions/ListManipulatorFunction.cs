@@ -17,12 +17,12 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         public ListManipulatorFunction(
             string symbol, 
             Bindings scope, 
-            Func<Function, IEnumerable<Expression>, Expression> manipulation)
+            Func<Function, IEnumerable<Expression>, Expression> manipulation)            
             : 
             base(symbol, scope)
         {
             Precondition = args =>
-                args.Count() == 2 // Enhance to take more than one list
+                args.Count() >= 2
                 &&
                 args.First() is Function
                 &&
@@ -30,11 +30,19 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 
             Implementation = args =>
             {
+                args = PreProcessArguments(args);
+
                 var f = (Function)args.First();
                 var sourceList = (ListExpression)args.Second();
 
                 return manipulation.Invoke(f, sourceList.Elements);
             };
         }
+
+        protected virtual IEnumerable<Expression> PreProcessArguments(IEnumerable<Expression> arguments) 
+        {
+            return arguments;
+        }
+        
     }
 }
