@@ -8,7 +8,7 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
     [GlobalFunction]
     public class AddFunction : BuiltInFunction
     {
-        public AddFunction(Bindings scope) : base("+", scope) {}
+        public AddFunction(Bindings scope) : base("+", scope) { }
 
         protected override Expression InternalCall(IEnumerable<Expression> args)
         {

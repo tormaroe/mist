@@ -6,6 +6,7 @@ using Marosoft.Mist.Evaluation;
 
 namespace test.Evaluation
 {
+
     public class FnSpec : EvaluationTests
     {
         [Test]

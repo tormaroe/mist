@@ -58,6 +58,7 @@
     <Compile Include="Evaluation\FilterSpec.cs" />
     <Compile Include="Evaluation\FirstAndRestSpec.cs" />
     <Compile Include="Evaluation\FnSpec.cs" />
+    <Compile Include="Evaluation\IdentitySpec.cs" />
     <Compile Include="Evaluation\IfSpec.cs" />
     <Compile Include="Evaluation\IncAndDecSpec.cs" />
     <Compile Include="Evaluation\ListSpec.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Evaluation\QuoteSpec.cs" />
     <Compile Include="Evaluation\ReduceSpec.cs" />
     <Compile Include="Evaluation\ReverseSpec.cs" />
+    <Compile Include="Evaluation\SortSpec.cs" />
     <Compile Include="Evaluation\StaticMethods.cs" />
     <Compile Include="Evaluation\ZeropSpec.cs" />
     <Compile Include="Evaluation\ZipSpec.cs" />

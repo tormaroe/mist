@@ -23,6 +23,7 @@
 (def aggregate reduce)		; Alias for Linq lovers
 (def inject reduce)			; Alias for Ruby lovers
 (def fold reduce)			; Alias for FP lovers
+(def order-by sort)			; Alias for Linq lovers
 
 ; TODO: CHANGE USE OF DEF TO DEFINE FUNCTIONS INTO DEFUN WHEN OPTIONAL ARGUMENTS BECOME AVAILABLE..
 ; IT WORKS NOW, BUT NOT IF I WANT DOC STRINGS
@@ -31,3 +32,5 @@
 (def dec "Returns a number one less than num." (fn (x) (- x 1)))
 
 (def zero? "Returns true if num is zero, else false" (fn (x) (= x 0)))
+
+(defun identity (x) x) 
