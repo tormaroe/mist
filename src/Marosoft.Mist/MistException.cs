@@ -19,7 +19,7 @@ namespace Marosoft.Mist
         public ParseException(string format, params object[] args)
             : base(string.Format(format, args))
         {
-
+            
         }
     }
 
@@ -42,9 +42,10 @@ namespace Marosoft.Mist
 
     public class MistException : Exception
     {
-        public MistException(string message) : base(message)
+        public MistException(string message)
+            : base(message)
         {
-            
+
         }        
     }
 }

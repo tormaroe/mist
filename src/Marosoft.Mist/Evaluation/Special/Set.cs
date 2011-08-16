@@ -17,7 +17,7 @@ namespace Marosoft.Mist.Evaluation.Special
 
             Environment.CurrentScope.UpdateBinding(symbol, value);
 
-            return Environment.CurrentScope.Resolve("nil");
+            return value;
         }
     }
 }

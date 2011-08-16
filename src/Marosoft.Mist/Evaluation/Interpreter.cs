@@ -101,7 +101,7 @@ namespace Marosoft.Mist.Evaluation
             if (f is Function)
                 return (Function)f;
 
-            throw new Exception(fExpr.ToString() + " is not a function");
+            throw new MistException(fExpr.ToString() + " is not a function");
         }
 
         public T WithScope<T>(Bindings s, Func<T> call)

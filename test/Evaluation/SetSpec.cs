@@ -6,6 +6,7 @@ namespace test.Evaluation
 {
     public class SetSpec : EvaluationTests
     {
+        [Test]        
         public void Set_in_global_scope()
         {
             Evaluate(@"
@@ -15,6 +16,18 @@ namespace test.Evaluation
 
             ");
             interpreter.CurrentScope.Resolve("foo").Value.ShouldEqual(200);
+        }
+
+        [Test]        
+        public void Set_should_return_new_value()
+        {
+            Evaluate(@"
+
+                (def foo 100)
+                (set! foo (+ foo 100))
+
+            ");
+            result.Value.ShouldEqual(200);
         }
 
         [Test]

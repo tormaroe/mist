@@ -78,5 +78,55 @@ namespace test.Evaluation
                     ");
             result.Value.ShouldEqual(102);
         }
+
+
+        [Test]
+        public void Return_lambda_from_function()
+        {
+            Evaluate(@" 
+                        (defun make-adder (x)
+                            (fn (y)
+                                (+ x y)))
+
+                        (def add-10 (make-adder 10))
+
+                        (add-10 1) 
+                    ");
+            result.Value.ShouldEqual(11);
+        }
+
+        [Test]
+        public void Ultimate_higher_order_test()
+        {
+            Evaluate(@"
+
+                (defun make-fun ()
+                    (fn () 1))
+
+                (def the-fun (make-fun))
+
+                (defun call-fun (fun)
+                    (fun))
+
+                (call-fun the-fun)
+
+            ");
+            result.Value.ShouldEqual(1);
+        }
+
+        [Test]
+        public void Fn_can_have_multiple_expressions_in_body()
+        {
+            Evaluate(@"
+
+                (def foo (fn ()
+                    (list 1 2 3)
+                    (list 4 5 6)))
+
+                (foo)
+
+            ");
+            result.ToString().ShouldEqual("(4 5 6)");
+        }
     }
 }

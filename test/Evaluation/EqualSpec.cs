@@ -38,5 +38,19 @@ namespace test.Evaluation
             Evaluate("(= \"foo\" \"bar\")");
             result.IsTrue.ShouldBeFalse();
         }
+
+        [Test]
+        public void Equal_symbols()
+        {
+            Evaluate("(= (quote foo) (quote foo))");
+            result.IsTrue.ShouldBeTrue();
+        }
+
+        [Test]
+        public void NOT_Equal_symbols()
+        {
+            Evaluate("(= (quote foo) (quote bar))");
+            result.IsTrue.ShouldBeFalse();
+        }
     }
 }

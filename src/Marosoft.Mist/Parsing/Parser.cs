@@ -78,8 +78,25 @@ namespace Marosoft.Mist.Parsing
         {
             get
             {
-                return _tokens[_tokenIndex];
+                try
+                {
+                    return _tokens[_tokenIndex];
+                }
+                catch (ArgumentOutOfRangeException outOfRange)
+                {
+                    throw new ParseException("Parser trying to read beond end of token stream.\n{0}", GetEndOfTokenStreamForExceptionMessage(_tokens));
+                }
             }
+        }
+
+        private string GetEndOfTokenStreamForExceptionMessage(List<Token> tokens)
+        {
+            const int tokensToDisplay = 8;
+            int toSkip = tokens.Count > tokensToDisplay ? tokens.Count - tokensToDisplay : 0;
+            return tokens
+                .Skip(toSkip)
+                .Aggregate("", (acc, token) => acc + " " + token.ToString())
+                + " ... ";
         }
 
         /// <summary>
