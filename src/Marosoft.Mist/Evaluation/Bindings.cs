@@ -22,17 +22,36 @@ namespace Marosoft.Mist.Evaluation
 
         public void AddBinding(Expression expr)
         {
+            //TODO: should probably store the symbol here as well
+            // will make it possible to retrieve the doc string from the symbol instead of the value
+
             AddBinding(expr.Token.Text, expr);
         }
 
         public void AddBinding(string symbol, Expression expr)
         {
+            // Above TODO will make this method problematic
+
             _symbolBindings.Add(symbol, expr);
         }
 
         public void RemoveBinding(string symbol)
         {
             _symbolBindings.Remove(symbol);
+        }
+
+        internal void UpdateBinding(Expression symbol, Expression value)
+        {
+            string key = symbol.Token.Text;
+
+            if (_symbolBindings.ContainsKey(key))
+                _symbolBindings[key] = value;
+
+            else if (ParentScope != null)
+                ParentScope.UpdateBinding(symbol, value);
+
+            else 
+                throw new SymbolResolveException(key);
         }
     }
 }

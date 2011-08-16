@@ -38,7 +38,7 @@ namespace Marosoft.Mist.Lexing
 		new TokenInfo { token = "EOF" }, 
 		new TokenInfo { token = "WS",         regex = "^([ \\t\\r\\n])+", dont_include = true },		
 		new TokenInfo { token = "INT" ,       regex = "^(-)?(\\d)+"},
-		new TokenInfo { token = "SYMBOL" ,    regex = "^([a-zA-Z\\+\\-\\?\\=\\*])+([\\w\\+\\-\\?\\=\\.\\*])*"},		
+		new TokenInfo { token = "SYMBOL" ,    regex = "^([a-zA-Z\\+\\-\\?\\=\\*])+([\\w\\+\\-\\?\\=\\.\\*!])*"},		
 		new TokenInfo { token = "COMMENT" ,   regex = "^;[^\\r\\n]*", dont_include = true }, 
 		new TokenInfo { token = "STRING" ,    regex = "^\"[^\"]*\""},
 		new TokenInfo { token = "LEFTPAREN" , regex = "^\\("},

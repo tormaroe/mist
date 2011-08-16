@@ -25,7 +25,7 @@ namespace test.Evaluation
                 .ShouldEqual("A function");
 
             // to-subtract, defined inside f, should now be out of scope..
-            typeof(SymbolResolveException).ShouldBeThrownBy(() => 
+            typeof(SymbolResolveException).ShouldBeThrownBy(() =>
                 interpreter.CurrentScope.Resolve("to-subtract"));
         }
     }
