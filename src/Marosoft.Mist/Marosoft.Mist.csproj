@@ -45,7 +45,6 @@
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FilterFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FirstFunction.cs" />
-    <Compile Include="Evaluation\GlobalFunctions\Func.cs" />
     <Compile Include="Evaluation\GlobalFunctions\GtEqFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\GTFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ListFunction.cs" />
