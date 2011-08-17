@@ -38,8 +38,8 @@ namespace test.Evaluation
                 (def foo (list 1 2 2))
                 (def bar (aggregate (fn (acc x) (- acc x)) 10 foo))
             ");
-            interpreter.Evaluate("((fn () bar))").ToString().ShouldEqual("5");
-            interpreter.Evaluate("((fn () foo))").ToString().ShouldEqual("(1 2 2)");
+            interpreter.EvaluateString("((fn () bar))").ToString().ShouldEqual("5");
+            interpreter.EvaluateString("((fn () foo))").ToString().ShouldEqual("(1 2 2)");
         }
     }
 }

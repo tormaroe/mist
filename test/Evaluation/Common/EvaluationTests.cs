@@ -14,7 +14,7 @@ namespace test.Evaluation.Common
         protected void Evaluate(string source)
         {
             interpreter = new Interpreter();
-            result = interpreter.Evaluate(source);
+            result = interpreter.EvaluateString(source);
         }
     }
 }

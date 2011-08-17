@@ -6,19 +6,19 @@ using System.Reflection;
 
 namespace Marosoft.Mist.Evaluation
 {
-    public class SpecialForms
+    public static class SpecialForms
     {
-        private readonly Environment _environment;
-        private Dictionary<string, Func<Expression, Expression>> _formsMap;
+        private static Environment _environment;
+        private static Dictionary<string, Func<Expression, Expression>> _formsMap;
 
-        public SpecialForms(Environment environment)
+        public static void Load(Environment environment)
         {
             _environment = environment;            
             _formsMap = new Dictionary<string, Func<Expression, Expression>>();
             Array.ForEach(Assembly.GetCallingAssembly().GetTypes(), LoadSpecialForm);
         }
 
-        public void LoadSpecialForm(Type t)
+        public static void LoadSpecialForm(Type t)
         {
             var formAttribute = Attribute.GetCustomAttribute(t, typeof(SpecialFormAttribute)) as SpecialFormAttribute;
 
@@ -30,12 +30,12 @@ namespace Marosoft.Mist.Evaluation
             }
         }
 
-        public bool IsSpecialForm(string name)
+        public static bool IsSpecialForm(string name)
         {
             return _formsMap.ContainsKey(name);
         }
 
-        public Expression CallSpecialForm(Expression expr)
+        public static Expression CallSpecialForm(Expression expr)
         {
             return _formsMap[expr.Elements.First().Token.Text](expr);
         }

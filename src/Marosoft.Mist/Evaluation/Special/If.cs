@@ -16,10 +16,10 @@ namespace Marosoft.Mist.Evaluation.Special
             var then = expr.Elements.Third();
             var @else = expr.Elements.Count == 4 ? expr.Elements.Forth() : null;
 
-            if (Environment.Evaluate(test).IsTrue)
-                return Environment.Evaluate(then);
+            if (Evaluate(test).IsTrue)
+                return Evaluate(then);
             if (@else != null)
-                return Environment.Evaluate(@else);
+                return Evaluate(@else);
             return Environment.CurrentScope.Resolve("nil");
         }
     }

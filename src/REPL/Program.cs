@@ -123,7 +123,7 @@ namespace Marosoft.Mist.Repl
 
         private static Expression EVAL(string input)
         {
-            return interpreter.Evaluate(input);
+            return interpreter.EvaluateString(input);
         }
 
         private static void PRINT(Expression exp)

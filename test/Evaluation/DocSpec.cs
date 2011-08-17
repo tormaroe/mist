@@ -17,7 +17,7 @@ namespace test.Evaluation
 
             result.Value.ShouldEqual(10);
 
-            var doc = base.interpreter.Evaluate("(doc foo)");
+            var doc = base.interpreter.EvaluateString("(doc foo)");
             doc.Token.Type.ShouldEqual(Tokens.STRING);
             doc.Value.ShouldEqual("some doc");
 

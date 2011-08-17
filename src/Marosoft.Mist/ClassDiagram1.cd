@@ -1,174 +1,440 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Marosoft.Mist.Evaluation.BasicScope" Collapsed="true">
-    <Position X="0.75" Y="6.5" Width="1.5" />
+  <Class Name="Marosoft.Mist.Evaluation.Bindings" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAACAAAAABAAQgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Evaluation\BasicScope.cs</FileName>
+      <HashCode>AAAAAAAAAACAAAACAAAAABAIQgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Bindings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.BuiltInFunction" Collapsed="true">
+    <Position X="14.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\BuiltInFunction.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.GlobalScope" Collapsed="true">
-    <Position X="0.75" Y="7.75" Width="1.5" />
+  <Class Name="Marosoft.Mist.Evaluation.FormalParameters" Collapsed="true">
+    <Position X="18.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAQAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\FormalParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.FunctionExtensions" Collapsed="true">
+    <Position X="12.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Function.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctionAttribute" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctionAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalScope" Collapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Evaluation\GlobalScope.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Evaluation.Interpreter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="16.75" Y="0.5" Width="1.5" />
+    <Position X="4" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIgAAAAAAIAAAASAAAoAAAAGAAAAAAAAAAAABCAI=</HashCode>
+      <HashCode>AAAAIAAAAAAAAAAAAQAAAAAAAAEAAAEABAAAAAAAAAA=</HashCode>
       <FileName>Evaluation\Interpreter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.SpecialForms" Collapsed="true">
-    <Position X="18.5" Y="1.5" Width="1.5" />
+  <Class Name="Marosoft.Mist.Evaluation.Lambda" Collapsed="true">
+    <Position X="16.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAACAAAwAAAACAAAAAAAAgAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAQCAAAAAIAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Evaluation\Lambda.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Macro" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIAAAAAAAAAAAAAAAAAgAAAAAAIAAAEAAAAAAAEAA=</HashCode>
+      <FileName>Evaluation\Macro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.MistCore" Collapsed="true">
+    <Position X="18.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\MistCore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.ScopedExpression" Collapsed="true">
+    <Position X="15.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\ScopedExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.SpecialForm" Collapsed="true">
+    <Position X="3.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAACAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\SpecialForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.SpecialFormAttribute" Collapsed="true">
+    <Position X="1" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\SpecialFormAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.SpecialForms" Collapsed="true">
+    <Position X="5.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAwAAAAAEAAAAAAAgAAAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Evaluation\SpecialForms.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.AddFunction" Collapsed="true">
+    <Position X="9" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\AddFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ConcatFunction" Collapsed="true">
+    <Position X="10.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\ConcatFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.DocFunction" Collapsed="true">
+    <Position X="9" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\DocFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.EqualsFunction" Collapsed="true">
+    <Position X="12.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\EqualsFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.FilterFunction" Collapsed="true">
+    <Position X="17.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\FilterFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.FirstFunction" Collapsed="true">
+    <Position X="19.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\FirstFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.GtEqFunction" Collapsed="true">
+    <Position X="15.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\GtEqFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.GTFunction" Collapsed="true">
+    <Position X="13.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\GTFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ListFunction" Collapsed="true">
+    <Position X="10.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\ListFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.LtEqFunction" Collapsed="true">
+    <Position X="15.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\LtEqFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.LTFunction" Collapsed="true">
+    <Position X="13.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\LTFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.LTGTFunctionBase" Collapsed="true">
+    <Position X="14.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\LTGTFunctionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.MapFunction" Collapsed="true">
+    <Position X="19.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\MapFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.MultiplyFunction" Collapsed="true">
+    <Position X="17.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\MultiplyFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ReduceFunction" Collapsed="true">
+    <Position X="19.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\ReduceFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.RestFunction" Collapsed="true">
+    <Position X="19.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\RestFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ReverseFunction" Collapsed="true">
+    <Position X="9" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\ReverseFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.SlurpFunction" Collapsed="true">
+    <Position X="9" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\SlurpFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.SortFunction" Collapsed="true">
+    <Position X="10.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\SortFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.SubtractFunction" Collapsed="true">
+    <Position X="16" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\SubtractFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ZipFunction" Collapsed="true">
+    <Position X="17.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\ZipFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.Def" Collapsed="true">
+    <Position X="6" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\Def.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.DefMacro" Collapsed="true">
+    <Position X="4.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\DefMacro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.Fn" Collapsed="true">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\Fn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.If" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\If.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.Load" Collapsed="true">
+    <Position X="2.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\Load.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.Quote" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\Quote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.Set" Collapsed="true">
+    <Position X="2.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\Set.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.Special.Time" Collapsed="true">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAgAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Special\Time.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="Marosoft.Mist.Lexing.Lexer" Collapsed="true">
-    <Position X="18.5" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAIBAAg=</HashCode>
       <FileName>Lexing\Lexer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Lexing.Token" Collapsed="true">
-    <Position X="15" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAQAACAAAAAA=</HashCode>
       <FileName>Lexing\Token.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Lexing.TokenRecognizer" Collapsed="true">
-    <Position X="16.75" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Lexing\TokenRecognizer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Lexing.Tokens" Collapsed="true">
-    <Position X="18.5" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQBAAAAABAAAAAAAAAAABIQAAAAIIQAAAIAAgAAgAAA=</HashCode>
+      <HashCode>AQBAAAAABAAAgAAAAAAABIQAAAAIIQAAAIAAgAAgAAA=</HashCode>
       <FileName>Lexing\Tokens.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.ParseException" Collapsed="true">
-    <Position X="1" Y="5" Width="1.5" />
+    <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MistException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.SymbolResolveException" Collapsed="true">
-    <Position X="3.25" Y="5" Width="1.5" />
+    <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MistException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.FunctionEvaluationPreconditionException" Collapsed="true">
-    <Position X="5.5" Y="5" Width="1.5" />
+    <Position X="4" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MistException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.MistException" Collapsed="true">
-    <Position X="3.25" Y="3.5" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MistException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.MoreLinq" Collapsed="true">
-    <Position X="15" Y="1.5" Width="1.5" />
+    <Position X="6.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAgIAAAIAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>MoreLinq.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.Expression" Collapsed="true">
-    <Position X="6.75" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgEAAAQAAAAAAAAAAAAAAAgAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAgEAAAwAgAAAACAAAAAAAAgAAABAAA=</HashCode>
       <FileName>Parsing\Expression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.ExpressionFactory" Collapsed="true">
-    <Position X="15" Y="0.5" Width="1.5" />
+    <Position X="14.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Parsing\ExpressionFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.IntExpression" Collapsed="true">
-    <Position X="8" Y="1.75" Width="1.5" />
+    <Position X="10" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Parsing\IntExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.ListExpression" Collapsed="true">
-    <Position X="12.5" Y="1.75" Width="1.5" />
+    <Position X="10" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAIAEEAAAAAgAAIAQAAAAAAABAAAAAAAA=</HashCode>
       <FileName>Parsing\ListExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.Parser" Collapsed="true">
-    <Position X="16.75" Y="1.5" Width="1.5" />
+    <Position X="2.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAgAIAAQAAAAAAAgAAAQAAAQAAAAAAAAAAAIAEAo=</HashCode>
+      <HashCode>AAAgAgAIAAQAAAAAAAgAAAQAAAQAAAAAAAAAAAIAFAo=</HashCode>
       <FileName>Parsing\Parser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.SpecialSymbolExpression" Collapsed="true">
-    <Position X="1.25" Y="1.75" Width="1.5" />
+    <Position X="13.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAgEAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Parsing\SpecialSymbolExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.StringExpression" Collapsed="true">
-    <Position X="5.75" Y="1.75" Width="1.5" />
+    <Position X="17" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Parsing\StringExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Parsing.SymbolExpression" Collapsed="true">
-    <Position X="10.25" Y="1.75" Width="1.5" />
+    <Position X="18.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Parsing\SymbolExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.BuiltInFunction" Collapsed="true">
-    <Position X="3.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQABAIACAAAAAAQAAAQCAQgAAIAAAAAAAAAAAAAI=</HashCode>
-      <FileName>Evaluation\BuiltInFunction.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Interface Name="Marosoft.Mist.Evaluation.Environment" Collapsed="true">
-    <Position X="15" Y="3.75" Width="1.5" />
+    <Position X="4" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAAAAAAQAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>Evaluation\Environment.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Marosoft.Mist.Evaluation.Scope" Collapsed="true">
-    <Position X="16.75" Y="3.75" Width="1.5" />
+  <Interface Name="Marosoft.Mist.Evaluation.Function" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAQgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Evaluation\Scope.cs</FileName>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\Function.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

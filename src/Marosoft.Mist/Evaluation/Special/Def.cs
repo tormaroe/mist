@@ -17,12 +17,12 @@ namespace Marosoft.Mist.Evaluation.Special
 
             if (expr.Elements.Count == 3)
             {
-                value = Environment.Evaluate(expr.Elements.Third());
+                value = Evaluate(expr.Elements.Third());
             }
             else if (expr.Elements.Count == 4 && expr.Elements.Third().Token.Type == Tokens.STRING)
             {
-                value = Environment.Evaluate(expr.Elements.Forth());
-                value.DocString = Environment.Evaluate(expr.Elements.Third()) as StringExpression;
+                value = Evaluate(expr.Elements.Forth());
+                value.DocString = Evaluate(expr.Elements.Third()) as StringExpression;
             }
             else
                 throw new MistException("Special form 'def' needs 2 parameters (+ an optional doc string), not " + (expr.Elements.Count - 1));

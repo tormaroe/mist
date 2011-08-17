@@ -13,7 +13,7 @@ namespace Marosoft.Mist.Evaluation.Special
             if (symbol.Token.Type != Tokens.SYMBOL)
                 throw new MistException(string.Format("The first argument to set! does not evaluate to a symbol ({0})", symbol.Token));
 
-            Expression value = Environment.Evaluate(expr.Elements.Third());
+            Expression value = Evaluate(expr.Elements.Third());
 
             Environment.CurrentScope.UpdateBinding(symbol, value);
 

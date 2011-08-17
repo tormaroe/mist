@@ -17,5 +17,10 @@ namespace Marosoft.Mist.Parsing
         {
             Value = token.Text;
         }
+
+        public override Expression Evaluate(Evaluation.Bindings scope)
+        {
+            return scope.Resolve(Token.Text);
+        }
     }
 }

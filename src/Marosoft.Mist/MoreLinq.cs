@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using Marosoft.Mist.Evaluation;
 
 namespace Marosoft.Mist
 {
@@ -23,6 +24,14 @@ namespace Marosoft.Mist
         public static T GetAt<T>(this IEnumerable<Expression> self, int index) where T : Expression
         {
             return (T) self.Skip(index).First();
+        }
+
+        public static Expression Evaluate(this IEnumerable<Expression> expressions, Bindings scope)
+        {
+            Expression result = null;
+            foreach (var expr in expressions)
+                result = expr.Evaluate(scope);
+            return result;
         }
     }
 }

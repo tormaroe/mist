@@ -28,7 +28,7 @@ namespace Marosoft.Mist.Evaluation.Special
             _privilegedProcessorTimeStart = currentProcess.PrivilegedProcessorTime;
 
             /* DO THE ACTUAL OPERATION */
-            var result = Environment.Evaluate(expr.Elements.Second());
+            var result = Evaluate(expr.Elements.Second());
 
             /* RECORD STOP TIME */
             _userProcessorTimeEnd = currentProcess.UserProcessorTime;

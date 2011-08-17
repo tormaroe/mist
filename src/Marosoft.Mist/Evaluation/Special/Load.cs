@@ -12,8 +12,8 @@ namespace Marosoft.Mist.Evaluation.Special
             if (expr.Elements.Count != 2 || expr.Elements.Second().Token.Type != Tokens.STRING)
                 throw new MistException("Load takes a single string argument.");
 
-            var source = Environment.Evaluate("(slurp " + expr.Elements.Second().ToString() + ")");
-            return Environment.Evaluate(source.Value.ToString());
+            var source = Environment.EvaluateString("(slurp " + expr.Elements.Second().ToString() + ")");
+            return Environment.EvaluateString(source.Value.ToString());
         }
     }
 }

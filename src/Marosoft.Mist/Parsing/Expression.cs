@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Marosoft.Mist.Lexing;
+using Marosoft.Mist.Evaluation;
 
 namespace Marosoft.Mist.Parsing
 {
@@ -21,6 +22,15 @@ namespace Marosoft.Mist.Parsing
         {
             Token = token;
             Elements = new List<Expression>();
+        }
+
+        /// <summary>
+        /// Default evaluation - evaluates to self
+        /// </summary>
+        /// <param name="scope">Not used in base evaluator</param>
+        public virtual Expression Evaluate(Bindings scope)
+        {
+            return this;
         }
 
         public override string ToString()

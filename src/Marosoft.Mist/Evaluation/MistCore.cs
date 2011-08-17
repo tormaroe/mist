@@ -10,7 +10,7 @@ namespace Marosoft.Mist.Evaluation
             var assembly = Assembly.GetCallingAssembly();
             string[] manifestResourceNames = assembly.GetManifestResourceNames();
             var reader = new StreamReader(assembly.GetManifestResourceStream("Marosoft.Mist.MistCore.core.mist"));
-            env.Evaluate(reader.ReadToEnd());
+            env.EvaluateString(reader.ReadToEnd());
         }
     }
 }

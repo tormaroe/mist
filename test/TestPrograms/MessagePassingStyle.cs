@@ -48,11 +48,11 @@ namespace test.TestPrograms
                 (deposit acc-2 50)  ; acc-2 should now have 150,-
             ");
 
-            interpreter.Evaluate("(identity acc-1)").ShouldBeOfType<Lambda>();
-            interpreter.Evaluate("(identity withdraw)").ShouldBeOfType<Lambda>();
+            interpreter.EvaluateString("(identity acc-1)").ShouldBeOfType<Lambda>();
+            interpreter.EvaluateString("(identity withdraw)").ShouldBeOfType<Lambda>();
 
-            interpreter.Evaluate("(withdraw acc-1 50)").Value.ShouldEqual(0);
-            interpreter.Evaluate("(deposit acc-2 50)").Value.ShouldEqual(200);
+            interpreter.EvaluateString("(withdraw acc-1 50)").Value.ShouldEqual(0);
+            interpreter.EvaluateString("(deposit acc-2 50)").Value.ShouldEqual(200);
         }
     }
 }

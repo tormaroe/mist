@@ -23,7 +23,7 @@ namespace Marosoft.Mist.Evaluation
             _formalParameters = new FormalParameters(expr.Elements.Second());
 
             Precondition = args => args.Count() == _formalParameters.Count;
-            Implementation = args => environment.Evaluate(expr.Elements.Skip(2));
+            Implementation = args => expr.Elements.Skip(2).Evaluate(_environment.CurrentScope);
         }
 
         public Expression Call(IEnumerable<Expression> args)

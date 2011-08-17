@@ -23,8 +23,8 @@ namespace test.Evaluation
                 (def foo (list 1 2 3 4))
                 (def bar (reverse foo))
             ");
-            interpreter.Evaluate("((fn () bar))").ToString().ShouldEqual("(4 3 2 1)");
-            interpreter.Evaluate("((fn () foo))").ToString().ShouldEqual("(1 2 3 4)");
+            interpreter.EvaluateString("((fn () bar))").ToString().ShouldEqual("(4 3 2 1)");
+            interpreter.EvaluateString("((fn () foo))").ToString().ShouldEqual("(1 2 3 4)");
         }
     }
 }
