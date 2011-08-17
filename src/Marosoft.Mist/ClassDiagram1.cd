@@ -136,13 +136,6 @@
       <FileName>Evaluation\GlobalFunctions\FilterFunction.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.FirstFunction" Collapsed="true">
-    <Position X="19.5" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Evaluation\GlobalFunctions\FirstFunction.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.GtEqFunction" Collapsed="true">
     <Position X="15.25" Y="7" Width="1.5" />
     <TypeIdentifier>
@@ -353,7 +346,7 @@
       <FileName>MistException.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.MistException" Collapsed="true">
+  <Class Name="Marosoft.Mist.MistApplicationException" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -402,13 +395,6 @@
       <FileName>Parsing\Parser.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.Parsing.SpecialSymbolExpression" Collapsed="true">
-    <Position X="13.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgEAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Parsing\SpecialSymbolExpression.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Marosoft.Mist.Parsing.StringExpression" Collapsed="true">
     <Position X="17" Y="1.75" Width="1.5" />
     <TypeIdentifier>
@@ -421,6 +407,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Parsing\SymbolExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ErrorFunction" Collapsed="true">
+    <Position X="19.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evaluation\GlobalFunctions\ErrorFunction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Marosoft.Mist.Evaluation.Environment" Collapsed="true">

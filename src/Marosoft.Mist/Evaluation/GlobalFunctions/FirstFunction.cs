@@ -16,7 +16,7 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
             if (list.Elements.Count > 0)
                 return list.Elements.First();
             else
-                return Scope.Resolve("nil");
+                return NIL.Instance;
         }
 
         protected override bool Precondition(IEnumerable<Expression> args)

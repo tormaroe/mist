@@ -21,8 +21,7 @@ namespace test.Evaluation
         public void First_of_empty_list_is_nil()
         {
             Evaluate("(first (list))");
-            result.Value.ShouldEqual(null);
-            result.ToString().ShouldEqual("nil");
+            result.ShouldBeSameAs(NIL.Instance);
         }
 
         [Test]

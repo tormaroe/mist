@@ -8,9 +8,9 @@ namespace Marosoft.Mist.Evaluation
     {                
         public GlobalScope()
         {
-            AddBinding("nil", new SpecialSymbolExpression("nil", null));
-            AddBinding("true", new SpecialSymbolExpression("true", true));
-            AddBinding("false", new SpecialSymbolExpression("false", false));
+            AddBinding("nil", new NIL());
+            AddBinding("true", new TRUE());
+            AddBinding("false", new FALSE());
             
             // Adding the "built in" functions implemented in C#
             Array.ForEach(

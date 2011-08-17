@@ -40,6 +40,15 @@ namespace Marosoft.Mist
         }
     }
 
+    public class MistApplicationException : MistException
+    {
+        public MistApplicationException(IEnumerable<string> message)
+            : base(message.Aggregate((a, b) => a + " " + b))
+        {
+
+        }
+    }
+
     public class MistException : Exception
     {
         public MistException(string message)

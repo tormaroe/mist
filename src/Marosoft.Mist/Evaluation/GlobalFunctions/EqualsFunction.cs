@@ -14,8 +14,8 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         {
             var firstValue = args.First().Value;
             if (args.Skip(1).All(x => x.Value.Equals(firstValue)))
-                return Scope.Resolve("true");
-            return Scope.Resolve("false");
+                return TRUE.Instance;
+            return FALSE.Instance;
         }
 
         protected override bool Precondition(IEnumerable<Expression> args)

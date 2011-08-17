@@ -20,7 +20,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 return Evaluate(then);
             if (@else != null)
                 return Evaluate(@else);
-            return Environment.CurrentScope.Resolve("nil");
+            return NIL.Instance;
         }
     }
 }

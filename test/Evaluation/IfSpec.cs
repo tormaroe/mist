@@ -37,7 +37,7 @@ namespace test.Evaluation
 
 
             Evaluate("(if false 29)");
-            result.Value.ShouldBeNull();
+            result.IsNil.ShouldBeTrue();
         }
 
         [Test]

@@ -7,9 +7,6 @@ using Marosoft.Mist.Evaluation;
 
 namespace Marosoft.Mist.Parsing
 {
-    // ONGOING: Creating subclasses for Expression. Use them!
-    // TODO: FunctionExpression
-
     public class Expression
     {
         public Token Token { get; private set; }

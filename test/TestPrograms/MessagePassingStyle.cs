@@ -9,7 +9,7 @@ namespace test.TestPrograms
     {
         /*
          * TODO
-         * - swap if in dispatch with cond (with a third else that throws error)
+         * - swap if in dispatch with cond
          * - swap use of quote with reader macro quote
          * - or swap it with keywords
          * - when defun can take multiple-expression-body, change make-account to use defun
@@ -48,11 +48,12 @@ namespace test.TestPrograms
                 (deposit acc-2 50)  ; acc-2 should now have 150,-
             ");
 
-            interpreter.EvaluateString("(identity acc-1)").ShouldBeOfType<Lambda>();
-            interpreter.EvaluateString("(identity withdraw)").ShouldBeOfType<Lambda>();
-
             interpreter.EvaluateString("(withdraw acc-1 50)").Value.ShouldEqual(0);
             interpreter.EvaluateString("(deposit acc-2 50)").Value.ShouldEqual(200);
+
+            typeof(MistApplicationException).ShouldBeThrownBy(
+                () => interpreter.EvaluateString("((acc-1 nil))"),
+                ex => ex.Message == "Unknown request -- MAKE-ACCOUNT nil");
         }
     }
 }

@@ -18,10 +18,10 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
             for (int i = 0; i < argsArray.Length - 1; i++)
             {
                 if (!(Comparer(argsArray[i], argsArray[i + 1])))
-                    return Scope.Resolve("false");
+                    return FALSE.Instance;
             }
 
-            return Scope.Resolve("true");
+            return TRUE.Instance;
         }
 
         protected override bool Precondition(IEnumerable<Expression> args)

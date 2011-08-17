@@ -43,6 +43,7 @@
     <Compile Include="Evaluation\FormalParameters.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ConcatFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\ErrorFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FilterFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FirstFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\GtEqFunction.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Evaluation\GlobalFunctions\ZipFunction.cs" />
     <Compile Include="Evaluation\Macro.cs" />
     <Compile Include="Evaluation\MistCore.cs" />
+    <Compile Include="Evaluation\NIL.cs" />
     <Compile Include="Evaluation\ScopedExpression.cs" />
     <Compile Include="Evaluation\Special\Def.cs" />
     <Compile Include="Evaluation\Special\DefMacro.cs" />
@@ -99,12 +101,12 @@
     <Compile Include="Parsing\IntExpression.cs" />
     <Compile Include="Parsing\ListExpression.cs" />
     <Compile Include="Parsing\Parser.cs" />
-    <Compile Include="Parsing\SpecialSymbolExpression.cs" />
     <Compile Include="Parsing\StringExpression.cs" />
     <Compile Include="Parsing\SymbolExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Lexing\Tokens.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tokens.cs</LastGenOutput>
