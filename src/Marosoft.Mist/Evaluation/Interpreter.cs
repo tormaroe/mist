@@ -73,6 +73,10 @@ namespace Marosoft.Mist.Evaluation
                 else
                     return CallFunction(expr);
             }
+            else if (firstElem is Function)
+            {
+                return CallFunction(expr);
+            }
 
             throw new MistException(string.Format("Can't evaluate {0} as function", firstElem.Token));
         }
@@ -84,9 +88,8 @@ namespace Marosoft.Mist.Evaluation
 
         private Expression CallFunction(Expression expr)
         {
-            var args = expr.Elements.Skip(1).Select(Evaluate);
             var funk = GetFunction(expr.Elements.First());
-
+            var args = expr.Elements.Skip(1).Select(Evaluate);
             return funk.Call(args);
         }
 
