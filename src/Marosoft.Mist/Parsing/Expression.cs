@@ -53,5 +53,10 @@ namespace Marosoft.Mist.Parsing
                 return false;
             }
         }
+
+        public IEnumerable<Expression> AsEnumerable()
+        {
+            return new Expression[] { this }.AsEnumerable();
+        }
     }
 }

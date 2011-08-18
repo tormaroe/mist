@@ -50,3 +50,6 @@
 (def zero? "Returns true if num is zero, else false" (fn (x) (= x 0)))
 
 (defun identity (x) x) 
+
+;(defun push! (x lst)
+;	(set! lst (concat lst x)))

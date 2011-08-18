@@ -35,5 +35,12 @@ namespace test.Evaluation
             Evaluate("(concat nil (list 0) (list -1 -2))");
             result.ToString().ShouldEqual("(0 -1 -2)");
         }
+
+        [Test]
+        public void Concat_with_non_list_arguments() // Not common in lisps..
+        {
+            Evaluate("(concat nil 1 2 (list 3 4) 5)");
+            result.ToString().ShouldEqual("(1 2 3 4 5)");
+        }
     }
 }

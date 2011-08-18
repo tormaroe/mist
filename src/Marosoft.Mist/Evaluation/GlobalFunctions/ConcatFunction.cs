@@ -16,7 +16,10 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 
             foreach (var otherList in args)
                 if (!otherList.IsNil)
-                    list1 = list1.Concat(((ListExpression)otherList).Elements);
+                    list1 = list1.Concat(
+                        (otherList is ListExpression) ?
+                        ((ListExpression)otherList).Elements :
+                        otherList.AsEnumerable());                    
 
             return new ListExpression(list1);
         }

@@ -48,6 +48,8 @@ namespace test.Evaluation
         [Test]
         public void Set_of_passed_in_var_should_not_work()
         {
+            // AM I SURE THIS IS HOW IT SHOULD WORK???
+
             Evaluate(@"
 		                (def foo ""booo"")
 
