@@ -20,6 +20,8 @@ namespace Marosoft.Mist.Parsing
 
         public override Expression Evaluate(Evaluation.Bindings scope)
         {
+            if (ToString().StartsWith(":"))
+                return this;
             return scope.Resolve(Token.Text);
         }
     }

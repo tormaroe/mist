@@ -63,6 +63,7 @@
     <Compile Include="Evaluation\IdentitySpec.cs" />
     <Compile Include="Evaluation\IfSpec.cs" />
     <Compile Include="Evaluation\IncAndDecSpec.cs" />
+    <Compile Include="Evaluation\KeywordSpec.cs" />
     <Compile Include="Evaluation\ListSpec.cs" />
     <Compile Include="Evaluation\LoadSpec.cs" />
     <Compile Include="Evaluation\MapcatSpec.cs" />
