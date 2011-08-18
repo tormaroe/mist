@@ -23,6 +23,8 @@ namespace Marosoft.Mist.Repl
 ";
 
         private static Interpreter interpreter;
+        private static Bindings global;
+        private static ResultMemory memory;
 
         static void Main(string[] args)
         {
@@ -47,7 +49,9 @@ namespace Marosoft.Mist.Repl
         private static void InitializeInterpreter()
         {
             interpreter = new Interpreter();
-            var global = ((Bindings)interpreter.CurrentScope);
+            global = ((Bindings)interpreter.CurrentScope);
+
+            memory = new ResultMemory(global);
 
             global.AddBinding(new Restart(global));
             global.AddBinding(new Quit(global));
@@ -123,12 +127,15 @@ namespace Marosoft.Mist.Repl
 
         private static Expression EVAL(string input)
         {
-            return interpreter.EvaluateString(input);
+            var expr = interpreter.EvaluateString(input);
+            memory.UpdateReplMemory(expr);
+            return expr;
         }
 
         private static void PRINT(Expression exp)
         {
             Console.WriteLine(exp);
         }
+
     }
 }

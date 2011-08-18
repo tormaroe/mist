@@ -40,7 +40,7 @@ namespace Marosoft.Mist.Evaluation
             _symbolBindings.Remove(symbol);
         }
 
-        internal void UpdateBinding(Expression symbol, Expression value)
+        public void UpdateBinding(Expression symbol, Expression value)
         {
             string key = symbol.Token.Text;
 
