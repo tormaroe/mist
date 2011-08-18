@@ -1,5 +1,6 @@
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Lexing;
+using System.Linq;
 
 namespace Marosoft.Mist.Evaluation.Special
 {

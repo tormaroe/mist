@@ -64,6 +64,7 @@
     <Compile Include="Evaluation\IfSpec.cs" />
     <Compile Include="Evaluation\IncAndDecSpec.cs" />
     <Compile Include="Evaluation\KeywordSpec.cs" />
+    <Compile Include="Evaluation\LetSpec.cs" />
     <Compile Include="Evaluation\ListAsMutableStackSpec.cs" />
     <Compile Include="Evaluation\ListSpec.cs" />
     <Compile Include="Evaluation\LoadSpec.cs" />

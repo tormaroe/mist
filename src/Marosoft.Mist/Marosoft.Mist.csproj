@@ -84,6 +84,7 @@
     <Compile Include="Evaluation\SpecialFormAttribute.cs" />
     <Compile Include="Evaluation\SpecialForms.cs" />
     <Compile Include="Evaluation\Special\Cond.cs" />
+    <Compile Include="Evaluation\Special\Let.cs" />
     <Compile Include="Evaluation\Special\Load.cs" />
     <Compile Include="Evaluation\Special\Quote.cs" />
     <Compile Include="Evaluation\Special\Set.cs" />
