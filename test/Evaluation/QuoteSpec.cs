@@ -3,6 +3,7 @@ using Marosoft.Mist;
 using test.Evaluation.Common;
 using Marosoft.Mist.Parsing;
 using System.Linq;
+using Marosoft.Mist.Evaluation;
 
 namespace test.Evaluation
 {

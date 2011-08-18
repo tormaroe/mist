@@ -2,6 +2,22 @@
 ; This file contains the core part of Mist that's actually 
 ; implemented in Mist itself.
 
+(defmacro if (test then else)
+	(list (quote cond)
+		test then
+		true else))
+
+; TODO: Enhance to use implicit DO when variable length arguments		
+(defmacro when (test then)
+	(list (quote cond)
+		test then))
+
+; TODO: Enhance to use implicit DO when variable length arguments
+(defmacro unless (test then)
+	(list (quote cond)
+		test nil
+		true then))
+
 ; TODO: Enhance when variable length arguments
 (defmacro defun (name args body)
 	(list (quote def) 

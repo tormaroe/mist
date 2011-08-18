@@ -32,6 +32,11 @@ namespace Marosoft.Mist.Evaluation
         {
             var invocationScope = new Bindings { ParentScope = scope };
 
+            // TODO: enhance when optional parameter length added
+            if (_parameters != null && _parameters.Elements.Count != args.Count())
+                throw new MistException(string.Format("Wrong number of arguments ({0} instead of {1})", 
+                    args.Count(), _parameters.Elements.Count));
+
             if (_parameters != null)
                 for (int i = 0; i < Count; i++)
                     invocationScope.AddBinding(

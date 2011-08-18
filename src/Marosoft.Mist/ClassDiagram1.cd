@@ -262,11 +262,11 @@
       <FileName>Evaluation\Special\Fn.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.Special.If" Collapsed="true">
+  <Class Name="Marosoft.Mist.Evaluation.Special.Cond" Collapsed="true">
     <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Evaluation\Special\If.cs</FileName>
+      <FileName>Evaluation\Special\Cond.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Marosoft.Mist.Evaluation.Special.Load" Collapsed="true">

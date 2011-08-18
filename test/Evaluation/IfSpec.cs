@@ -30,17 +30,6 @@ namespace test.Evaluation
         }
 
         [Test]
-        public void No_else()
-        {
-            Evaluate("(if 29 29)");
-            result.Value.ShouldEqual(29);
-
-
-            Evaluate("(if false 29)");
-            result.IsNil.ShouldBeTrue();
-        }
-
-        [Test]
         public void NIL_is_false()
         {
             Evaluate("(if nil (will_fail_for_sure) (+ 1 1))");

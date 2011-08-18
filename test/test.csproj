@@ -49,6 +49,7 @@
     <Compile Include="Evaluation\Arithmetics.cs" />
     <Compile Include="Evaluation\BooleanMacrosSpec.cs" />
     <Compile Include="Evaluation\ConcatSpec.cs" />
+    <Compile Include="Evaluation\CondSpec.cs" />
     <Compile Include="Evaluation\DefMacroSpec.cs" />
     <Compile Include="Evaluation\DefSpec.cs" />
     <Compile Include="Evaluation\DefunSpec.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Evaluation\LoadSpec.cs" />
     <Compile Include="Evaluation\MapcatSpec.cs" />
     <Compile Include="Evaluation\MapSpec.cs" />
+    <Compile Include="Evaluation\NilSpec.cs" />
     <Compile Include="Evaluation\QuoteSpec.cs" />
     <Compile Include="Evaluation\ReduceSpec.cs" />
     <Compile Include="Evaluation\ReverseSpec.cs" />
