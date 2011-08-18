@@ -12,7 +12,7 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 
         protected override Expression InternalCall(IEnumerable<Expression> args)
         {
-            throw new MistApplicationException(args.Select(a => a.Evaluate(Scope).Value.ToString()));
+            throw new MistApplicationException(args.Select(a => a.Value.ToString()));
         }
     }
 }

@@ -43,6 +43,7 @@
     <Compile Include="Evaluation\FormalParameters.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ConcatFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\DoFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ErrorFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FilterFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\FirstFunction.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Evaluation\GlobalFunctions\LTGTFunctionBase.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MapFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\MultiplyFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\PrintFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ReduceFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\RestFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ReverseFunction.cs" />

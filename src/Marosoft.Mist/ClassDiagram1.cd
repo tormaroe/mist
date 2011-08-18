@@ -363,7 +363,7 @@
   <Class Name="Marosoft.Mist.Parsing.Expression" Collapsed="true">
     <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgEAAAwAgAAAACAAAAAAAAgAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAgEAAAwQgAAAACAAAAAAAAgAAABAAA=</HashCode>
       <FileName>Parsing\Expression.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -409,11 +409,11 @@
       <FileName>Parsing\SymbolExpression.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.ErrorFunction" Collapsed="true">
+  <Class Name="Marosoft.Mist.Evaluation.GlobalFunctions.DoFunction" Collapsed="true">
     <Position X="19.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Evaluation\GlobalFunctions\ErrorFunction.cs</FileName>
+      <FileName>Evaluation\GlobalFunctions\DoFunction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Marosoft.Mist.Evaluation.Environment" Collapsed="true">
