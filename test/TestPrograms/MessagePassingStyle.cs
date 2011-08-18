@@ -9,9 +9,6 @@ namespace test.TestPrograms
     {
         /*
          * TODO
-         * - swap if in dispatch with cond
-         * - swap use of quote with reader macro quote
-         * - or swap it with keywords
          * - when defun can take multiple-expression-body, change make-account to use defun
          */
 
@@ -28,18 +25,17 @@ namespace test.TestPrograms
                     (defun deposit (amount)
                         (set! balance (+ balance amount)))
                     (defun dispatch (m)
-                        (if (= m (quote withdraw))
-                            withdraw
-                            (if (= m (quote deposit))
-                                deposit
-                                (error ""Unknown request -- MAKE-ACCOUNT"" m))))
+                        (cond
+                            (= m :withdraw) withdraw
+                            (= m :deposit) deposit
+                            :else (error ""Unknown request -- MAKE-ACCOUNT"" m)))
                     dispatch))
 
                 (defun withdraw (account amount)
-                    ((account (quote withdraw)) amount))
+                    ((account :withdraw) amount))
 
                 (defun deposit (account amount)
-                    ((account (quote deposit)) amount))
+                    ((account :deposit) amount))
 
                 (def acc-1 (make-account 100))
                 (def acc-2 (make-account 100))
@@ -49,11 +45,13 @@ namespace test.TestPrograms
             ");
 
             interpreter.EvaluateString("(withdraw acc-1 50)").Value.ShouldEqual(0);
+            interpreter.EvaluateString("(withdraw acc-1 50)").Value.ShouldEqual("Insufficient funds");
+
             interpreter.EvaluateString("(deposit acc-2 50)").Value.ShouldEqual(200);
 
             typeof(MistApplicationException).ShouldBeThrownBy(
-                () => interpreter.EvaluateString("((acc-1 nil))"),
-                ex => ex.Message == "Unknown request -- MAKE-ACCOUNT nil");
+                () => interpreter.EvaluateString("((acc-1 :unknown-keyword))"),
+                ex => ex.Message == "Unknown request -- MAKE-ACCOUNT :unknown-keyword");
         }
     }
 }

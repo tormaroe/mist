@@ -57,5 +57,20 @@ namespace test.Evaluation
             interpreter.EvaluateString("(identity x)")
                 .Value.ShouldEqual(100);
         }
+
+        [Test]
+        public void Lexical_scope__NOT_dynamic_scope()
+        {
+            Evaluate(@"
+
+                (def x 111)
+
+                (defun check-x () x)
+
+                (let (x 222)
+                    (check-x))
+            ");
+            result.Value.ShouldEqual(111);            
+        }
     }
 }
