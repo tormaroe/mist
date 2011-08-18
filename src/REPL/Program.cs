@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Evaluation;
-using System.IO;
-using System.Collections.Generic;
 
 namespace Marosoft.Mist.Repl
 {
@@ -26,10 +23,17 @@ namespace Marosoft.Mist.Repl
         private static Bindings global;
         private static ResultMemory memory;
 
+        public static void SetState(Interpreter i, Bindings b, ResultMemory r)
+        {
+            interpreter = i;
+            global = b;
+            memory = r;
+        }
+
         static void Main(string[] args)
         {
             Console.Write(HEADER);
-            InitializeInterpreter();
+            Bootstrapper.Initialize();
 
             while (true)
                 try
@@ -46,96 +50,22 @@ namespace Marosoft.Mist.Repl
                 }
         }
 
-        private static void InitializeInterpreter()
-        {
-            interpreter = new Interpreter();
-            global = ((Bindings)interpreter.CurrentScope);
-
-            memory = new ResultMemory(global);
-
-            global.AddBinding(new Restart(global));
-            global.AddBinding(new Quit(global));
-
-            LoadUserConfig();
-        }
-
-        public class Restart : BuiltInFunction
-        {
-            public Restart(Bindings scope) : base("restart", scope) { }
-            
-            protected override bool Precondition(System.Collections.Generic.IEnumerable<Expression> args)
-            {
-                return args.Count() == 0;
-            }
-
-            protected override Expression InternalCall(System.Collections.Generic.IEnumerable<Expression> args)
-            {
-                Console.WriteLine("RESTARTING ENVIRONMENT");
-                InitializeInterpreter();
-                return null;
-            }
-        }
-
-        public class Quit : BuiltInFunction
-        {
-            public Quit(Bindings scope) : base("quit", scope) { }
-
-            protected override bool Precondition(IEnumerable<Expression> args)
-            {
-                return args.Count() == 0;
-            }
-
-            protected override Expression InternalCall(IEnumerable<Expression> args)
-            {
-                Console.WriteLine("BYE BYE!");
-                System.Environment.Exit(0);
-                return null;
-            }
-        }
-
-        private static void LoadUserConfig()
-        {
-            //string userHomePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "..");
-
-            string homePath = (System.Environment.OSVersion.Platform == PlatformID.Unix ||
-                               System.Environment.OSVersion.Platform == PlatformID.MacOSX)
-                ? System.Environment.GetEnvironmentVariable("HOME")
-                : System.Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
-
-            string dotmistFile = Path.Combine(homePath, ".mist");
-
-            if (File.Exists(dotmistFile))
-            {
-                Console.WriteLine("Loading user file from " + dotmistFile);
-                try
-                {
-                    PRINT(EVAL("(load \"" + dotmistFile + "\")"));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("*** Loading user file got exception: {0}\nReview {1}\nMIST ENVIRONMENT LEFT IN AN UNKNOWN STATE!\n", 
-                        ex.Message, dotmistFile);
-                }
-            }
-        }
-
-        private static string READ()
+        public static string READ()
         {
             Console.Write("=> ");
             return Console.ReadLine();
         }
 
-        private static Expression EVAL(string input)
+        public static Expression EVAL(string input)
         {
             var expr = interpreter.EvaluateString(input);
             memory.UpdateReplMemory(expr);
             return expr;
         }
 
-        private static void PRINT(Expression exp)
+        public static void PRINT(Expression exp)
         {
             Console.WriteLine(exp);
         }
-
     }
 }
