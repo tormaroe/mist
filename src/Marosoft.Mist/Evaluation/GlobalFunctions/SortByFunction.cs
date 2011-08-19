@@ -6,23 +6,23 @@ using System.Collections.Generic;
 namespace Marosoft.Mist.Evaluation.GlobalFunctions
 {
     [GlobalFunction]
-    public class SortFunction : BuiltInFunction
+    public class SortByFunction : BuiltInFunction
     {
-        public SortFunction(Bindings scope) : base("sort", scope) { }
+        public SortByFunction(Bindings scope) : base("sort-by", scope) { }
 
         protected override Expression InternalCall(IEnumerable<Expression> args)
         {
-            var list = args.GetAt<ListExpression>(0);
-            var result = new ListExpression(list.Elements.OrderBy(expr => expr.Value));
+            var f = (Function)args.First();
+            var list = args.GetAt<ListExpression>(1);
+            var result = new ListExpression(list.Elements.OrderBy(expr => f.Call(expr).Value));
             return result;
         }
 
         protected override bool Precondition(IEnumerable<Expression> args)
         {
-            // TODO: optionally provide comperator
-
             return args.Count() == 2
-                && args.First() is ListExpression;
+                && args.First() is Function
+                && args.Second() is ListExpression;
         }
     }
 }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluation\FormalParameters.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\ApplyFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ConcatFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DoFunction.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Evaluation\GlobalFunctions\ReduceFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\RestFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ReverseFunction.cs" />
+    <Compile Include="Evaluation\GlobalFunctions\SortByFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\SortFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ZipFunction.cs" />
     <Compile Include="Evaluation\Macro.cs" />

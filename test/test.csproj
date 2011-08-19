@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation\ApplySpec.cs" />
     <Compile Include="Evaluation\Arithmetics.cs" />
     <Compile Include="Evaluation\BooleanMacrosSpec.cs" />
     <Compile Include="Evaluation\ConcatSpec.cs" />
