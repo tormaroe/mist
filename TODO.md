@@ -1,8 +1,9 @@
 #TODO
 
 Main areas remaining:
-* Tail call optimization
+* Tail call optimization - do LOOP instead
 * Macros
+* tick reader macro
 * CLI interop
 * Mistpacker
 * Web site, documentation project

@@ -227,7 +227,7 @@
       <FileName>Evaluation\GlobalFunctions\ZipFunction.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Marosoft.Mist.Evaluation.Special.Let" Collapsed="true">
+  <Class Name="Marosoft.Mist.Evaluation.Special.Loop" Collapsed="true">
     <Position X="6" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

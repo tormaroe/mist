@@ -11,9 +11,9 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         public SlurpFunction(Bindings scope)
             : base("slurp", scope)
         {
-            DocString = StringExpression.Create(@"(slurp f)
+            DocString = @"(slurp f)
 Reads the file named by f into a list of strings (separated by 
-line breaks) and returns it.");
+line breaks) and returns it.".ToExpression();
 
         }
 
@@ -21,7 +21,7 @@ line breaks) and returns it.");
         {
             var file = (string)args.First().Value;
             var txt = System.IO.File.ReadAllText(file);
-            return StringExpression.Create(txt); 
+            return txt.ToExpression(); 
         }
 
         protected override bool Precondition(IEnumerable<Expression> args)

@@ -10,8 +10,9 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
         public DocFunction(Bindings scope)
             : base("doc", scope)
         {
-            DocString = StringExpression.Create(
-                "Prints documentation for a var or special form given its name.");
+            DocString =
+                "Prints documentation for a var or special form given its name."
+                .ToExpression();
 
             // TODO: print doc instead of returning, include info about formal parameters
             // Could also print a ruler

@@ -18,7 +18,7 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
                 .Aggregate((e1, e2) => string.Format("{0} {1}", e1, e2));
 
             Console.Write(output);
-            return StringExpression.Create(output);
+            return output.ToExpression();
         }
     }
 }

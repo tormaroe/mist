@@ -1,0 +1,4 @@
+﻿
+(def bar (foo true 
+			  "two" 
+			  (list 1 2 3)))

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Embedded\EmbeddedMistSpec.cs" />
     <Compile Include="Evaluation\ApplySpec.cs" />
     <Compile Include="Evaluation\Arithmetics.cs" />
     <Compile Include="Evaluation\BooleanMacrosSpec.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Evaluation\ListAsMutableStackSpec.cs" />
     <Compile Include="Evaluation\ListSpec.cs" />
     <Compile Include="Evaluation\LoadSpec.cs" />
+    <Compile Include="Evaluation\LoopSpec.cs" />
     <Compile Include="Evaluation\MapcatSpec.cs" />
     <Compile Include="Evaluation\MapSpec.cs" />
     <Compile Include="Evaluation\NilSpec.cs" />
@@ -94,6 +96,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Embedded\def_foo_with_some_args.mist">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Embedded\def_bar_to_value_of_foo_call_with_args.mist">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Embedded\def_bar_to_value_of_foo_call.mist">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Embedded\def_foo_string.mist">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Evaluation\load_test.mist">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

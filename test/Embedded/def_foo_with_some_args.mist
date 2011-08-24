@@ -1,0 +1,3 @@
+﻿
+(defun foo (a1 a2)
+	(list "args" a1 a2))

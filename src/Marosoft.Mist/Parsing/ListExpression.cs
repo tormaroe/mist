@@ -20,6 +20,20 @@ namespace Marosoft.Mist.Parsing
         {
         }
 
+        public override object Value
+        {
+            get
+            {
+                return Elements
+                    .Select(e => e.Value)
+                    .ToList();
+            }
+            set
+            {
+                base.Value = value;
+            }
+        }
+
         public override Expression Evaluate(Evaluation.Bindings scope)
         {
             // A List evaluates either as a special form, a macro, or a function call
