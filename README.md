@@ -9,7 +9,7 @@ MIST can be used in several ways:
 * Embed the interpreter in your .Net program to execute MIST code as part of your solution
 * Create executable, standalone programs using the MISTPACKER tool
 
-MIST is in early alpha, and should be considered an experiment for now!
+MIST is in early alpha, and should be considered an experiment for now, but beta planned for October/November 2011! I'm also working on a site for Mist at [tormaroe.github.com/mist](http://tormaroe.github.com/mist/)
 
 The use and distribution terms for this software are covered by the [Microsoft Public License (MS-PL)](http://www.opensource.org/licenses/MS-PL). 
 

@@ -11,7 +11,7 @@ namespace test.Evaluation
         [Test]
         public void Test()
         {
-            Evaluate(@"(loop for i uptp 5 sum i)");
+            Evaluate(@"(loop for i upto 5 sum i)");
             result.Value.ShouldEqual(10);
         }
     }

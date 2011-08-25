@@ -39,13 +39,15 @@ namespace Marosoft.Mist.Evaluation.Special
                 {
                     if (_spec.TerminationPointReached(this))
                         break;
+
+                    _spec.Step(this);
                 }
                 return new IntExpression(new Token(Tokens.INT, "10"));
             }
 
         }
 
-        class LoopSpecification
+        class LoopSpecification // TODO: split out parser from Specification
         {
             private int _index;
             private readonly List<Expression> _args;
@@ -65,28 +67,34 @@ namespace Marosoft.Mist.Evaluation.Special
                      _index < _args.Count - 1; 
                      _index = _index + 1)
                 {
-                    if (FOR)
-                    {
-                        _latestLoopSymbol = _args[_index + 1].Token.Text;
-                        _scope.AddBinding(_latestLoopSymbol, 0.ToExpression());
-                        AddStep(() => 
-                        {
-                            var val = _scope.Resolve(_latestLoopSymbol);
-                            int newval = ((int)val.Value) + 1;
-                            _scope.UpdateBinding(new SymbolExpression(_latestLoopSymbol), newval.ToExpression());
-                        });
-                    }
-                    else if (UPTO)
-                    {
-                        var temp = _latestLoopSymbol;
-                        int limit = (int)((IntExpression)_args[_index + 1]).Value;
-                        AddLoopTermination(loop => loop.Var(temp) >= limit);
-                    }
+                    if (FOR) AddFor();
+                    else if (UPTO) AddUpto();
                 }
             }
 
-            private Func<LoopIteration, bool> _loopTerm;
-            private void AddLoopTermination(Func<LoopIteration, bool> t)
+            private void AddFor()
+            {
+                _index++;
+                _latestLoopSymbol = _args[_index].Token.Text;
+                _scope.AddBinding(_latestLoopSymbol, 0.ToExpression());
+                var temp = _latestLoopSymbol;
+                AddStep(() =>
+                {
+                    var val = _scope.Resolve(_latestLoopSymbol);
+                    int newval = ((int)val.Value) + 1;
+                    _scope.UpdateBinding(new SymbolExpression(temp), newval.ToExpression());
+                });
+            }
+
+            private void AddUpto()
+            {
+                var temp = _latestLoopSymbol;
+                var limit = (int)_args[_index + 1].Value;
+                AddLoopTermination(loop => loop.Var(temp) >= limit);
+            }
+
+            private Predicate<LoopIteration> _loopTerm;
+            private void AddLoopTermination(Predicate<LoopIteration> t)
             {
                 _loopTerm = t;
             }
@@ -94,6 +102,7 @@ namespace Marosoft.Mist.Evaluation.Special
             {
                 return _loopTerm(iter);
             }
+            
             private Action _step;
             private void AddStep(Action s)
             {
@@ -104,20 +113,12 @@ namespace Marosoft.Mist.Evaluation.Special
                 _step();
             }
 
-            private bool UPTO
-            {
-                get
-                {
-                    return _args[_index].Token.Text == "upto";
-                }
-            }
+            private bool UPTO { get { return CurrentIs("upto"); } }
+            private bool FOR { get { return CurrentIs("for"); } }
 
-            private bool FOR
+            private bool CurrentIs(string symbol)
             {
-                get
-                {
-                    return _args[_index].Token.Text == "for";
-                }
+                return _args[_index].Token.Text == symbol;
             }
         }
     }
