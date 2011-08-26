@@ -78,6 +78,7 @@ namespace Marosoft.Mist.Evaluation.Special
                         case "while": AddWhile(); break;
                         case "from": AddFrom(); break;
                         case "to": AddTo(); break;
+                        case "collect": AddCollect(); break;
                         default:
                             throw new Exception("Unexpected expression " + _args[_index].Token + " in loop specification");
                     }
@@ -185,15 +186,25 @@ namespace Marosoft.Mist.Evaluation.Special
             private void AddSum()
             {
                 _index++;
-                var temp = _latestLoopSymbol;
-                _spec.AddAccumulation(0, (int acc, LoopIteration loop) => acc + (int)_scope.Resolve(temp).Value);
+                var temp = _args[_index];
+                _spec.AddAccumulation(0, (acc, loop) => acc + (int)temp.Evaluate(_scope).Value);
             }
 
             private void AddCount()
             {
                 _index++;
                 var temp = _latestLoopSymbol;
-                _spec.AddAccumulation(0, (int acc, LoopIteration loop) => acc + (_scope.Resolve(temp).IsNil ? 0 : 1));
+                _spec.AddAccumulation(0, (acc, loop) => acc + (_scope.Resolve(temp).IsNil ? 0 : 1));
+            }
+            private void AddCollect()
+            {
+                _index++;
+                var exprToAdd = _args[_index];
+                _spec.AddAccumulation(new ListExpression(), (acc, loop) =>
+                {
+                    acc.Elements.Add(exprToAdd.Evaluate(_scope));
+                    return acc;
+                });
             }
             #endregion
         }

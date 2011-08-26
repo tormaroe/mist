@@ -34,6 +34,9 @@ namespace Marosoft.Mist.Parsing
                 return ((int)o).ToExpression();
             if (o is bool)
                 return ((bool)o).ToExpression();
+            
+            if (o is Expression)
+                return (Expression)o;
 
             throw new NotImplementedException(
                 "ToExpression extention not implemented for "

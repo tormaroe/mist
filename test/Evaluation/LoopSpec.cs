@@ -77,5 +77,19 @@ namespace test.Evaluation
             Evaluate(@"(loop for i from 2 to 4 sum i)");
             result.Value.ShouldEqual(9);
         }
+
+        [Test]
+        public void Sum_expression_must_be_evaluated()
+        {
+            Evaluate(@"(loop for i below 3 sum (inc i))");
+            result.Value.ShouldEqual(1 + 2 + 3);
+        }
+
+        [Test]
+        public void Collect_a_range()
+        {
+            Evaluate(@"(loop for i from 2 to 4 collect (+ 2 i))");
+            result.ToString().ShouldEqual("(4 5 6)");
+        }
     }
 }
