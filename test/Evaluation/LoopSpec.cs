@@ -8,6 +8,7 @@ namespace test.Evaluation
 {
     public class LoopSpec : EvaluationTests
     {
+        // TODO (not complete):
         // (def i 0) (loop do (set! i (inc i)) until (> i 5))
         // (def i 0) (loop repeat 5 do (set! i (inc i)))
         // multiple loop variables..
@@ -68,6 +69,13 @@ namespace test.Evaluation
         {
             Evaluate(@"(loop for i while (< i 10) count i)");
             result.Value.ShouldEqual(10);
+        }
+
+        [Test]
+        public void For_i_from_2_to_4()
+        {
+            Evaluate(@"(loop for i from 2 to 4 sum i)");
+            result.Value.ShouldEqual(9);
         }
     }
 }

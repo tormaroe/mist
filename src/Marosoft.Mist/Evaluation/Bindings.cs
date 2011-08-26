@@ -20,6 +20,11 @@ namespace Marosoft.Mist.Evaluation
             throw new SymbolResolveException(symbol);
         }
 
+        public Function GetFunction(string symbol)
+        {
+            return (Function)Resolve(symbol);
+        }
+
         public void AddBinding(Expression expr)
         {
             //TODO: should probably store the symbol here as well

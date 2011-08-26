@@ -13,7 +13,7 @@ namespace Marosoft.Mist.Evaluation.Special
         {
             var loopScope = new Bindings() { ParentScope = Environment.CurrentScope };
             var loopSpec = new LoopSpecification(expr.Elements.Skip(1).ToList(), loopScope);
-            var loopIter = new LoopIteration(loopSpec, loopScope);
+            var loopIter = new LoopIteration(loopSpec);
             return loopIter.Execute();
         }
 
@@ -23,41 +23,22 @@ namespace Marosoft.Mist.Evaluation.Special
         /// </summary>
         class LoopIteration
         {
-            private readonly Bindings _scope;
             private readonly LoopSpecification _spec;
             
-            public LoopIteration(LoopSpecification spec, Bindings scope)
+            public LoopIteration(LoopSpecification spec)
             {
                 _spec = spec;
-                _scope = scope;
-            }
-
-            public Bindings Scope
-            {
-                get
-                {
-                    return _scope;
-                }
-            }
-
-            public int Var(string symbol)
-            {
-                return (int)_scope.Resolve(symbol).Value;
             }
 
             public Expression Execute()
             {
-                while (true)
+                while (!_spec.TerminationPointReached(this))
                 {
-                    if (_spec.TerminationPointReached(this))
-                        break;
-
                     _spec.AccumulateResults(this);
                     _spec.Step(this);
                 }
                 return _spec.Result;
             }
-
         }
 
         /// <summary>
@@ -95,6 +76,8 @@ namespace Marosoft.Mist.Evaluation.Special
                         case "in": AddIn(); break;
                         case "until": AddUntil(); break;
                         case "while": AddWhile(); break;
+                        case "from": AddFrom(); break;
+                        case "to": AddTo(); break;
                         default:
                             throw new Exception("Unexpected expression " + _args[_index].Token + " in loop specification");
                     }
@@ -102,18 +85,22 @@ namespace Marosoft.Mist.Evaluation.Special
                 }
             }
 
-            private bool NextTokenIs(string symbol)
+            private bool NextTokenIsOneOf(params string[] symbols)
             {
-                return _args[_index + 1].Token.Text.Equals(symbol);
+                string next = _args[_index + 1].Token.Text;
+                return symbols.Any(s => s.Equals(next));
             }
 
+            #region ADD AND INITIALIZE LOOP VARIABLES
             private void AddFor()
             {
                 _index++;
                 _latestLoopSymbol = _args[_index].Token.Text;
-                _scope.AddBinding(_latestLoopSymbol, 0.ToExpression());
 
-                if (!NextTokenIs("in"))
+                if(!NextTokenIsOneOf("from"))
+                    _scope.AddBinding(_latestLoopSymbol, 0.ToExpression());
+
+                if (!NextTokenIsOneOf("in"))
                 {
                     var temp = _latestLoopSymbol;
                     _spec.AddStep(() =>
@@ -151,50 +138,55 @@ namespace Marosoft.Mist.Evaluation.Special
                 _spec.AddStep(step);                                
             }
 
-            #region While / Until
+            private void AddFrom()
+            {
+                _index++;
+                var fromValue = _args[_index].Evaluate(_scope);
+                _scope.AddBinding(_latestLoopSymbol, fromValue);
+            }
+            #endregion
+
+            #region LIMITS: To / While / Until / Upto / Below
+            private void AddTo()
+            {
+                AddLimit((loopvar, to) => _scope.GetFunction(">").Call(loopvar, to).IsTrue);
+            }
+            
             private void AddWhile()
             {
-                AddLimitEvaluation(expr => !expr.IsTrue);
+                AddLimit((loopvar, limitExpr) => !limitExpr.IsTrue);
             }
 
             private void AddUntil()
             {
-                AddLimitEvaluation(expr => expr.IsTrue);
+                AddLimit((loopvar, limitExpr) => limitExpr.IsTrue);
             }
 
-            private void AddLimitEvaluation(Predicate<Expression> test)
-            {
-                _index++;
-                var limitExpression = _args[_index];
-                _spec.AddLoopTermination(loop => test(limitExpression.Evaluate(loop.Scope)));
-            }
-            #endregion
-
-            #region Upto / Below
             private void AddUpto()
             {
-                AddConstantLimit((a, b) => a > b);
+                AddLimit((a, b) => _scope.GetFunction(">").Call(a, b).IsTrue);
             }
 
             private void AddBelow()
             {
-                AddConstantLimit((a, b) => a >= b);
+                AddLimit((a, b) => _scope.GetFunction(">=").Call(a, b).IsTrue);
             }
 
-            private void AddConstantLimit(Func<int, int, bool> test)
+            private void AddLimit(Func<Expression, Expression, bool> test) 
             {
                 _index++;
-                var temp = _latestLoopSymbol;
-                var limit = (int)_args[_index].Value;
-                _spec.AddLoopTermination(loop => test(loop.Var(temp), limit));
+                var variable = _latestLoopSymbol;
+                var limit = _args[_index];
+                _spec.AddLoopTermination(loop => test(_scope.Resolve(variable), limit.Evaluate(_scope)));
             }
             #endregion
 
+            #region ACCUMULATORS
             private void AddSum()
             {
                 _index++;
                 var temp = _latestLoopSymbol;
-                _spec.AddAccumulation(0, (int acc, LoopIteration loop) => acc + loop.Var(temp));
+                _spec.AddAccumulation(0, (int acc, LoopIteration loop) => acc + (int)_scope.Resolve(temp).Value);
             }
 
             private void AddCount()
@@ -203,10 +195,12 @@ namespace Marosoft.Mist.Evaluation.Special
                 var temp = _latestLoopSymbol;
                 _spec.AddAccumulation(0, (int acc, LoopIteration loop) => acc + (_scope.Resolve(temp).IsNil ? 0 : 1));
             }
+            #endregion
         }
 
         /// <summary>
-        /// Specifies what will happen in the loop, and know when to terminate
+        /// Specifies what will happen in the loop, and know when to terminate.
+        /// Also carries any accumulated value.
         /// </summary>
         class LoopSpecification
         {            
