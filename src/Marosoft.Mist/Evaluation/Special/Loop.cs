@@ -32,10 +32,14 @@ namespace Marosoft.Mist.Evaluation.Special
 
             public Expression Execute()
             {
-                while (!_spec.TerminationPointReached(this))
+                while (!_spec.TerminationPointReached())
                 {
-                    _spec.AccumulateResults(this);
-                    _spec.Step(this);
+                    if (_spec.ShouldAccumulat())
+                    {
+                        _spec.AccumulateResults();
+                        _spec.DoSideEffects();
+                    }
+                    _spec.Step();
                 }
                 return _spec.Result;
             }
@@ -64,7 +68,7 @@ namespace Marosoft.Mist.Evaluation.Special
             {
                 for (_index = 0;
                      _index < _args.Count - 1;
-                     _index = _index + 1)
+                     _index++)
                 {
                     switch (_args[_index].Token.Text)
                     {
@@ -79,11 +83,18 @@ namespace Marosoft.Mist.Evaluation.Special
                         case "from": AddFrom(); break;
                         case "to": AddTo(); break;
                         case "collect": AddCollect(); break;
+                        case "when": AddWhen(); break;
+                        case "do": AddDo(); break;
                         default:
                             throw new Exception("Unexpected expression " + _args[_index].Token + " in loop specification");
                     }
 
                 }
+            }
+
+            private Expression ConsumeNextExpression()
+            {
+                return _args[++_index];
             }
 
             private bool NextTokenIsOneOf(params string[] symbols)
@@ -95,8 +106,7 @@ namespace Marosoft.Mist.Evaluation.Special
             #region ADD AND INITIALIZE LOOP VARIABLES
             private void AddFor()
             {
-                _index++;
-                _latestLoopSymbol = _args[_index].Token.Text;
+                _latestLoopSymbol = ConsumeNextExpression().Token.Text;
 
                 if(!NextTokenIsOneOf("from"))
                     _scope.AddBinding(_latestLoopSymbol, 0.ToExpression());
@@ -115,8 +125,7 @@ namespace Marosoft.Mist.Evaluation.Special
 
             private void AddIn()
             {
-                _index++;
-                Expression list = _args[_index].Evaluate(_scope);
+                Expression list = ConsumeNextExpression().Evaluate(_scope);
 
                 // Add list iterator step
                 IEnumerable<Expression> listElementsCopyForIteration = list.Elements;
@@ -132,7 +141,7 @@ namespace Marosoft.Mist.Evaluation.Special
                     else
                     {
                         // Add terminsation step when list is empty
-                        _spec.AddLoopTermination(loop => true);
+                        _spec.AddLoopTermination(() => true);
                     }
                 };
                 step.Invoke(); // Invoke one time to get the first value
@@ -141,8 +150,7 @@ namespace Marosoft.Mist.Evaluation.Special
 
             private void AddFrom()
             {
-                _index++;
-                var fromValue = _args[_index].Evaluate(_scope);
+                var fromValue = ConsumeNextExpression().Evaluate(_scope);
                 _scope.AddBinding(_latestLoopSymbol, fromValue);
             }
             #endregion
@@ -150,63 +158,76 @@ namespace Marosoft.Mist.Evaluation.Special
             #region LIMITS: To / While / Until / Upto / Below
             private void AddTo()
             {
-                AddLimit((loopvar, to) => _scope.GetFunction(">").Call(loopvar, to).IsTrue);
+                AddLimitForLatetLoopVariable((loopvar, to) => _scope.GetFunction(">").Call(loopvar, to).IsTrue);
             }
             
             private void AddWhile()
             {
-                AddLimit((loopvar, limitExpr) => !limitExpr.IsTrue);
+                AddLimit(limitExpr => !limitExpr.IsTrue);
             }
 
             private void AddUntil()
             {
-                AddLimit((loopvar, limitExpr) => limitExpr.IsTrue);
+                AddLimit(limitExpr => limitExpr.IsTrue);
             }
 
             private void AddUpto()
             {
-                AddLimit((a, b) => _scope.GetFunction(">").Call(a, b).IsTrue);
+                AddLimitForLatetLoopVariable((a, b) => _scope.GetFunction(">").Call(a, b).IsTrue);
             }
 
             private void AddBelow()
             {
-                AddLimit((a, b) => _scope.GetFunction(">=").Call(a, b).IsTrue);
+                AddLimitForLatetLoopVariable((a, b) => _scope.GetFunction(">=").Call(a, b).IsTrue);
             }
 
-            private void AddLimit(Func<Expression, Expression, bool> test) 
+            private void AddLimitForLatetLoopVariable(Func<Expression, Expression, bool> test) 
             {
-                _index++;
                 var variable = _latestLoopSymbol;
-                var limit = _args[_index];
-                _spec.AddLoopTermination(loop => test(_scope.Resolve(variable), limit.Evaluate(_scope)));
+                AddLimit(expr => test(_scope.Resolve(variable), expr));
+            }
+
+            private void AddLimit(Func<Expression, bool> test)
+            {
+                var limit = ConsumeNextExpression();
+                _spec.AddLoopTermination(() => test(limit.Evaluate(_scope)));
             }
             #endregion
 
             #region ACCUMULATORS
+            private void AddWhen()
+            {
+                var condition = ConsumeNextExpression();
+                _spec.AddAccumulationCondition(() => condition.Evaluate(_scope).IsTrue);
+            }
+
             private void AddSum()
             {
-                _index++;
-                var temp = _args[_index];
-                _spec.AddAccumulation(0, (acc, loop) => acc + (int)temp.Evaluate(_scope).Value);
+                var temp = ConsumeNextExpression();
+                _spec.AddAccumulation(0, acc => acc + (int)temp.Evaluate(_scope).Value);
             }
 
             private void AddCount()
             {
-                _index++;
-                var temp = _latestLoopSymbol;
-                _spec.AddAccumulation(0, (acc, loop) => acc + (_scope.Resolve(temp).IsNil ? 0 : 1));
+                var temp = ConsumeNextExpression();
+                _spec.AddAccumulation(0, acc => acc + (temp.Evaluate(_scope).IsNil ? 0 : 1));
             }
             private void AddCollect()
             {
-                _index++;
-                var exprToAdd = _args[_index];
-                _spec.AddAccumulation(new ListExpression(), (acc, loop) =>
+                var exprToAdd = ConsumeNextExpression();
+                _spec.AddAccumulation(new ListExpression(), acc =>
                 {
                     acc.Elements.Add(exprToAdd.Evaluate(_scope));
                     return acc;
                 });
             }
             #endregion
+            
+            private void AddDo()
+            {
+                var sideEffect = ConsumeNextExpression();
+                _spec.AddSideEffect(() => sideEffect.Evaluate(_scope));
+            }
         }
 
         /// <summary>
@@ -227,15 +248,15 @@ namespace Marosoft.Mist.Evaluation.Special
                 }
             }
             
-            private Predicate<LoopIteration> _loopTerm;
-            public void AddLoopTermination(Predicate<LoopIteration> t)
+            private Func<bool> _loopTerm;
+            public void AddLoopTermination(Func<bool> t)
             {
                 _loopTerm = t;
             }
-            public bool TerminationPointReached(LoopIteration iter)
+            public bool TerminationPointReached()
             {
                 if(_loopTerm != null)
-                    return _loopTerm(iter);
+                    return _loopTerm();
                 return false; // loop forever if you have to :-)
             }
             
@@ -244,27 +265,53 @@ namespace Marosoft.Mist.Evaluation.Special
             {
                 _step = s;
             }
-            public void Step(LoopIteration iter)  // argument not needed?
+            public void Step()
             {
-                _step();
+                if(_step != null)
+                    _step();
+            }
+
+            private Func<bool> _accumulationCondition;
+            public void AddAccumulationCondition(Func<bool> condition)
+            {
+                if (_accumulationCondition != null)
+                    throw new MistException("Support for multiple accumulation conditions in loop not implemented");
+                _accumulationCondition = condition;
+            }
+            public bool ShouldAccumulat()
+            {
+                if(_accumulationCondition != null)
+                    return _accumulationCondition.Invoke();
+                return true;
             }
 
             private object _accumulatedValue;
-            private Action<LoopIteration> _stepAccumulator;
-            public void AddAccumulation<T>(T startValue, Func<T, LoopIteration, T> f)
+            private Action _stepAccumulator;
+            public void AddAccumulation<T>(T startValue, Func<T, T> f)
             {
                 if (_stepAccumulator == null)
                 {
                     _accumulatedValue = startValue;
-                    _stepAccumulator = loop => _accumulatedValue = f((T)_accumulatedValue, loop);                    
+                    _stepAccumulator = () => _accumulatedValue = f((T)_accumulatedValue);                    
                 }
                 else
                     throw new NotImplementedException("Composing of multiple accumulator steps not implemented");
             }
-            public void AccumulateResults(LoopIteration iter)
+            public void AccumulateResults()
             {
                 if (_stepAccumulator != null)
-                    _stepAccumulator(iter);
+                    _stepAccumulator();
+            }
+
+            private Func<Expression> _sideEffects;
+            public void AddSideEffect(Func<Expression> se)
+            {
+                _sideEffects = se;
+            }
+            public void DoSideEffects()
+            {
+                if (_sideEffects != null)
+                    _sideEffects.Invoke();
             }
 
             public Expression Result

@@ -8,19 +8,11 @@ namespace test.Evaluation
 {
     public class LoopSpec : EvaluationTests
     {
-        // TODO (not complete):
-        // (def i 0) (loop do (set! i (inc i)) until (> i 5))
+        // TODO (not complete):        
         // (def i 0) (loop repeat 5 do (set! i (inc i)))
         // multiple loop variables..
         // infinite loops.. (test with thread?)
-
-        /*
-         ;; Another example of the extended form of LOOP.
-        (loop for n from 1 to 10
-            when (oddp n)
-                collect n)
-        =>  (1 3 5 7 9)
-         */
+        // do twice in one loop
 
         [Test]
         public void For_i_upto_5_sum_i()
@@ -90,6 +82,27 @@ namespace test.Evaluation
         {
             Evaluate(@"(loop for i from 2 to 4 collect (+ 2 i))");
             result.ToString().ShouldEqual("(4 5 6)");
+        }
+
+        [Test]
+        public void When()
+        {
+            Evaluate(@"
+                    (loop for n from 1 to 10
+                        when (= 5 n)
+                            collect n)");
+            result.ToString().ShouldEqual("(5)");
+        }
+
+        [Test]
+        public void Do_until()
+        {
+            Evaluate(@"
+                    (def i 0) 
+                    (loop do (set! i (inc i)) 
+                          until (> i 5))
+                    (identity i)");
+            result.Value.ShouldEqual(6);
         }
     }
 }
