@@ -9,7 +9,6 @@ namespace test.Evaluation
     public class LoopSpec : EvaluationTests
     {
         // TODO (not complete):        
-        // multiple loop variables with different length..
         // infinite loops.. (test with thread?)
         // do twice in one loop
 
@@ -105,21 +104,22 @@ namespace test.Evaluation
         }
 
         [Test]
-        public void Repeat()
+        public void Repeat__and_do_twice()
         {
             Evaluate(@"
                     (def i 0) 
                     (loop repeat 5
+                          do (set! i (inc i))
                           do (set! i (inc i)))
                     (identity i)");
-            result.Value.ShouldEqual(5);
+            result.Value.ShouldEqual(10);
         }
 
         [Test]
         public void Loop_on_two_lists()
         {
             Evaluate(@"
-                    (loop for a in (list 1 2 3)
+                    (loop for a in (list 1 2 3 4)
                           for b in (list 4 5 6)
                           collect (+ a b))");
             result.ToString().ShouldEqual("(5 7 9)");

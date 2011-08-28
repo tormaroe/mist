@@ -316,10 +316,16 @@ namespace Marosoft.Mist.Evaluation.Special
                     _stepAccumulator();
             }
 
-            private Func<Expression> _sideEffects;
-            public void AddSideEffect(Func<Expression> se)
+            private Action _sideEffects;
+            public void AddSideEffect(Action se)
             {
-                _sideEffects = se;
+                if (_sideEffects == null)
+                    _sideEffects = se;
+                else
+                {
+                    var temp = _sideEffects;
+                    _sideEffects = () => { temp(); se(); };
+                }
             }
             public void DoSideEffects()
             {
