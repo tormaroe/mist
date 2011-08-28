@@ -1,8 +1,5 @@
 using NUnit.Framework;
-using Marosoft.Mist;
-using Marosoft.Mist.Lexing;
 using test.Evaluation.Common;
-using Marosoft.Mist.Evaluation;
 
 namespace test.Evaluation
 {
@@ -10,8 +7,7 @@ namespace test.Evaluation
     {
         // TODO (not complete):        
         // infinite loops.. (test with thread?)
-        // do twice in one loop
-
+        
         [Test]
         public void For_i_upto_5_sum_i()
         {

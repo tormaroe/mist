@@ -1,5 +1,4 @@
 using Marosoft.Mist.Parsing;
-using Marosoft.Mist.Lexing;
 using System.Linq;
 using System.Collections.Generic;
 using System;
@@ -242,7 +241,10 @@ namespace Marosoft.Mist.Evaluation.Special
         /// Also carries any accumulated value.
         /// </summary>
         class LoopSpecification
-        {            
+        {
+            private ActionPack _step = new ActionPack();
+            private ActionPack _sideEffect = new ActionPack();
+
             public LoopSpecification(List<Expression> args, Bindings scope)
             {
                 try
@@ -267,21 +269,22 @@ namespace Marosoft.Mist.Evaluation.Special
                 return false; // loop forever if you have to :-)
             }
             
-            private Action _step;
             public void AddStep(Action s)
             {
-                if (_step == null)
-                    _step = s;
-                else
-                {
-                    var temp = _step;
-                    _step = () => { temp(); s(); };
-                }
+                _step.Add(s);
             }
             public void Step()
             {
-                if(_step != null)
-                    _step();
+                _step.Invoke();
+            }
+
+            public void AddSideEffect(Action se)
+            {
+                _sideEffect.Add(se);
+            }
+            public void DoSideEffects()
+            {
+                _sideEffect.Invoke();
             }
 
             private Func<bool> _accumulationCondition;
@@ -298,7 +301,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 return true;
             }
 
-            private object _accumulatedValue;
+            private object _accumulatedValue;            
             private Action _stepAccumulator;
             public void AddAccumulation<T>(T startValue, Func<T, T> f)
             {
@@ -316,22 +319,6 @@ namespace Marosoft.Mist.Evaluation.Special
                     _stepAccumulator();
             }
 
-            private Action _sideEffects;
-            public void AddSideEffect(Action se)
-            {
-                if (_sideEffects == null)
-                    _sideEffects = se;
-                else
-                {
-                    var temp = _sideEffects;
-                    _sideEffects = () => { temp(); se(); };
-                }
-            }
-            public void DoSideEffects()
-            {
-                if (_sideEffects != null)
-                    _sideEffects.Invoke();
-            }
 
             public Expression Result
             {
@@ -341,6 +328,31 @@ namespace Marosoft.Mist.Evaluation.Special
                         return NIL.Instance;
                     return _accumulatedValue.ToExpression();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Holds zero, one or more Actions, 
+        /// which can all be run in sequence
+        /// by calling Invoke.
+        /// </summary>
+        class ActionPack
+        {
+            private Action a;
+            public void Add(Action toAdd)
+            {
+                if (a == null)
+                    a = toAdd;
+                else
+                {
+                    var temp = a;
+                    a = () => { temp(); toAdd(); };
+                }
+            }
+            public void Invoke()
+            {
+                if (a != null)
+                    a.Invoke();
             }
         }
     }
