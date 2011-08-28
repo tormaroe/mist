@@ -72,19 +72,20 @@ namespace Marosoft.Mist.Evaluation.Special
                 {
                     switch (_args[_index].Token.Text)
                     {
-                        case "for": AddFor(); break;
-                        case "upto": AddUpto(); break;
-                        case "below": AddBelow(); break;
-                        case "sum": AddSum(); break;
-                        case "count": AddCount(); break;
-                        case "in": AddIn(); break;
-                        case "until": AddUntil(); break;
-                        case "while": AddWhile(); break;
-                        case "from": AddFrom(); break;
-                        case "to": AddTo(); break;
-                        case "collect": AddCollect(); break;
-                        case "when": AddWhen(); break;
-                        case "do": AddDo(); break;
+                        case "for": For(); break;
+                        case "upto": Upto(); break;
+                        case "below": Below(); break;
+                        case "sum": Sum(); break;
+                        case "count": Count(); break;
+                        case "in": In(); break;
+                        case "until": Until(); break;
+                        case "while": While(); break;
+                        case "from": From(); break;
+                        case "to": To(); break;
+                        case "collect": Collect(); break;
+                        case "when": When(); break;
+                        case "do": Do(); break;
+                        case "repeat": Repeat(); break;
                         default:
                             throw new Exception("Unexpected expression " + _args[_index].Token + " in loop specification");
                     }
@@ -104,7 +105,7 @@ namespace Marosoft.Mist.Evaluation.Special
             }
 
             #region ADD AND INITIALIZE LOOP VARIABLES
-            private void AddFor()
+            private void For()
             {
                 _latestLoopSymbol = ConsumeNextExpression().Token.Text;
 
@@ -123,7 +124,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 }
             }
 
-            private void AddIn()
+            private void In()
             {
                 Expression list = ConsumeNextExpression().Evaluate(_scope);
 
@@ -148,7 +149,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 _spec.AddStep(step);                                
             }
 
-            private void AddFrom()
+            private void From()
             {
                 var fromValue = ConsumeNextExpression().Evaluate(_scope);
                 _scope.AddBinding(_latestLoopSymbol, fromValue);
@@ -156,32 +157,38 @@ namespace Marosoft.Mist.Evaluation.Special
             #endregion
 
             #region LIMITS: To / While / Until / Upto / Below
-            private void AddTo()
+            private void To()
             {
-                AddLimitForLatetLoopVariable((loopvar, to) => _scope.GetFunction(">").Call(loopvar, to).IsTrue);
+                AddLimitForLatestLoopVariable((loopvar, to) => _scope.GetFunction(">").Call(loopvar, to).IsTrue);
             }
             
-            private void AddWhile()
+            private void While()
             {
                 AddLimit(limitExpr => !limitExpr.IsTrue);
             }
 
-            private void AddUntil()
+            private void Until()
             {
                 AddLimit(limitExpr => limitExpr.IsTrue);
             }
 
-            private void AddUpto()
+            private void Upto()
             {
-                AddLimitForLatetLoopVariable((a, b) => _scope.GetFunction(">").Call(a, b).IsTrue);
+                AddLimitForLatestLoopVariable((a, b) => _scope.GetFunction(">").Call(a, b).IsTrue);
             }
 
-            private void AddBelow()
+            private void Below()
             {
-                AddLimitForLatetLoopVariable((a, b) => _scope.GetFunction(">=").Call(a, b).IsTrue);
+                AddLimitForLatestLoopVariable((a, b) => _scope.GetFunction(">=").Call(a, b).IsTrue);
             }
 
-            private void AddLimitForLatetLoopVariable(Func<Expression, Expression, bool> test) 
+            private void Repeat()
+            {
+                int counter = 0;
+                AddLimit(limitExpr => counter++ >= (int)limitExpr.Value);
+            }
+
+            private void AddLimitForLatestLoopVariable(Func<Expression, Expression, bool> test) 
             {
                 var variable = _latestLoopSymbol;
                 AddLimit(expr => test(_scope.Resolve(variable), expr));
@@ -195,24 +202,24 @@ namespace Marosoft.Mist.Evaluation.Special
             #endregion
 
             #region ACCUMULATORS
-            private void AddWhen()
+            private void When()
             {
                 var condition = ConsumeNextExpression();
                 _spec.AddAccumulationCondition(() => condition.Evaluate(_scope).IsTrue);
             }
 
-            private void AddSum()
+            private void Sum()
             {
                 var temp = ConsumeNextExpression();
                 _spec.AddAccumulation(0, acc => acc + (int)temp.Evaluate(_scope).Value);
             }
 
-            private void AddCount()
+            private void Count()
             {
                 var temp = ConsumeNextExpression();
                 _spec.AddAccumulation(0, acc => acc + (temp.Evaluate(_scope).IsNil ? 0 : 1));
             }
-            private void AddCollect()
+            private void Collect()
             {
                 var exprToAdd = ConsumeNextExpression();
                 _spec.AddAccumulation(new ListExpression(), acc =>
@@ -223,7 +230,7 @@ namespace Marosoft.Mist.Evaluation.Special
             }
             #endregion
             
-            private void AddDo()
+            private void Do()
             {
                 var sideEffect = ConsumeNextExpression();
                 _spec.AddSideEffect(() => sideEffect.Evaluate(_scope));
@@ -263,7 +270,13 @@ namespace Marosoft.Mist.Evaluation.Special
             private Action _step;
             public void AddStep(Action s)
             {
-                _step = s;
+                if (_step == null)
+                    _step = s;
+                else
+                {
+                    var temp = _step;
+                    _step = () => { temp(); s(); };
+                }
             }
             public void Step()
             {
