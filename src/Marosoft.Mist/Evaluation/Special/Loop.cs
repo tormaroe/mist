@@ -33,12 +33,12 @@ namespace Marosoft.Mist.Evaluation.Special
             {
                 while (!_spec.TerminationPointReached())
                 {
-                    if (_spec.ShouldAccumulat())
+                    if (_spec.ShouldAccumulate())
                     {
                         _spec.AccumulateResults();
-                        _spec.DoSideEffects();
+                        _spec.SideEffects.Invoke();
                     }
-                    _spec.Step();
+                    _spec.Step.Invoke();
                 }
                 return _spec.Result;
             }
@@ -114,7 +114,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 if (!NextTokenIsOneOf("in"))
                 {
                     var temp = _latestLoopSymbol;
-                    _spec.AddStep(() =>
+                    _spec.Step.Add(() =>
                     {
                         var val = _scope.Resolve(temp);
                         int newval = ((int)val.Value) + 1;
@@ -145,7 +145,7 @@ namespace Marosoft.Mist.Evaluation.Special
                     }
                 };
                 step.Invoke(); // Invoke one time to get the first value
-                _spec.AddStep(step);                                
+                _spec.Step.Add(step);                                
             }
 
             private void From()
@@ -232,7 +232,7 @@ namespace Marosoft.Mist.Evaluation.Special
             private void Do()
             {
                 var sideEffect = ConsumeNextExpression();
-                _spec.AddSideEffect(() => sideEffect.Evaluate(_scope));
+                _spec.SideEffects.Add(() => sideEffect.Evaluate(_scope));
             }
         }
 
@@ -242,8 +242,8 @@ namespace Marosoft.Mist.Evaluation.Special
         /// </summary>
         class LoopSpecification
         {
-            private ActionPack _step = new ActionPack();
-            private ActionPack _sideEffect = new ActionPack();
+            public readonly ActionPack Step = new ActionPack();
+            public readonly ActionPack SideEffects = new ActionPack();
 
             public LoopSpecification(List<Expression> args, Bindings scope)
             {
@@ -267,25 +267,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 if(_loopTerm != null)
                     return _loopTerm();
                 return false; // loop forever if you have to :-)
-            }
-            
-            public void AddStep(Action s)
-            {
-                _step.Add(s);
-            }
-            public void Step()
-            {
-                _step.Invoke();
-            }
-
-            public void AddSideEffect(Action se)
-            {
-                _sideEffect.Add(se);
-            }
-            public void DoSideEffects()
-            {
-                _sideEffect.Invoke();
-            }
+            }            
 
             private Func<bool> _accumulationCondition;
             public void AddAccumulationCondition(Func<bool> condition)
@@ -294,7 +276,7 @@ namespace Marosoft.Mist.Evaluation.Special
                     throw new MistException("Support for multiple accumulation conditions in loop not implemented");
                 _accumulationCondition = condition;
             }
-            public bool ShouldAccumulat()
+            public bool ShouldAccumulate()
             {
                 if(_accumulationCondition != null)
                     return _accumulationCondition.Invoke();
