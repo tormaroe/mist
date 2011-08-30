@@ -92,6 +92,7 @@
     <Compile Include="Evaluation\Special\Let.cs" />
     <Compile Include="Evaluation\Special\Load.cs" />
     <Compile Include="Evaluation\Special\Loop.cs" />
+    <Compile Include="Evaluation\Special\New.cs" />
     <Compile Include="Evaluation\Special\Quote.cs" />
     <Compile Include="Evaluation\Special\Set.cs" />
     <Compile Include="Evaluation\Special\Time.cs" />

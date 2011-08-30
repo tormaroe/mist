@@ -23,7 +23,8 @@ namespace Marosoft.Mist.Lexing
 		public const int RIGHTPAREN = 6;
 		public const int FUNCTION = 7;
 		public const int MACRO = 8;
-		public const int LIST = 9;
+		public const int OBJECT = 9;
+		public const int LIST = 10;
 
 
 		public static readonly Dictionary<int, string> TokenNames = new Dictionary<int, string>
@@ -38,6 +39,7 @@ namespace Marosoft.Mist.Lexing
 			{RIGHTPAREN, "RIGHTPAREN"},
 			{FUNCTION, "FUNCTION"},
 			{MACRO, "MACRO"},
+			{OBJECT, "OBJECT"},
 			{LIST, "LIST"},
         
         };

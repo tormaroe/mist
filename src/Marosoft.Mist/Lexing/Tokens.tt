@@ -45,6 +45,7 @@ namespace Marosoft.Mist.Lexing
 		new TokenInfo { token = "RIGHTPAREN" , regex = "^\\)"},
 		new TokenInfo { token = "FUNCTION" },
 		new TokenInfo { token = "MACRO" },
+		new TokenInfo { token = "OBJECT" },
 		new TokenInfo { token = "LIST" }
 	};
 

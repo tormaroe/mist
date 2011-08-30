@@ -38,9 +38,11 @@ namespace Marosoft.Mist.Parsing
             if (o is Expression)
                 return (Expression)o;
 
-            throw new NotImplementedException(
-                "ToExpression extention not implemented for "
-                + o.GetType());
+            return new Expression(new Token(Tokens.OBJECT, "FFF")) { Value = o };
+
+            //throw new NotImplementedException(
+            //    "ToExpression extention not implemented for "
+            //    + o.GetType());
         }
     }
 }
