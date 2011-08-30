@@ -1,6 +1,7 @@
 using Marosoft.Mist.Parsing;
 using System.Linq;
 using Marosoft.Mist.Lexing;
+using System;
 
 namespace Marosoft.Mist.Evaluation.Special
 {
@@ -13,7 +14,14 @@ namespace Marosoft.Mist.Evaluation.Special
             //    throw new MistException("Load takes a single string argument.");
 
             //var source = Environment.EvaluateString("(slurp " + expr.Elements.Second().ToString() + ")");
-            return new System.Text.StringBuilder().ToExpression();
+
+            var typeName = expr.Elements[1].Token.Text;
+
+            Type type = Type.GetType(typeName);
+
+            object instance = Activator.CreateInstance(type);
+
+            return instance.ToExpression();
         }
     }
 }

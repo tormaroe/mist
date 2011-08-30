@@ -20,5 +20,23 @@ namespace test.Evaluation
             interpreter.EvaluateString("(foo (quote ToString))")
                 .Value.ShouldEqual("Hello");
         }
+
+        [Test]
+        public void Create_and_use_object_with_some_construction_parameters()
+        {
+            // First in C#
+            var regex = new System.Text.RegularExpressions.Regex("123");
+            System.Text.RegularExpressions.Match match = regex.Match("012345");
+            match.Success.ShouldBeTrue();
+
+            Evaluate("(new System.Text.RegularExpressions.Regex \"123\")");
+            result.Value.ShouldBeOfType<System.Text.RegularExpressions.Regex>();
+            //result.Value.ShouldBeOfType<StringBuilder>();
+            
+            //interpreter.EvaluateString("(foo (quote Append) \"Hello\")");
+
+            //interpreter.EvaluateString("(foo (quote ToString))")
+            //    .Value.ShouldEqual("Hello");
+        }
     }
 }
