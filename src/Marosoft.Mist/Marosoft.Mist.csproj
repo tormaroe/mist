@@ -43,6 +43,7 @@
     <Compile Include="EmbeddedMist.cs" />
     <Compile Include="Evaluation\FormalParameters.cs" />
     <Compile Include="Evaluation\FunctionFromFunc.cs" />
+    <Compile Include="Evaluation\Functionoid.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ApplyFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\ConcatFunction.cs" />
     <Compile Include="Evaluation\GlobalFunctions\DocFunction.cs" />

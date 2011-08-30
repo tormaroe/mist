@@ -63,14 +63,18 @@ namespace Marosoft.Mist.Parsing
 
         private Expression CallFunction(Evaluation.Bindings scope)
         {
-            return GetFirstExpressionAsFunction(scope)
-                .Call(EvaluatedArguments(scope));
+            var f = GetFirstExpressionAsFunction(scope);
+            return f.Call(EvaluatedArguments(scope));
         }
 
         private Function GetFirstExpressionAsFunction(Bindings scope)
         {
+ 
             if (!(Elements[0] is Function))
                 Elements[0] = Elements[0].Evaluate(scope); // recur to try to get a function
+
+            if (Functionoid.CanWrap(Elements[0]))
+                return new Functionoid(Elements[0]);
 
             if (Elements[0] is Function)
                 return (Function)Elements[0];

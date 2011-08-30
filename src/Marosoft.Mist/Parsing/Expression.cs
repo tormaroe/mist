@@ -13,7 +13,7 @@ namespace Marosoft.Mist.Parsing
         public List<Expression> Elements { get; private set; }
         public virtual object Value { get; set; }
 
-        public StringExpression DocString { get; set; }
+        public Expression DocString { get; set; }
         
         public Expression(Token token)
         {

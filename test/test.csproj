@@ -61,6 +61,7 @@
     <Compile Include="Evaluation\FilterSpec.cs" />
     <Compile Include="Evaluation\FirstAndRestSpec.cs" />
     <Compile Include="Evaluation\FnSpec.cs" />
+    <Compile Include="Evaluation\Functionoids.cs" />
     <Compile Include="Evaluation\GtLtSpec.cs" />
     <Compile Include="Evaluation\IdentitySpec.cs" />
     <Compile Include="Evaluation\IfSpec.cs" />

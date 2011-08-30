@@ -23,7 +23,7 @@ namespace Marosoft.Mist.Evaluation.Special
             else if (expr.Elements.Count == 4 && expr.Elements.Third().Token.Type == Tokens.STRING)
             {
                 value = Evaluate(expr.Elements.Forth());
-                value.DocString = Evaluate(expr.Elements.Third()) as StringExpression;
+                value.DocString = Evaluate(expr.Elements.Third()); // as StringExpression;
             }
             else
                 throw new MistException("Special form 'def' needs 2 parameters (+ an optional doc string), not " + (expr.Elements.Count - 1));
