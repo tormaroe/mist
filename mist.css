@@ -25,7 +25,7 @@ quote{
 }
 
 #leftBar{
-  position: absolute;
+  position: fixed;
   top:0px;
   left:0px;
   width:200px;
@@ -33,7 +33,7 @@ quote{
 
 #leftContent{
   margin-top:210px;
-  margin-left:6px;
+  margin-left:10px;
   margin-right:6px;
   margin-bottom:20px;
   font-family: 'Varela Round', sans-serif;
@@ -55,12 +55,13 @@ quote{
   left:330px;
   width:490px;
   height:120px;
+  text-align:right;
   /*border:solid 1px black;*/
 }
 
 #main{
   position: absolute;
-  top:170px;
+  top:200px;
   left:230px;
   width:600px;
   padding-top:0px;
