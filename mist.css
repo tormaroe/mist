@@ -9,6 +9,7 @@ body{
 quote{
   font-family: 'Gloria Hallelujah', cursive;
   font-size:11pt;
+  color:blue;
 }
 #logo{
   position: absolute;
@@ -39,20 +40,30 @@ quote{
   font-size:10pt;
 }
 
+#topTop{
+  position: absolute;
+  font-family: 'Varela Round', sans-serif;
+  font-weight: bold;
+  color:#777777;
+  font-size:10pt;
+  top:10px;
+  left:705px;
+}
 #mainTop{
   position: absolute;
   top:50px;
   left:330px;
-  width:370px;
-  height:100px;
+  width:490px;
+  height:120px;
   /*border:solid 1px black;*/
 }
 
 #main{
   position: absolute;
-  top:200px;
+  top:170px;
   left:230px;
   width:600px;
   padding-top:0px;
   padding-bottom:30px;
+  text-align: justify;
 }
