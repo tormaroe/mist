@@ -1,13 +1,14 @@
 body{
-  font-family: Verdana;
-  font-size:10pt;
+  font-family: 'OFL Sorts Mill Goudy TT', serif;
+  font-size:12pt;
   background-color:#FBFDFE;
   background-image:url('bg2.png');
   background-repeat:repeat-y;
 }
 
 quote{
-  font-style:italic;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size:11pt;
 }
 #logo{
   position: absolute;
@@ -34,6 +35,7 @@ quote{
   margin-left:6px;
   margin-right:6px;
   margin-bottom:20px;
+  font-family: 'Varela Round', sans-serif;
 }
 
 #mainTop{
