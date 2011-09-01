@@ -5,11 +5,9 @@ page[:file] = "execute_mist_files"
 page[:title] = "Execute Mist Files"
 
 page[:quote] = <<EOF
-<p>
-  <quote>
+<p class="quote">
     "The only way to learn a new programming language<br/>is by writing programs in it."<br/>
     - Kernighan and Ritchie
-  </quote>
 </p>
 EOF
 

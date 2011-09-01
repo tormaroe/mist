@@ -5,11 +5,9 @@ page[:file] = "license"
 page[:title] = "MIST License"
 
 page[:quote] = <<EOF
-<p>
-  <quote>
+<p class="quote">
     "We were not out to win over<br/>the Lisp programmers; we were after the C++ programmers.<br/>We managed to drag a lot of them about halfway to Lisp."<br/>
     - Guy Steele, Java spec co-author
-  </quote>
 </p>
 EOF
 

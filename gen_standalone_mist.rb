@@ -5,11 +5,9 @@ page[:file] = "standalone_mist"
 page[:title] = "Standalone Mist"
 
 page[:quote] = <<EOF
-<p>
-  <quote>
+<p class="quote">
     "Lisp doesn't look any deader than usual to me."<br/>
     - David Thornley, reply to a question older than most languages
-  </quote>
 </p>
 EOF
 

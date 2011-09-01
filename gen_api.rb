@@ -5,11 +5,9 @@ page[:file] = "api"
 page[:title] = "Mist API"
 
 page[:quote] = <<EOF
-<p>
-  <quote>
+<p class="quote">
     "Lisp is a programmer amplifier."<br/>
     - Martin Rodgers
-  </quote>
 </p>
 EOF
 

@@ -6,7 +6,7 @@ body{
   background-repeat:repeat-y;
 }
 
-quote{
+.quote{
   font-family: 'Gloria Hallelujah', cursive;
   font-size:11pt;
   color:blue;

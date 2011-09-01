@@ -5,11 +5,9 @@ page[:file] = "embedded_api"
 page[:title] = "Embedded Mist API"
 
 page[:quote] = <<EOF
-<p>
-  <quote>
+<p class="quote">
     "the greatest single programming language ever designed"<br/>
     - Alan Kay, on Lisp
-  </quote>
 </p>
 EOF
 

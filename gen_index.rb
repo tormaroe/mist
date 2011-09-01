@@ -5,11 +5,9 @@ page[:file] = "index"
 page[:title] = "The MIST Programming Language"
 
 page[:quote] = <<EOF
-<p>
-  <quote>
+<p class="quote">
     "Within a couple weeks of learning Lisp I found programming<br/>in any other language unbearably constraining."<br/>
     - <a href="http://www.paulgraham.com/">Paul Graham</a>
-  </quote>
 </p>
 EOF
 
