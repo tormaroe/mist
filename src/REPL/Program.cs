@@ -2,6 +2,7 @@
 using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Evaluation;
+using System.Collections.Generic;
 
 namespace Marosoft.Mist.Repl
 {
@@ -14,9 +15,9 @@ namespace Marosoft.Mist.Repl
     /    Y    \   |/        \  |    |   
     \____|__  /___/_______  /  |____|   
             \/            \/            
-   A LISP IMPLEMENTATION BY TORBJORN MARO
-      https://github.com/tormaroe/mist
-          Evaluate (quit) to exit!
+       A LISP IMPLEMENTATION FOR .NET
+      http://tormaroe.github.com/mist/
+              Type :q to quit!
 
 ";
 
@@ -51,6 +52,7 @@ namespace Marosoft.Mist.Repl
                 }
         }
 
+        #region READ
         private static string READ()
         {
             Console.Write("=> ");
@@ -59,22 +61,47 @@ namespace Marosoft.Mist.Repl
 
         private static string ReadExpression(string acc = "")
         {
-            acc += Console.ReadLine();
+            acc = string.Format("{0} {1}", acc, Console.ReadLine());
             return ExpressionDone(acc) ? acc : ReadExpression(acc);
         }
 
         private static bool ExpressionDone(string input)
         {
-            if (input.Trim().StartsWith("("))
+            if (IsForm(input))
             {
                 var characters = input.ToCharArray();
                 return characters.Count(ch => ch == '(') <= characters.Count(ch => ch == ')');
             }
             return true;
         }
+        private static bool IsForm(string input)
+        {
+            return input.Trim().StartsWith("(");
+        }
+        #endregion
+
+
+        private static Dictionary<string, string> ReplCommands
+            = new Dictionary<string, string>
+            {
+                { ":q", "(quit)" },
+                { ":r", "(restart)" },
+                // TODO: add :h for help
+            };
 
         public static Expression EVAL(string input)
         {
+            input = input.Trim();
+
+            if (!IsForm(input))
+            {
+                if (ReplCommands.ContainsKey(input))
+                    input = ReplCommands[input];
+
+                else if (!input.Contains(' '))
+                    input = string.Format("(identity {0})", input);
+            }
+
             var expr = interpreter.EvaluateString(input);
             memory.UpdateReplMemory(expr);
             return expr;
