@@ -17,7 +17,7 @@ namespace Marosoft.Mist.Repl
             \/            \/            
        A LISP IMPLEMENTATION FOR .NET
       http://tormaroe.github.com/mist/
-              Type :q to quit!
+          Type :h <ENTER> for help!
 
 ";
 
@@ -81,12 +81,27 @@ namespace Marosoft.Mist.Repl
         #endregion
 
 
-        private static Dictionary<string, string> ReplCommands
-            = new Dictionary<string, string>
+        private static Dictionary<string, Func<string>> ReplCommands
+            = new Dictionary<string, Func<string>>
             {
-                { ":q", "(quit)" },
-                { ":r", "(restart)" },
-                // TODO: add :h for help
+                { ":q", () => "(quit)" },
+                { ":r", () => "(restart)" },
+                { ":h", () => 
+                    {
+                        Console.WriteLine(@"
+REPL HELP
+------------------------------------------------------------
+:h                 Prints this message
+:q or (quit)       Quits REPL
+:r or (restart)    Start REPL from scratch
+(load ""filepath"")  Evaluate the content of a file
+*m*                Contains the value of the last evaluation
+*m2*               The value of the next to last evaluation
+*m3*               The value of the third last evaluation
+");
+                        return "(identity nil)";
+                    } 
+                },
             };
 
         public static Expression EVAL(string input)
@@ -96,7 +111,7 @@ namespace Marosoft.Mist.Repl
             if (!IsForm(input))
             {
                 if (ReplCommands.ContainsKey(input))
-                    input = ReplCommands[input];
+                    input = ReplCommands[input].Invoke();
 
                 else if (!input.Contains(' '))
                     input = string.Format("(identity {0})", input);
