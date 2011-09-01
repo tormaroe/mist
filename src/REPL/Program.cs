@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Marosoft.Mist.Parsing;
 using Marosoft.Mist.Evaluation;
 
@@ -50,10 +51,26 @@ namespace Marosoft.Mist.Repl
                 }
         }
 
-        public static string READ()
+        private static string READ()
         {
             Console.Write("=> ");
-            return Console.ReadLine();
+            return ReadExpression();
+        }
+
+        private static string ReadExpression(string acc = "")
+        {
+            acc += Console.ReadLine();
+            return ExpressionDone(acc) ? acc : ReadExpression(acc);
+        }
+
+        private static bool ExpressionDone(string input)
+        {
+            if (input.Trim().StartsWith("("))
+            {
+                var characters = input.ToCharArray();
+                return characters.Count(ch => ch == '(') <= characters.Count(ch => ch == ')');
+            }
+            return true;
         }
 
         public static Expression EVAL(string input)
