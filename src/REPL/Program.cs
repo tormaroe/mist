@@ -86,7 +86,7 @@ namespace Marosoft.Mist.Repl
                     {
                         Console.WriteLine(@"
 REPL HELP
-------------------------------------------------------------
+---------------------------------------------------------------
 :h                 Prints this message
 :q or (quit)       Quits REPL
 :r or (restart)    Start REPL from scratch
@@ -94,6 +94,8 @@ REPL HELP
 *m*                Contains the value of the last evaluation
 *m2*               The value of the next to last evaluation
 *m3*               The value of the third last evaluation
+
+Find more functions at http://tormaroe.github.com/mist/api.html
 ");
                         return "(identity nil)";
                     } 
