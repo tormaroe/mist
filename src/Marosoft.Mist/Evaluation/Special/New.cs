@@ -15,6 +15,8 @@ namespace Marosoft.Mist.Evaluation.Special
 
             //var source = Environment.EvaluateString("(slurp " + expr.Elements.Second().ToString() + ")");
 
+            // WORK IN PROGRESS !!!!
+
             var typeName = expr.Elements[1].Token.Text;
 
             Type type = Type.GetType(typeName);
