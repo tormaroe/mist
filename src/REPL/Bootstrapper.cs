@@ -18,7 +18,7 @@ namespace Marosoft.Mist.Repl
             global.AddBinding(new Restart(global));
             global.AddBinding(new Quit(global));
 
-            Program.SetState(interpreter, global, memory);
+            Program.SetState(interpreter, memory);
 
             LoadUserConfig();
         }

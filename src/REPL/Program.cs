@@ -22,13 +22,11 @@ namespace Marosoft.Mist.Repl
 ";
 
         private static Interpreter interpreter;
-        private static Bindings global;
         private static ResultMemory memory;
 
-        public static void SetState(Interpreter i, Bindings b, ResultMemory r)
+        public static void SetState(Interpreter i, ResultMemory r)
         {
             interpreter = i;
-            global = b;
             memory = r;
         }
 
@@ -52,7 +50,6 @@ namespace Marosoft.Mist.Repl
                 }
         }
 
-        #region READ
         private static string READ()
         {
             Console.Write("=> ");
@@ -74,12 +71,11 @@ namespace Marosoft.Mist.Repl
             }
             return true;
         }
+
         private static bool IsForm(string input)
         {
             return input.Trim().StartsWith("(");
         }
-        #endregion
-
 
         private static Dictionary<string, Func<string>> ReplCommands
             = new Dictionary<string, Func<string>>
@@ -106,8 +102,11 @@ REPL HELP
 
         public static Expression EVAL(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+                return NIL.Instance;
+            
             input = input.Trim();
-
+            
             if (!IsForm(input))
             {
                 if (ReplCommands.ContainsKey(input))
