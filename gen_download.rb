@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 require "./genlib"
 
 page = {}
@@ -17,9 +26,10 @@ page[:content] = <<EOF
 
 <h1>Download Mist</h1>
 <p>
-  No downloads here yet! Get the source from <a href="https://github.com/tormaroe/mist">Github</a> if you're interested.
+  No downloads here yet! Get the source from 
+  <a href="https://github.com/tormaroe/mist">Github</a> 
+  if you're interested.
 </p>
-
 EOF
 
 generate page

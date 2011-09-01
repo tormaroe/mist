@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 def template
   template = ''
   File.open('template.html', "r") do |file|
