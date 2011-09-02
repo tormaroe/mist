@@ -104,6 +104,11 @@ namespace Marosoft.Mist
             _mist.EvaluateString(string.Format("(load \"{0}\")", path));
         }
 
+        public void Evaluate(string source)
+        {
+            _mist.EvaluateString(source);
+        }
+
         /// <summary>
         /// Get a value from the Mist environment by specifying a symbol.
         /// </summary>

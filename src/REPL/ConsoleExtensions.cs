@@ -6,6 +6,11 @@ namespace Marosoft.Mist.Repl
 {
     static class ConsoleExtensions
     {
+        public static void WithErrorColors(Action block)
+        {
+            WithColors(ConsoleColor.White, ConsoleColor.Red, block);
+        }
+
         public static void WithColors(ConsoleColor fg, ConsoleColor bg, Action block)
         {
             var oldFg = Console.ForegroundColor;

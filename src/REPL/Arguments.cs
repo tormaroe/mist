@@ -77,7 +77,7 @@ Examples:
                     .Where(a => a.Length > 1 && a[0] == '-' && a[1] != '-')
                     .SelectMany(a => a.Substring(1).ToCharArray().Select(c => argsMap[c]))
                     .Concat(_args)
-                    .ToList();
+                    .ToList(); // ToList() needed to force any errors in select early!
             }
             catch
             {
@@ -87,10 +87,7 @@ Examples:
 
         private static void Error(string message)
         {
-            ConsoleExtensions.WithColors(
-                ConsoleColor.White, 
-                ConsoleColor.Red,
-                () => Console.WriteLine(message));
+            ConsoleExtensions.WithErrorColors(() => Console.WriteLine(message));
             DisplayHelpAndExit();
         }
 

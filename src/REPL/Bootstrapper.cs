@@ -87,7 +87,7 @@ namespace Marosoft.Mist.Repl
             }
             catch (Exception ex)
             {
-                ConsoleExtensions.WithColors(ConsoleColor.White, ConsoleColor.Red, 
+                ConsoleExtensions.WithErrorColors(
                     () => Console.WriteLine(errorFormat, ex.Message, file));
             }
         }
