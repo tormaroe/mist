@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Marosoft.Mist.Parsing;
+using System;
+using System.Linq;
 
 namespace Marosoft.Mist.Evaluation
 {
@@ -25,10 +27,24 @@ namespace Marosoft.Mist.Evaluation
             return (Function)Resolve(symbol);
         }
 
+        public IEnumerable<Expression> AllBindings
+        {
+            get
+            {
+                //TODO: enhance when Bindings stores symbols instead of strings!!!
+                // Not working as I hoped... :(
+                var bindings = _symbolBindings.Keys.Select(key => new SymbolExpression(key));
+                if(ParentScope != null)
+                    return bindings.Concat(ParentScope.AllBindings);
+                return bindings;
+            }
+        }
+
         public void AddBinding(Expression expr)
         {
             //TODO: should probably store the symbol here as well
             // will make it possible to retrieve the doc string from the symbol instead of the value
+            // see AllBindings as well
 
             AddBinding(expr.Token.Text, expr);
         }

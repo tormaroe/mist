@@ -22,7 +22,8 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
 
         protected override Expression InternalCall(System.Collections.Generic.IEnumerable<Expression> args)
         {
-            return args.First().DocString;
+            var x = args.First();
+            return x.DocString ?? NIL.Instance;
         }
 
         protected override bool Precondition(System.Collections.Generic.IEnumerable<Expression> args)
