@@ -54,7 +54,7 @@ namespace Marosoft.Mist.Evaluation.Special
             private readonly List<Expression> _args;
             private readonly Bindings _scope;
             private int _index;
-            private string _latestLoopSymbol;
+            private Expression _latestLoopSymbol;
             
             public LoopParser(LoopSpecification spec, List<Expression> args, Bindings scope)
             {
@@ -106,14 +106,14 @@ namespace Marosoft.Mist.Evaluation.Special
             #region ADD AND INITIALIZE LOOP VARIABLES
             private void For()
             {
-                _latestLoopSymbol = ConsumeNextExpression().Token.Text;
+                _latestLoopSymbol = ConsumeNextExpression();
 
                 if(!NextTokenIsOneOf("from"))
                     _scope.AddBinding(_latestLoopSymbol, 0.ToExpression());
 
                 if (!NextTokenIsOneOf("in"))
                 {
-                    var temp = _latestLoopSymbol;
+                    var temp = _latestLoopSymbol.Token.Text;
                     _spec.Step.Add(() =>
                     {
                         var val = _scope.Resolve(temp);
@@ -129,7 +129,7 @@ namespace Marosoft.Mist.Evaluation.Special
 
                 // Add list iterator step
                 IEnumerable<Expression> listElementsCopyForIteration = list.Elements;
-                var tempSymbol = new SymbolExpression(_latestLoopSymbol);
+                var tempSymbol = _latestLoopSymbol;
                 Action step = () =>
                 {
                     var nextElement = listElementsCopyForIteration.FirstOrDefault();
@@ -189,7 +189,7 @@ namespace Marosoft.Mist.Evaluation.Special
 
             private void AddLimitForLatestLoopVariable(Func<Expression, Expression, bool> test) 
             {
-                var variable = _latestLoopSymbol;
+                var variable = _latestLoopSymbol.Token.Text;
                 AddLimit(expr => test(_scope.Resolve(variable), expr));
             }
 

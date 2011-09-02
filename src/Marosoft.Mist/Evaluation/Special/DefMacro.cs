@@ -30,7 +30,7 @@ namespace Marosoft.Mist.Evaluation.Special
                 body: expr.Elements.Skip(3),
                 environment: Environment);
 
-            Environment.CurrentScope.AddBinding(name, macro);
+            Environment.CurrentScope.AddBinding(symbol, macro);
             
             return macro;
         }

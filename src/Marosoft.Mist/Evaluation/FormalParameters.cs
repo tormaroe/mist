@@ -40,7 +40,7 @@ namespace Marosoft.Mist.Evaluation
             if (_parameters != null)
                 for (int i = 0; i < Count; i++)
                     invocationScope.AddBinding(
-                        _parameters.Elements[i].Token.Text,
+                        _parameters.Elements[i],
                         args.ElementAt(i));
 
             return invocationScope;

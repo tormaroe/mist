@@ -16,7 +16,7 @@ namespace Marosoft.Mist.Evaluation.Special
 
             for (int i = 0; i < bindings.Count - 1; i = i + 2)
                 tempScope.AddBinding(
-                    bindings[i].Token.Text,
+                    bindings[i],
                     bindings[i + 1].Evaluate(tempScope));
 
             return Environment.WithScope(tempScope,

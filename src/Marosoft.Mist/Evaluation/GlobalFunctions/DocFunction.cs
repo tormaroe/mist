@@ -7,6 +7,8 @@ namespace Marosoft.Mist.Evaluation.GlobalFunctions
     [GlobalFunction]
     public class DocFunction : BuiltInFunction
     {
+        // Change to Special form, then get doc through the Scope (from the symbol, not the value)
+
         public DocFunction(Bindings scope)
             : base("doc", scope)
         {

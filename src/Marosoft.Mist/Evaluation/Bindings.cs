@@ -7,14 +7,15 @@ namespace Marosoft.Mist.Evaluation
 {
     public class Bindings
     {
-        private Dictionary<string, Expression> _symbolBindings = new Dictionary<string, Expression>();
+        private Dictionary<Expression, Expression> _symbolBindings = new Dictionary<Expression, Expression>();
 
         public Bindings ParentScope { get; set; }
 
         public virtual Expression Resolve(string symbol)
         {
-            if (_symbolBindings.ContainsKey(symbol))
-                return _symbolBindings[symbol];
+            var v = _symbolBindings.FirstOrDefault(kv => kv.Key.Token.Text == symbol).Value;
+            if(v != null)  
+               return v;
 
             if (ParentScope != null)
                 return ParentScope.Resolve(symbol);
@@ -33,7 +34,7 @@ namespace Marosoft.Mist.Evaluation
             {
                 //TODO: enhance when Bindings stores symbols instead of strings!!!
                 // Not working as I hoped... :(
-                var bindings = _symbolBindings.Keys.Select(key => new SymbolExpression(key));
+                var bindings = _symbolBindings.Keys;
                 if(ParentScope != null)
                     return bindings.Concat(ParentScope.AllBindings);
                 return bindings;
@@ -46,33 +47,33 @@ namespace Marosoft.Mist.Evaluation
             // will make it possible to retrieve the doc string from the symbol instead of the value
             // see AllBindings as well
 
-            AddBinding(expr.Token.Text, expr);
+            AddBinding(new SymbolExpression(expr.Token.Text), expr);
         }
 
-        public void AddBinding(string symbol, Expression expr)
-        {
-            // Above TODO will make this method problematic
 
+        public void AddBinding(Expression symbol, Expression expr)
+        {
             _symbolBindings.Add(symbol, expr);
         }
 
         public void RemoveBinding(string symbol)
         {
-            _symbolBindings.Remove(symbol);
+            _symbolBindings.Remove(_symbolBindings.First(kv => kv.Key.Token.Text == symbol).Key);
         }
 
         public void UpdateBinding(Expression symbol, Expression value)
         {
-            string key = symbol.Token.Text;
+            string lookupKey = symbol.Token.Text;
 
-            if (_symbolBindings.ContainsKey(key))
-                _symbolBindings[key] = value;
+            var k = _symbolBindings.FirstOrDefault(kv => kv.Key.Token.Text == lookupKey).Key;
+            if (k != null)
+                _symbolBindings[k] = value;
 
             else if (ParentScope != null)
                 ParentScope.UpdateBinding(symbol, value);
 
             else 
-                throw new SymbolResolveException(key);
+                throw new SymbolResolveException(lookupKey);
         }
     }
 }

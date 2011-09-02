@@ -29,7 +29,7 @@ namespace Marosoft.Mist
         /// <param name="value">The value to bind to the symbol.</param>
         public void Set(string symbol, object value)
         {
-            _mist.CurrentScope.AddBinding(symbol, value.ToExpression());
+            _mist.CurrentScope.AddBinding(new SymbolExpression(symbol), value.ToExpression());
         }
 
         /// <summary>
