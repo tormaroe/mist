@@ -32,22 +32,30 @@ namespace Marosoft.Mist.Repl
 
         static void Main(string[] args)
         {
-            Console.Write(HEADER);
+            Arguments.Load(args);
+
+            if(Arguments.DisplayHeader) 
+                Console.Write(HEADER);
+            
             Bootstrapper.Initialize();
 
-            while (true)
-                try
-                {
-                    PRINT(EVAL(READ()));
-                }
-                catch (MistException mex)
-                {
-                    Console.WriteLine("*** " + mex.GetType().Name + ":\n" + mex.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+            if (Arguments.ProgramfileSpesified)
+                Bootstrapper.LoadFile(Arguments.Programfile, "*** Error loading {1}:\n{0}");
+
+            if (Arguments.ShouldStartRepl)
+                while (true)
+                    try
+                    {
+                        PRINT(EVAL(READ()));
+                    }
+                    catch (MistException mex)
+                    {
+                        Console.WriteLine("*** " + mex.GetType().Name + ":\n" + mex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
         }
 
         private static string READ()

@@ -20,7 +20,8 @@ namespace Marosoft.Mist.Repl
 
             Program.SetState(interpreter, memory);
 
-            LoadUserConfig();
+            if(Arguments.UseUserConfig)
+                LoadUserConfig();
         }
 
         public class Restart : BuiltInFunction
@@ -69,15 +70,25 @@ namespace Marosoft.Mist.Repl
             if (File.Exists(dotmistFile))
             {
                 Console.WriteLine("Loading user file from " + dotmistFile);
-                try
-                {
-                    Program.PRINT(Program.EVAL("(load \"" + dotmistFile + "\")"));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("*** Loading user file got exception: {0}\nReview {1}\nMIST ENVIRONMENT LEFT IN AN UNKNOWN STATE!\n",
-                        ex.Message, dotmistFile);
-                }
+                LoadFile(dotmistFile, "*** Loading user file got exception: {0}\nReview {1}");
+            }
+        }
+
+        /// <param name="errorFormat">
+        ///     String format with to inputs:
+        ///     {0} - Exception message
+        ///     {1} - Filename / path
+        /// </param>
+        public static void LoadFile(string file, string errorFormat)
+        {
+            try
+            {
+                Program.PRINT(Program.EVAL("(load \"" + file + "\")"));
+            }
+            catch (Exception ex)
+            {
+                ConsoleExtensions.WithColors(ConsoleColor.White, ConsoleColor.Red, 
+                    () => Console.WriteLine(errorFormat, ex.Message, file));
             }
         }
     }
