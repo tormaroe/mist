@@ -8,43 +8,63 @@ using System.IO;
 
 namespace Marosoft.Mist.Packer
 {
-    class Bootstrapper
+    class Arguments
     {
-        const string TEMPLATE = @"
-using System;
-using Marosoft.Mist;
-using System.IO;
-using System.Reflection;
-namespace Marosoft.Mist.StandaloneApp {
-    class Program { 
-        static void Main(string[] args) {
-            var mist = new EmbeddedMist();
+        //TODO: enable option to NOT include Mist DLL in exe
+        //TODO: multiple source files
 
-            var ass = Assembly.GetExecutingAssembly();
-            var mistResource = ass.GetManifestResourceNames()[0];
-            var mistStream = ass.GetManifestResourceStream(mistResource);
-            using (var streamReader = new StreamReader(mistStream))
-            {
-                var source = streamReader.ReadToEnd();
-                mist.Evaluate(source);
-            }
-
-        } 
-    } 
-}
+        private const string HELP = @"
+Usage: mistpacker options
+Options include:
+  -o:filename      Name of executable output file (optional)
+  -s:sourcefile    Path to file containing Mist source to pack
 ";
- 
-        public static string CreateSource()
+
+        private static string[] _args;
+        public static void Load(string[] args)
         {
-            return TEMPLATE;
+            _args = args;
+
+            try
+            {
+                var sourceArg = _args.SingleOrDefault(a => a.StartsWith("-s:"));
+                if (sourceArg != null)
+                    SourcePath = sourceArg.Substring(3);
+                else
+                    throw new Exception("-s option missing - you need to specify a source file!");
+
+                if (!File.Exists(SourcePath))
+                    throw new Exception("can't find sourcefile!");
+
+                var exeNameArg = _args.SingleOrDefault(a => a.StartsWith("-o:"));
+                if (exeNameArg != null)
+                    ExeName = exeNameArg.Substring(3);
+                else
+                    ExeName = "mistprogram.exe";
+
+                if (!ExeName.ToLower().EndsWith(".exe"))
+                    throw new Exception("Output file name must have a .exe extension!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR PARSING ARGUMENTS!");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(HELP);
+                Environment.Exit(1);
+            }
         }
+
+        public static string SourcePath { get; set; }
+        public static string ExeName { get; set; }
     }
 
     class Program
     {
+        private const string MIST_DLL = "Marosoft.Mist.dll";
+
         static void Main(string[] args)
         {
-            // Arguments: mistprogramfile, outname
+            // Arguments: mistprogramfile, outname, switches: embed-dll
             //
             // Create bootstrapper code that instantiates an EmbeddedMist object
             // and loads a file from an embedded resource
@@ -53,28 +73,44 @@ namespace Marosoft.Mist.StandaloneApp {
             // with added resource file: mistprogramfile
             //
             // Link in Mist dll
+            //var sourceFile = "..\\..\\..\\..\\samples\\hello-world.mist";
 
-            var sourceFile = "..\\..\\..\\..\\samples\\hello-world.mist";
-            if (!File.Exists(sourceFile))
-                throw new Exception("can't find sourcefile!");
-
-            var codeProvider = new CSharpCodeProvider();
+            ValidatePresenceOfMist();
             
+            Arguments.Load(args);
+
+            CompilerResults results = Compile();
+
+            PrintResult(results);
+
+            Environment.Exit(results.Errors.Count > 0 ? 2 : 0);
+        }
+
+        private static void ValidatePresenceOfMist()
+        {
+            if (!File.Exists(MIST_DLL))
+                throw new Exception("can't find " + MIST_DLL +
+                    ". Make sure it's located in the same folder as you're running mistpacker from.");
+        }
+
+        private static CompilerResults Compile()
+        {
+            var codeProvider = new CSharpCodeProvider();
             var parameters = new CompilerParameters()
             {
                 GenerateExecutable = true,
-                OutputAssembly = "out.exe",               
+                OutputAssembly = Arguments.ExeName,
             };
-            
-            
-            parameters.ReferencedAssemblies.Add("Marosoft.Mist.dll");
+            parameters.ReferencedAssemblies.Add(Program.MIST_DLL);
+            parameters.EmbeddedResources.Add(Arguments.SourcePath);
 
-            parameters.EmbeddedResources.Add(sourceFile);
-
-            var results = codeProvider.CompileAssemblyFromSource(
-                parameters, 
+            return codeProvider.CompileAssemblyFromSource(
+                parameters,
                 Bootstrapper.CreateSource());
+        }
 
+        private static void PrintResult(CompilerResults results)
+        {
             if (results.Errors.Count > 0)
             {
                 foreach (CompilerError CompErr in results.Errors)

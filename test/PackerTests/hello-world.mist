@@ -1,0 +1,4 @@
+﻿(defun hello ()
+	(print "hello, world"))
+
+(hello)

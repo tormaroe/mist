@@ -1,4 +1,0 @@
-(defun hello ()
-  (print "hello, world from MIST"))
-
-(hello)
