@@ -39,7 +39,6 @@ namespace Marosoft.Mist.Packer
             };
             parameters.ReferencedAssemblies.Add("System.Core.dll");
             parameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
-            //parameters.ReferencedAssemblies.Add(Program.MIST_DLL);
             parameters.EmbeddedResources.Add(Arguments.SourcePath);
             parameters.EmbeddedResources.Add(Program.MIST_DLL);
 
