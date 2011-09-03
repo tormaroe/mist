@@ -19,6 +19,10 @@ namespace test.PackerTests
         public void Test()
         {
             CompileAndValidateMistProgram();
+
+            File.Delete("Marosoft.Mist.dll");
+            File.Delete("mistpacker.exe");
+
             RunAndValidateMistProgram();
         }
 
@@ -63,12 +67,12 @@ namespace test.PackerTests
         [TearDown]
         public void Teardown()
         {
-            Directory.SetCurrentDirectory("..");
-
-            File.Delete(Path.Combine(testfolder, "Marosoft.Mist.dll"));
-            File.Delete(Path.Combine(testfolder, "mistpacker.exe"));
-            File.Delete(Path.Combine(testfolder, "out.exe"));
+            if (File.Exists("Marosoft.Mist.dll")) File.Delete("Marosoft.Mist.dll");
+            if (File.Exists("mistpacker.exe")) File.Delete("mistpacker.exe");
+            File.Delete("out.exe");
             Thread.Sleep(500);
+
+            Directory.SetCurrentDirectory("..");
             Directory.Delete(testfolder);
         }
 

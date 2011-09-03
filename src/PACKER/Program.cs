@@ -63,18 +63,7 @@ Options include:
         private const string MIST_DLL = "Marosoft.Mist.dll";
 
         static void Main(string[] args)
-        {
-            // Arguments: mistprogramfile, outname, switches: embed-dll
-            //
-            // Create bootstrapper code that instantiates an EmbeddedMist object
-            // and loads a file from an embedded resource
-            //
-            // Compile outname.exe from bootstrapper code
-            // with added resource file: mistprogramfile
-            //
-            // Link in Mist dll
-            //var sourceFile = "..\\..\\..\\..\\samples\\hello-world.mist";
-
+        {            
             ValidatePresenceOfMist();
             
             Arguments.Load(args);
@@ -101,8 +90,11 @@ Options include:
                 GenerateExecutable = true,
                 OutputAssembly = Arguments.ExeName,
             };
-            parameters.ReferencedAssemblies.Add(Program.MIST_DLL);
+            parameters.ReferencedAssemblies.Add("System.Core.dll");
+            parameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
+            //parameters.ReferencedAssemblies.Add(Program.MIST_DLL);
             parameters.EmbeddedResources.Add(Arguments.SourcePath);
+            parameters.EmbeddedResources.Add(Program.MIST_DLL);
 
             return codeProvider.CompileAssemblyFromSource(
                 parameters,
